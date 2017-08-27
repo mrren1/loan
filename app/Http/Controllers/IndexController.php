@@ -12,10 +12,4 @@ class IndexController extends Controller
 	{
 		return view('index');
 	}
-	public function test()
-	{
-		$arr=Demo::get()->toArray();
-		echo "<pre>";
-		var_dump($arr);
-	}
 }
