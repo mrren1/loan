@@ -263,29 +263,51 @@
 <div class="row">
 <div class="col-xs-3 info-value text-center">真实姓名</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
-<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.realName">未验证</span>
-</div>
-<div class="col-xs-8 ng-hide" ng-show="userIdentity.editing">
-<input class="form-control input-sm ng-pristine ng-valid" ng-focus="userIdentity.realNameError = false" placeholder="输入您的真实姓名" ng-model="userIdentity.realName" ng-class="{inputError:userIdentity.realNameError}">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.realName">
+  <input class="form-control input-sm ng-pristine ng-valid" name="message_name" placeholder="输入您的真实姓名">
+</span>
 </div>
 <div class="col-xs-4" ng-show="!userIdentity.editing && !basicProfile.securityIcons.idCard.active && !basicProfile.securityIcons.idCard.isNeedVerify">
 <div class="sl-icons">
-<a class="btn btn-secondary bind-blue btn-hollow btn-bg-blue" href="" ng-click="userIdentity.editing=true">立即验证</a>
 </div>
 </div>
 <div class="col-xs-4 ng-hide" ng-show="!userIdentity.editing && !basicProfile.securityIcons.idCard.active && basicProfile.securityIcons.idCard.isNeedVerify">
-<div class="sl-icons">
-<a class="btn btn-secondary bind-blue btn-hollow btn-bg-blue" href="" data-target="#informationModal" data-toggle="modal">完善信息</a>
-</div>
 </div>
 </div>
 <div class="row">
-<div class="col-xs-3 info-value text-center">身份证号</div>
+<div class="col-xs-3 info-value text-center">手机号</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
-<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">未验证</span>
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <input class="form-control input-sm ng-pristine ng-valid" name="message_phone" placeholder="输入手机号">
+</span>
 </div>
-<div class="col-xs-8 ng-hide" ng-show="userIdentity.editing">
-<input class="form-control input-sm ng-pristine ng-valid" maxlength="18" ng-focus="userIdentity.idNumberError = false" placeholder="输入18位身份证号" ng-model="userIdentity.idNumber" ng-class="{inputError:userIdentity.idNumberError}">
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">年龄</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <input class="form-control input-sm ng-pristine ng-valid" name="message_age" placeholder="输入年龄">
+</span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">性别</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <input type="radio" name="message_sex" value="1">男
+  <input type="radio" name="message_sex" value="0">女
+</span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">职业</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <select>
+    <option value="">选择职位</option>
+ 
+  </select>
+</span>
 </div>
 </div>
 <div class="row ng-hide" ng-show="userIdentity.editing">

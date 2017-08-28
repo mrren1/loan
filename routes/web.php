@@ -17,7 +17,7 @@ Route::get('index', 'IndexController@index');
 Route::get('login', 'LoginController@index');
 Route::get('regist', 'LoginController@regist');
 Route::get('market', 'MarketController@index');
-Route::get('borrow', 'BorrowController@index');
+//Route::get('borrow', 'BorrowController@index');
 Route::get('help', 'HelpController@index');
 Route::get('about', 'AboutController@index');
 Route::get('member_info', 'MemberInfoController@index');
@@ -29,10 +29,11 @@ Route::get('member_bid_auto', 'MemberBidAutoController@index');
 Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
-Route::get('member_invite', 'MemberInviteController@index');
+
 
 Route::post('register', 
 [
     'uses'=>'LoginController@register',
     'as'=>'register',
 ]);
+

@@ -87,13 +87,12 @@
            <div class="container"> 
             <div class="navbar-header  col-xs-6"> 
              <button type="button" class="navbar-toggle"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
-             <a class="navbar-brand" href="index.html"> <span class="sl-logo">点融网 - DianRong</span> </a> 
+             <a class="navbar-brand" href="index"> <span class="sl-logo">点融网 - DianRong</span> </a> 
             </div> 
             <div class=" navbar-collapse navbar-ex1-collapse sl-nav"> 
              <ul class="nav navbar-nav main-menu navbar-right"> 
               <!--menus--> 
-              <li class="main-link-list" ng-class="{active:isActive('/market')}"> <a class="main-link" href="market"> <span class="main-link-text">我要投资</span> </a> </li> 
-              <li class="main-link-list" ng-class="{active:isActive('/public/borrower')}"> <a class="main-link" href="borrow"> <span class="main-link-text">我要借款</span> </a> </li> 
+              <li class="main-link-list" ng-class="{active:isActive('/market')}"> <a class="main-link" href="market"> <span class="main-link-text">我要贷款</span> </a> </li> 
               <li class="main-link-list" ng-class="{active:isActive('/public/help-center')}"> <a class="main-link" href="help"> <span class="main-link-text">帮助中心</span> </a> </li> 
               <li class="main-link-list" ng-class="{active:isActive('/public/about')}"> <a class="main-link" href="about"> <span class="main-link-text">关于我们</span> </a> </li> 
              </ul> 
