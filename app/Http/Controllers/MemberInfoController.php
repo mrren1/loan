@@ -11,6 +11,7 @@ class MemberInfoController extends Controller
 {
 	public function index()
 	{
+<<<<<<< HEAD
 		if($_POST)
 		{
 			echo 1;
@@ -24,6 +25,10 @@ class MemberInfoController extends Controller
 			$data=$this->GetTree($arr,$pid=0);
 			return view('member_info',['data'=>$data]);
 		}
+=======
+		
+		return view('member_info');
+>>>>>>> 22cca9b49d9b220082c13b6ccf2a2e632160ced6
 	}
 	public function GetTree($arr,$pid=0)
     {
