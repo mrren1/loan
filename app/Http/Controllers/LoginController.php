@@ -27,12 +27,12 @@ class LoginController extends Controller
 	 */
 	public function register(Request $request)
 	{
-		$models = new User();
-		$data['user_name'] = $request->input('user_name');
-		$data['user_pwd'] = encrypt($request['user_pwd'])
-		$data['user_photo'] = 'kdsfdsjkfdsjf';
-		$data['last_time'] = time();
-		$info = $models->addOne($data);
+		$user = new User;
+		$user->user_name = $request['user_name'];
+		$user->user_pwd = encrypt($request['user_pwd']);
+		$user->user_photo = 'kdsfdsjkfdsjf';
+		$user->last_time = time();
+		$info = $user->save();
 		echo $info;
 		// if($info){
 		// 	return view('index');
