@@ -29,11 +29,18 @@ Route::get('member_bid_auto', 'MemberBidAutoController@index');
 Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
+<<<<<<< HEAD
 
+=======
+Route::get('member_invite', 'MemberInviteController@index');
+>>>>>>> 613ba793e11c4922fe85d5be238bd2e411e8ca3a
 
 Route::post('register', 
 [
     'uses'=>'LoginController@register',
     'as'=>'register',
 ]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 613ba793e11c4922fe85d5be238bd2e411e8ca3a
