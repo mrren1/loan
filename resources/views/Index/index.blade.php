@@ -125,6 +125,7 @@
         </div> 
        </div> 
       </div> 
+
       <div class="col-xs-4 register-tab login-shown"> 
        <div class="login-header">
         欢迎回来
@@ -148,7 +149,8 @@
          <a class="btn btn-primary account-info" href="member_info.html">我的账户</a>
         </div> 
        </div> 
-      </div> 
+      </div>
+       
       <div class="col-xs-4 register-tab" ng-show="!session.loggedIn" ng-cloak=""> 
        <div class="row"> 
         <ul class="nav nav-tabs"> 
