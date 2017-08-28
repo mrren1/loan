@@ -9,6 +9,7 @@ class MemberInfoController extends Controller
 {
 	public function index()
 	{
+		
 		return view('member_info');
 	}
 }
