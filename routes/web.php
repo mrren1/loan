@@ -17,7 +17,7 @@ Route::get('index', 'IndexController@index');
 Route::get('login', 'LoginController@index');
 Route::get('regist', 'LoginController@regist');
 Route::get('market', 'MarketController@index');
-Route::get('borrow', 'BorrowController@index');
+//Route::get('borrow', 'BorrowController@index');
 Route::get('help', 'HelpController@index');
 Route::get('about', 'AboutController@index');
 Route::get('member_info', 'MemberInfoController@index');
