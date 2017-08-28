@@ -29,7 +29,7 @@ class LoginController extends Controller
 	{
 		$models = new User();
 		$data['user_name'] = $request->input('user_name');
-		$data['user_pwd'] = $request['user_pwd'];
+		$data['user_pwd'] = encrypt($request['user_pwd'])
 		$data['user_photo'] = 'kdsfdsjkfdsjf';
 		$data['last_time'] = time();
 		$info = $models->addOne($data);
