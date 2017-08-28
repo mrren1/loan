@@ -49,8 +49,9 @@
 <div id="lender" class="tab-pane active">
 <div class="create-account-form ng-isolate-scope" referral-name="">
 <h5 class="create-account-form-title"> 30秒注册，开始投资 </h5>
-<form class="ng-pristine ng-invalid ng-invalid-required" novalidate="" ng-submit="submit()" role="form" name="createAccountForm">
+<form class="ng-pristine ng-invalid ng-invalid-required" novalidate="" ng-submit="submit()" role="form" name="createAccountForm" action="{{ route('register') }}" method="post">
 <input id="referral_name" type="hidden" value="" name="referral_name">
+<input type="hidden" value="{{ Session::token() }}" name="_token"/>
 <div class="form-group ng-hide" ng-show="formType!=2">
 <input id="account-email-phone" class="form-control forcePlaceholder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="text" sl-mobile-phone="" sl-email-available="" sl-email-or-phone="" autocomplete="off" placeholder="手机号码或电子邮箱" required="" ng-model="user.emailOrPhone" name="emailOrPhone" style="">
 <div class="ng-scope" ng-class="ng-hide" name="emailOrPhone" sl-validation-errors="">
@@ -62,22 +63,12 @@
 </div>
 <div class="form-group" ng-show="formType==2">
 <span class="input-group-addon tag sl-icon-bold-email" ng-class="{active:inputFocusMail}"></span>
-<input id="account-email" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="text" sl-email-available="" sl-email="" ng-blur="inputFocusMail=false" ng-focus="inputFocusMail=true" autocomplete="off" placeholder="电子邮箱" required="" ng-model="user.email" name="email" style="">
+<input id="account-email" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="text" sl-email-available="" sl-email="" ng-blur="inputFocusMail=false" ng-focus="inputFocusMail=true" autocomplete="off" placeholder="用户名" required="" ng-model="user.email" name="user_name" style="">
 <div class="ng-scope" ng-class="ng-hide" name="email" sl-validation-errors="">
 <span class="hide" ng-transclude="">
-<span class="ng-scope" for="required" sl-error-message="">请输入电子邮件</span>
-<span class="ng-scope" for="email" sl-error-message="">电子邮件地址有误</span>
-<span class="ng-scope" for="emailAvailable" sl-error-message="">你输入的邮箱已被注册，请重新输入"</span>
-</span>
-</div>
-</div>
-<div class="form-group" ng-show="formType==2">
-<span class="input-group-addon tag sl-icon-bold-mobile" ng-class="{active:inputFocusPhone}"></span>
-<input id="account-phone" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="text" sl-mobile-phone="" ng-blur="inputFocusPhone=false" ng-focus="inputFocusPhone=true" autocomplete="off" placeholder="手机号码" required="" ng-model="user.phone" name="phone" style="">
-<div class="ng-scope" ng-class="ng-hide" name="phone" sl-validation-errors="">
-<span class="hide" ng-transclude="">
-<span class="ng-scope" for="required" sl-error-message="">请输入手机号</span>
-<span class="ng-scope" for="mobilePhone" sl-error-message="">手机号输入有误</span>
+<span class="ng-scope" for="required" sl-error-message="">请输入用户名</span>
+<span class="ng-scope" for="email" sl-error-message="">用户名有误</span>
+<span class="ng-scope" for="emailAvailable" sl-error-message="">你输入的用户名已被注册，请重新输入"</span>
 </span>
 </div>
 </div>
@@ -99,16 +90,13 @@
 <div class="form-group" ng-show="formType==2 || (createAccountForm.emailOrPhone.$dirty && !createAccountForm.emailOrPhone.$error.required && !createAccountForm.emailOrPhone.$error.mobilePhone)">
 <div class="form-inline">
 <span class="input-group-addon tag sl-icon-bold-verify" ng-class="{active:inputFocusCode}"></span>
-<input id="phone-verify-code" class="form-control phone-verify-input forcePlaceholder inputRemoveBorder specifyInput ng-pristine ng-valid" type="text" ng-blur="inputFocusCode=false" ng-focus="inputFocusCode=true" placeholder="输入验证码" ng-model="user.phoneVerifyCode" maxlength="6" name="phoneVerifyCode" style="">
-<a class="btn btn-secondary sub-btn" ng-disabled="phoneCodeSent || phoneCodeSending" title="点击发送验证码" ng-click="sendPhoneCode()">
-发送
 <span class="ng-binding ng-hide" ng-show="phoneCodeSent">（60）</span>
 </a>
 </div>
 </div>
 <div class="form-group">
 <span class="input-group-addon tag sl-icon-bold-pwd" ng-class="{active:inputFocusPwd}"></span>
-<input id="account-password" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="password" sl-atmost-forty-chars="" sl-atleast-eight-chars="" sl-contains-digits="" sl-contains-letters="" required="" ng-blur="inputFocusPwd=false" ng-focus="inputFocusPwd=true" placeholder="密码为8个以上字母和数字组合" ng-model="user.password" name="password" style="">
+<input id="account-password" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="password" sl-atmost-forty-chars="" sl-atleast-eight-chars="" sl-contains-digits="" sl-contains-letters="" required="" ng-blur="inputFocusPwd=false" ng-focus="inputFocusPwd=true" placeholder="密码为8个以上字母和数字组合" ng-model="user.password" name="user_pwd" style="">
 <div class="ng-scope" ng-class="ng-hide" name="password" sl-validation-errors="">
 <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">对不起，请输入密码</span>
@@ -144,7 +132,7 @@
 </div>
 </div>
 <div class="form-group text-left">
-<button id="register-lender" class="btn btn-block btn-secondary btn-embossed" ng-disabled="!createAccountForm.password.$dirty ||createAccountForm.password.$invalid ||creating" type="submit" disabled="disabled"> 立即注册 </button>
+<button id="register-lender" class="btn btn-block btn-secondary btn-embossed" ng-disabled="!createAccountForm.password.$dirty ||createAccountForm.password.$invalid ||creating" type="submit"> 立即注册 </button>
 </div>
 <div class="text-center weiboLogin ng-scope" ng-if="!disableTpLogin" style="">
 <p class="social third-party-login-platform">

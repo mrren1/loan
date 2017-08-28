@@ -30,3 +30,9 @@ Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
 Route::get('member_invite', 'MemberInviteController@index');
+
+Route::post('register', 
+[
+    'uses'=>'LoginController@register',
+    'as'=>'register',
+]);
