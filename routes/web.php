@@ -30,3 +30,9 @@ Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
 Route::get('member_invite', 'MemberInviteController@index');
+Route::get('member_mention','MemberPayController@member_mention');
+//页面控制提示并跳转
+Route::resource('prompt','PromptController');
+
+Route::post('Add_bank','MemberPayController@Add_bank');
+Route::post('putOur','MemberPayController@putOur');
