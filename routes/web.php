@@ -35,3 +35,5 @@ Route::post('register',
     'uses'=>'LoginController@register',
     'as'=>'register',
 ]);
+
+Route::get('getCreateverify', 'LoginController@getCreateverify');

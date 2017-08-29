@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Login;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
+//use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Models\User;
 
 class LoginController extends Controller
@@ -27,16 +27,20 @@ class LoginController extends Controller
 	 */
 	public function register(Request $request)
 	{
+		$this->validate($request, [
+	        'user_name' => 'required|max:255',
+	        'user_pwd' => 'required|min:8',
+	    ]);
+
 		$user = new User;
 		$user->user_name = $request['user_name'];
 		$user->user_pwd = encrypt($request['user_pwd']);
 		$user->user_photo = 'kdsfdsjkfdsjf';
 		$user->last_time = time();
 		$info = $user->save();
-		echo $info;
-		// if($info){
-		// 	return view('index');
-		// }
+		if($info){
+			return redirect()->action('IndexController@index');
+		}
 	}
 	
 }
