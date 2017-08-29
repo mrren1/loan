@@ -50,26 +50,28 @@
       <!-- Login Form --> 
       <div class="col-xs-4 login-content-form"> 
        <h6 class="login-content-form-title">欢迎回来</h6> 
-       <form name="loginForm" class="loginForm" role="form" ng-submit="submit()" novalidate=""> 
+        <form action="{{url('log')}}" method="post" name="loginForm" class="loginForm" role="form" ng-submit="submit()" novalidate=""> 
+        <input type="hidden" value="{{ Session::token() }}" name="_token"/>
         <div ng-repeat="error in errors" ng-show="errors.length &gt; 0" ng-cloak="" class="errorInLogin">
         
         </div> 
         <div class="form-group"> 
          <div class="input-group"> 
           <span class="input-group-addon sl-icon-personal"></span> 
-          <input id="usernameSingle" type="text" class="form-control input-with-icon forcePlaceholder" ng-model="username" ng-focus="inputFocus=true" ng-blur="inputFocus=false" placeholder="请输入注册时的手机号或邮箱" required="" /> 
+          <input id="usernameSingle" name="username" type="text" class="form-control input-with-icon forcePlaceholder" ng-model="username" ng-focus="inputFocus=true" ng-blur="inputFocus=false" placeholder="请输入注册时的手机号或邮箱" required="" /> 
          </div> 
          <span class="errors ng-hide">对不起，请输入正确的用户名</span> 
         </div> 
         <div class="form-group "> 
          <div class="input-group pwd"> 
           <span class="input-group-addon sl-icon-lock lock" ng-class="{active:focus}"></span> 
-          <input id="passwordSingle" type="password" class="form-control input-with-icon forcePlaceholder" ng-model="password" ng-focus="focus=true" ng-blur="focus=false" placeholder="请输入登录密码" required="" /> 
+          <input id="passwordSingle" name="pwd" type="password" class="form-control input-with-icon forcePlaceholder" ng-model="password" ng-focus="focus=true" ng-blur="focus=false" placeholder="请输入登录密码" required="" /> 
          </div> 
          <span class="errors ng-hide">需要输入密码</span> 
         </div> 
         <div class="form-group"> 
-         <button type="submit" class="btn btn-block btn-secondary btn-embossed">立即登录</button> 
+         <input type="submit" class="btn btn-block btn-secondary btn-embossed" value="立即登录">
+         <!-- <button type="submit" class="btn btn-block btn-secondary btn-embossed">立即登录</button> -->
         </div> 
         <div class="form-group"> 
          <div class="checkbox-inline"> 

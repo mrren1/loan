@@ -9,7 +9,8 @@ use Validator;
 use Illuminate\Support;
 use Illuminate\Support\Facades\Input;
 use App\Http\Models\User;
-
+use App\Http\Models\log;
+use session;
 class LoginController extends Controller
 {
 	/**
@@ -56,5 +57,32 @@ class LoginController extends Controller
 	    	return view('/fronted/Login/reg');
 	    }	
 	}
-	
+
+
+	public function log(Request $request)
+	{
+       
+		$model =new Log;
+    
+        $data['user_name']= $_POST['username'];
+	    $data['user_pwd'] = $_POST['pwd'];
+        $info = $model->login($data);
+        if($info==2)
+        {
+             echo "<script>alert('密码错误');location.href='login'</script>";
+        }
+        elseif($info==3) 
+        {
+             echo "<script>alert('用户名错误');location.href='login'</script>";
+        }
+        else
+        {
+           
+        	$request->session()->put('user_name',$info);
+            // $a= session()->get('user_name');
+
+         	return redirect()->action('fronted\IndexController@index');     
+        }
+        
+	}
 }

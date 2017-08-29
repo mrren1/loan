@@ -43,5 +43,5 @@ Route::post('register',
     'as'=>'register',
 ]);
 
-
-Route::get('getCreateverify', 'LoginController@getCreateverify');
+Route::any('log','fronted\LoginController@log');
+Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
