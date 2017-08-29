@@ -5,7 +5,6 @@ namespace Illuminate\Broadcasting\Broadcasters;
 use Pusher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Broadcasting\BroadcastException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class PusherBroadcaster extends Broadcaster
@@ -37,17 +36,12 @@ class PusherBroadcaster extends Broadcaster
     public function auth($request)
     {
         if (Str::startsWith($request->channel_name, ['private-', 'presence-']) &&
-            ! $request->user()
-        ) {
+            ! $request->user()) {
             throw new HttpException(403);
         }
 
-        $channelName = Str::startsWith($request->channel_name, 'private-')
-                            ? Str::replaceFirst('private-', '', $request->channel_name)
-                            : Str::replaceFirst('presence-', '', $request->channel_name);
-
         return parent::verifyUserCanAccessChannel(
-            $request, $channelName
+            $request, str_replace(['private-', 'presence-'], '', $request->channel_name)
         );
     }
 
@@ -61,26 +55,12 @@ class PusherBroadcaster extends Broadcaster
     public function validAuthenticationResponse($request, $result)
     {
         if (Str::startsWith($request->channel_name, 'private')) {
-            return $this->decodePusherResponse(
-                $this->pusher->socket_auth($request->channel_name, $request->socket_id)
-            );
+            return $this->pusher->socket_auth($request->channel_name, $request->socket_id);
         } else {
-            return $this->decodePusherResponse(
-                $this->pusher->presence_auth(
-                    $request->channel_name, $request->socket_id, $request->user()->getKey(), $result)
+            return $this->pusher->presence_auth(
+                $request->channel_name, $request->socket_id, $request->user()->id, $result
             );
         }
-    }
-
-    /**
-     * Decode the given Pusher response.
-     *
-     * @param  mixed  $response
-     * @return array
-     */
-    protected function decodePusherResponse($response)
-    {
-        return json_decode($response, true);
     }
 
     /**
@@ -95,16 +75,7 @@ class PusherBroadcaster extends Broadcaster
     {
         $socket = Arr::pull($payload, 'socket');
 
-        $response = $this->pusher->trigger($this->formatChannels($channels), $event, $payload, $socket, true);
-
-        if ((is_array($response) && $response['status'] >= 200 && $response['status'] <= 299)
-            || $response === true) {
-            return;
-        }
-
-        throw new BroadcastException(
-            is_bool($response) ? 'Failed to connect to Pusher.' : $response['body']
-        );
+        $this->pusher->trigger($this->formatChannels($channels), $event, $payload, $socket);
     }
 
     /**
