@@ -75,11 +75,11 @@
 <div class="form-group ng-scope" ng-if="!isNoCaptcha" style="">
 <div class="form-inline">
 <span class="input-group-addon tag sl-icon-puzzle" ng-class="{active:inputFocusCaptchaCode}"></span>
-<input class="form-control captcha-verify-input forcePlaceholder inputRemoveBorder specifyInput ng-pristine ng-invalid ng-invalid-required" type="text" ng-blur="inputFocusCaptchaCode=false" ng-focus="inputFocusCaptchaCode=true" placeholder="输入校验码" required="" ng-model="user.captchaVerifyCode" maxlength="6" name="captchaVerifyCode">
-<img class="form-control captcha-img" ng-src="https://www.dianrong.com/images/captcha.jpg" src="https://www.dianrong.com/images/captcha.jpg">
-<a class="btn btn-primary btn-embossed refresh-captcha form-control" ng-click="refreshCaptcha()">
+<input class="form-control captcha-verify-input forcePlaceholder inputRemoveBorder specifyInput ng-pristine ng-invalid ng-invalid-required" type="text" ng-blur="inputFocusCaptchaCode=false" ng-focus="inputFocusCaptchaCode=true" placeholder="输入校验码" required="" ng-model="user.captchaVerifyCode" maxlength="6" name="captcha">
+<span width='200px;'><?php echo captcha_img() ?></span>
+<!-- <a class="btn btn-primary btn-embossed refresh-captcha form-control" ng-click="refreshCaptcha()">
 <span class="sl-icon-repayment"></span>
-</a>
+</a> -->
 <div class="ng-scope" ng-class="ng-hide" name="captchaVerifyCode" sl-validation-errors="">
 <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">请输入图片中的校验码</span>

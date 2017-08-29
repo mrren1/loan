@@ -71,7 +71,7 @@
       </ul> 
       <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
        <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
-       <li><a id="create-account" href="regist" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
+       <li><a id="create-account" href="register" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
       </ul> 
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
        <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">素材火的账户 <b class="caret"></b></a> 

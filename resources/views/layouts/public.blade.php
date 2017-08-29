@@ -54,7 +54,7 @@
           <!-- For non-login users --> 
           <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
            <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
-           <li><a id="create-account" href="regist" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
+           <li><a id="create-account" href="register" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
           </ul> 
           <!-- For login users --> 
           <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user ng-cloak" ng-if="isAuthenticated()"> 

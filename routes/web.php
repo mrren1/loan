@@ -15,7 +15,7 @@ Route::get('/','IndexController@index');
 
 Route::get('index', 'IndexController@index');
 Route::get('login', 'LoginController@index');
-Route::get('regist', 'LoginController@regist');
+// Route::any('regist', 'LoginController@regist');
 Route::get('market', 'MarketController@index');
 //Route::get('borrow', 'BorrowController@index');
 Route::get('help', 'HelpController@index');
@@ -30,7 +30,7 @@ Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
 
-Route::post('register', 
+Route::any('register', 
 [
     'uses'=>'LoginController@register',
     'as'=>'register',
