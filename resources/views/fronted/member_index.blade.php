@@ -180,11 +180,10 @@
 </div>
 <div class="sum-number" ng-show="gotSummary">
 <h3 class="highlighted-sum ng-binding" ng-bind-html="summary.availableCash|slMoney">
-0
-<small>.00元</small>
+<small>{{$Purse['purse_sum']}}元</small>
 </h3>
 <p class="highlighted-sum-caption">可用余额</p>
-<a class="btn btn-secondary btn-embossed" href="member_pay.html">
+<a class="btn btn-secondary btn-embossed" href="member_pay">
 <span class="sl-icon-piggy-bank"></span>
 充值
 </a>

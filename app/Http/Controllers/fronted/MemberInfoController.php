@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\fronted;
 
 use App\MemberInfo;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\fronted\Controller;
 use App\Http\Models\Message;
 use App\Http\Models\Job;
 
@@ -22,10 +22,10 @@ class MemberInfoController extends Controller
 			// print_r($arr);die;
 			$arr=Job::get()->toArray();
 			$data=$this->GetTree($arr,$pid=0);
-			return view('member_info',['data'=>$data]);
+			return view('fronted/member_info',['data'=>$data]);
 		}
 		
-		return view('member_info');
+		return view('fronted/member_info');
 	}
 	public function GetTree($arr,$pid=0)
     {
