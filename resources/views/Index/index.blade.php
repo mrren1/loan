@@ -74,7 +74,7 @@
        <li><a id="create-account" href="regist" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
       </ul> 
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">素材火的账户 <b class="caret"></b></a> 
+       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">{{ Session::get('user_name') }}<b class="caret"></b></a>  
         <ul class="dropdown-menu"> 
          <li><a href="member_info.html">我的账户</a></li> 
          <li><a href="#">退出</a></li> 
@@ -132,7 +132,7 @@
        <div class="login-content text-center"> 
         <div class="user-info">
          尊敬的用户：
-         <span>素材火</span>
+         <span>{{ Session::get('user_name') }}</span>
         </div> 
         <div class="wel-info">
          欢迎回来!
