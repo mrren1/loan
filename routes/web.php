@@ -13,6 +13,12 @@
 
 Route::get('/','fronted\IndexController@index');
 
+//页面控制提示并跳转
+Route::resource('prompt','fronted\PromptController');
+
+Route::post('Add_bank','fronted\MemberPayController@Add_bank');
+Route::post('putOur','fronted\MemberPayController@putOur');
+
 Route::get('index', 'fronted\IndexController@index');
 Route::get('login', 'fronted\LoginController@index');
 Route::get('regist', 'fronted\LoginController@regist');
@@ -29,7 +35,7 @@ Route::get('member_bid_auto', 'fronted\MemberBidAutoController@index');
 Route::get('member_trade', 'fronted\MemberTradeController@index');
 Route::get('member_pay', 'fronted\MemberPayController@index');
 Route::get('member_bank', 'fronted\MemberBankController@index');
-
+Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::post('register', 
 [
     'uses'=>'fronted\LoginController@register',
