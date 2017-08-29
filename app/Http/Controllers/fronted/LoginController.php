@@ -19,7 +19,7 @@ class LoginController extends Controller
 	public function index()
 	{
 
-		return view('login');
+		return view('/fronted/Login/login');
 	}
 
 	/**
@@ -53,7 +53,7 @@ class LoginController extends Controller
 				return redirect()->action('fronted\IndexController@index');
 			}
 	    }else{
-	    	return view('reg');
+	    	return view('/fronted/Login/reg');
 	    }	
 	}
 	
