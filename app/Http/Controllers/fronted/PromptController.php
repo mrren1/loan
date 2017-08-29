@@ -25,6 +25,6 @@ class PromptController extends Controller
             'status' => false
         ];
     }
-        return view('prompt/admin',['data' => $data]);
+        return view('fronted/prompt/admin',['data' => $data]);
     }
 }

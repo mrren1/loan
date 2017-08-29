@@ -13,26 +13,7 @@
 
 Route::get('/','fronted\IndexController@index');
 
-<<<<<<< HEAD
-Route::get('index', 'IndexController@index');
-Route::get('login', 'LoginController@index');
-// Route::any('regist', 'LoginController@regist');
-Route::get('market', 'MarketController@index');
-//Route::get('borrow', 'BorrowController@index');
-Route::get('help', 'HelpController@index');
-Route::get('about', 'AboutController@index');
-Route::get('member_info', 'MemberInfoController@index');
-Route::get('forget', 'ForgetController@index');
-Route::get('member_index', 'MemberIndexController@index');
-Route::get('member_tuan', 'MemberTuanController@index');
-Route::get('member_bid_record', 'MemberBidRecordController@index');
-Route::get('member_bid_auto', 'MemberBidAutoController@index');
-Route::get('member_trade', 'MemberTradeController@index');
-Route::get('member_pay', 'MemberPayController@index');
-Route::get('member_bank', 'MemberBankController@index');
 
-Route::any('register', 
-=======
 //页面控制提示并跳转
 Route::resource('prompt','fronted\PromptController');
 
@@ -41,7 +22,7 @@ Route::post('putOur','fronted\MemberPayController@putOur');
 
 Route::get('index', 'fronted\IndexController@index');
 Route::get('login', 'fronted\LoginController@index');
-Route::get('regist', 'fronted\LoginController@regist');
+Route::get('register', 'fronted\LoginController@register');
 Route::get('market', 'fronted\MarketController@index');
 //Route::get('borrow', 'BorrowController@index');
 Route::get('help', 'fronted\HelpController@index');
@@ -57,13 +38,10 @@ Route::get('member_pay', 'fronted\MemberPayController@index');
 Route::get('member_bank', 'fronted\MemberBankController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::post('register', 
->>>>>>> 5f050a228426feec49b38c39634e3a969756949c
 [
     'uses'=>'fronted\LoginController@register',
     'as'=>'register',
 ]);
-<<<<<<< HEAD
+
 
 Route::get('getCreateverify', 'LoginController@getCreateverify');
-=======
->>>>>>> 5f050a228426feec49b38c39634e3a969756949c
