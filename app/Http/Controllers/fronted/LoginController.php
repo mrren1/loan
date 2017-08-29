@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\fronted;
 
 use App\Login;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\fronted\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Models\User;
@@ -13,13 +13,13 @@ class LoginController extends Controller
 	//登陆
 	public function index()
 	{
-		return view('login');
+		return view('fronted/login');
 	}
 
 	//注册
 	public function regist()
 	{
-		return view('reg');
+		return view('fronted/reg');
 	}
 
 	/**
@@ -35,7 +35,7 @@ class LoginController extends Controller
 		$info = $models->addOne($data);
 		echo $info;
 		// if($info){
-		// 	return view('index');
+		// 	return view('fronted/index');
 		// }
 	}
 	

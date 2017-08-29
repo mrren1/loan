@@ -11,27 +11,27 @@
 |
 */
 
-Route::get('/','IndexController@index');
+Route::get('/','fronted\IndexController@index');
 
-Route::get('index', 'IndexController@index');
-Route::get('login', 'LoginController@index');
-Route::get('regist', 'LoginController@regist');
-Route::get('market', 'MarketController@index');
+Route::get('index', 'fronted\IndexController@index');
+Route::get('login', 'fronted\LoginController@index');
+Route::get('regist', 'fronted\LoginController@regist');
+Route::get('market', 'fronted\MarketController@index');
 //Route::get('borrow', 'BorrowController@index');
-Route::get('help', 'HelpController@index');
-Route::get('about', 'AboutController@index');
-Route::get('member_info', 'MemberInfoController@index');
-Route::get('forget', 'ForgetController@index');
-Route::get('member_index', 'MemberIndexController@index');
-Route::get('member_tuan', 'MemberTuanController@index');
-Route::get('member_bid_record', 'MemberBidRecordController@index');
-Route::get('member_bid_auto', 'MemberBidAutoController@index');
-Route::get('member_trade', 'MemberTradeController@index');
-Route::get('member_pay', 'MemberPayController@index');
-Route::get('member_bank', 'MemberBankController@index');
+Route::get('help', 'fronted\HelpController@index');
+Route::get('about', 'fronted\AboutController@index');
+Route::get('member_info', 'fronted\MemberInfoController@index');
+Route::get('forget', 'fronted\ForgetController@index');
+Route::get('member_index', 'fronted\MemberIndexController@index');
+Route::get('member_tuan', 'fronted\MemberTuanController@index');
+Route::get('member_bid_record', 'fronted\MemberBidRecordController@index');
+Route::get('member_bid_auto', 'fronted\MemberBidAutoController@index');
+Route::get('member_trade', 'fronted\MemberTradeController@index');
+Route::get('member_pay', 'fronted\MemberPayController@index');
+Route::get('member_bank', 'fronted\MemberBankController@index');
 
 Route::post('register', 
 [
-    'uses'=>'LoginController@register',
+    'uses'=>'fronted\LoginController@register',
     'as'=>'register',
 ]);
