@@ -15,13 +15,33 @@ use session;
 class LoginController extends Controller
 {
 	/**
-	 * 用户登陆
-	 * @param index
+	 * 用户登录
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
 	 */
-	public function index()
+	public function login(Request $request)
 	{
-
-		return view('fronted.Login.login');
+        if($request->isMethod('POST')){
+        	$userInfo=user::where("user_name",$request['username'])
+        	->first();
+        	if(empty($userInfo)){
+        		return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'register', 'jumpTime'=>2,'status'=>false]);
+	           	exit;
+        	}else{
+        		$userInfo=$userInfo->toArray();
+        		if($request['pwd']==decrypt($userInfo['user_pwd'])){
+        			$request->session()->put('user_id',$userInfo['user_id']);
+        			$request->session()->put('user_name',$userInfo['user_name']);
+        			return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'index', 'jumpTime'=>2,'status'=>false]);
+	           		exit;
+	        	}else{
+	        		return redirect('prompt')->with(['message'=>'密码错误！','url' =>'login', 'jumpTime'=>2,'status'=>false]);
+	           		exit;
+	        	}
+        	}
+        }else{
+        	return view('fronted/Login/login');
+        }
 	}
 
 	/**
@@ -60,8 +80,10 @@ class LoginController extends Controller
 			$user->user_photo = 'kdsfdsjkfdsjf';
 			$user->last_time = time();
 			$info = $user->save();
+			$user_id=$user->id;
 			if($info){
 				$request->session()->put('user_name',$user->user_name);
+				$request->session()->put('user_id',$user_id);
 				return redirect()->action('fronted\IndexController@index');
 			}
 	    }else{
@@ -70,30 +92,4 @@ class LoginController extends Controller
 	}
 
 
-	public function log(Request $request)
-	{
-       
-		$model =new Log;
-    
-        $data['user_name']= $_POST['username'];
-	    $data['user_pwd'] = $_POST['pwd'];
-        $info = $model->login($data);
-        if($info==2)
-        {
-             echo "<script>alert('密码错误');location.href='login'</script>";
-        }
-        elseif($info==3) 
-        {
-             echo "<script>alert('用户名错误');location.href='login'</script>";
-        }
-        else
-        {
-           
-        	$request->session()->put('user_name',$info);
-            // $a= session()->get('user_name');
-
-         	return redirect()->action('fronted\IndexController@index');     
-        }
-        
-	}
 }
