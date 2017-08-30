@@ -71,19 +71,13 @@
 <div class="textTop">
 <div class="col-xs-6 cashText">可用余额</div>
 <div class="col-xs-6 cashNumber ng-binding" ng-bind-html="summary.availableCash|slMoney">
-@if ($Purse['purse_sum'] == 0)
-    <small>0.00元</small>
-@else
-  <small>{{$Purse['purse_sum']}}.00元</small> 
-@endif
+0
+<small>.00元</small>
 </div>
 <div class="col-xs-6 cashText">可提现金额</div>
 <div class="col-xs-6 cashNumber ng-binding" ng-bind-html="summary.availableWithdrawCash |slMoney">
-@if ($Purse['purse_sum'] == 0)
-    <small>0.00元</small>
-@else
-  <small>{{$Purse['purse_sum']}}.00元</small> 
-@endif
+0
+<small>.00元</small>
 </div>
 </div>
 <center>
@@ -92,11 +86,14 @@
 <span class="sl-icon-credit-card" style="align:left"></span>
 提现
 </a>
-<a class="btn btn-primary btn-embossed"  href="memberCharge">
+<a class="btn btn-primary btn-embossed" ng-click="checkLoggedIn('load')">
 <span class="sl-icon-piggy-bank" style="align:left"></span>
 充值
 </a>
-
+<a class="btn btn-primary btn-embossed" ng-click="checkLoggedIn('load')">
+<span class="sl-icon-piggy-bank" style="align:right"></span>
+转账
+</a>
 </center>
 </div>
 </div>

@@ -17,6 +17,9 @@ Route::get('/','fronted\IndexController@index');
 //页面控制提示并跳转
 Route::resource('prompt','fronted\PromptController');
 
+Route::post('Add_bank','fronted\MemberPayController@Add_bank');
+Route::post('putOur','fronted\MemberPayController@putOur');
+
 Route::get('index', 'fronted\IndexController@index');
 Route::get('login', 'fronted\LoginController@index');
 Route::get('register', 'fronted\LoginController@register');
@@ -65,8 +68,6 @@ Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
 
-Route::post('Add_bank','fronted\MemberPayController@Add_bank');
-Route::post('addPut','fronted\MemberPayController@addPut');
-Route::any('putSuccess','fronted\MemberPayController@putSuccess');
-Route::any('chargeSuccess','fronted\MemberPayController@chargeSuccess');
-Route::any('memberCharge','fronted\MemberPayController@memberCharge');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
