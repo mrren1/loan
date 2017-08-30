@@ -68,9 +68,6 @@ Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
 
-<<<<<<< HEAD
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-=======
->>>>>>> e9aef6c195aa50b274a9ee878a3075765d9d9056
