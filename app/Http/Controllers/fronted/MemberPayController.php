@@ -13,7 +13,7 @@ use App\Http\Controllers\fronted\Controller;
 
 class MemberPayController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
      $user_id = $request->session()->get('user_id');
      $purseModel = new Purse();
