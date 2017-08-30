@@ -102,7 +102,7 @@
 <div class="row">
 <div class="col-xs-3 info-value text-center">用户名</div>
 <div class="col-xs-5" ng-show="!username.editing">
-<span class="ng-binding" ng-bind="basicProfile.profile.userName">Member_11501404</span>
+<span class="ng-binding" ng-bind="basicProfile.profile.userName">{{$user['user_name']}}</span>
 </div>
 <div class="col-xs-8 ng-hide" ng-show="username.editing">
 <input class="form-control input-sm ng-pristine ng-valid" maxlength="24" placeholder="输入用户名，可用用户名直接登录" ng-model="username.userName" ng-class="{inputError:username.userNameError}">
@@ -130,7 +130,7 @@
 <div class="row">
 <div class="col-xs-3 info-value text-center">用户ID</div>
 <div class="col-xs-9">
-<span class="ng-binding" ng-bind="actorId">11501404</span>
+<span class="ng-binding" ng-bind="actorId">{{$user['user_id']}}</span>
 </div>
 </div>
 </div>
@@ -324,10 +324,12 @@
   <input type="radio" name="message_sex" value="1"><span>男</span>
   <input type="radio" name="message_sex" value="0"><span>女</span>
  </span>
-  @if($message['message_sex']==1)
+  @if($message['message_sex']===1)
   <span id="show">男</span>
-  @else
+  @elseif($message['message_sex']===0)
   <span id="show">女</span>
+  @else
+  <span id="show"></span>
   @endif
 </span>
 </div>

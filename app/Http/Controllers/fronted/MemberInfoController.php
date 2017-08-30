@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\fronted\Controller;
 use App\Http\Models\Message;
 use App\Http\Models\Job;
+use App\Http\Models\User;
 use App\Http\Models\Address;
 use Illuminate\Support\Facades\DB;
 use Storage;
@@ -15,6 +16,7 @@ class MemberInfoController extends Controller
 {
 	public function index(Request $request)
 	{
+		$user_id=$request->session()->get('user_id');
 		if($request->isMethod('POST'))
 		{
 			$data=$request->all();
@@ -22,7 +24,7 @@ class MemberInfoController extends Controller
 			// print_r();die;
 			// print_r($file);die;
 			$message=new Message;
-			$message->user_id=36;
+			$message->user_id=$user_id;
 			$message->message_name=$data['message_name'];
 			$message->message_age=$data['message_age'];
 			$message->message_sex=$data['message_sex'];
@@ -44,17 +46,27 @@ class MemberInfoController extends Controller
 			$res=$message->save();
 			if($res)
 			{
-				echo "<script>alert('添加成功');location.href='member_info'</script>";
+				return redirect('prompt')->with(['message'=>'添加成功','url' =>'message_info', 'jumpTime'=>3,'status'=>false]);
 			}
 			else
 			{
-				echo "<script>alert('添加失败');location.href='member_info'</script>";
+				return redirect('prompt')->with(['message'=>'添加失败','url' =>'message_info', 'jumpTime'=>3,'status'=>false]);
 			}
 		}
 		else
 		{
 			//查询message
-			$message=Message::where("user_id",'36')->first()->toArray();
+			if(!isset($user_id))
+			{
+				return redirect('prompt')->with(['message'=>'没有登录，请先登录','url' =>'login', 'jumpTime'=>3,'status'=>false]);
+			}
+			$message=Message::where("user_id",$user_id)->first();
+			// // print_r($message);die;
+			if(!empty($message))
+			{
+				$message=$message->toArray();
+			}
+			
 			if(!empty($message['country'])){
 				$country=Address::where('address_id',$message['country'])->first()->toArray();
 			}else{
@@ -79,8 +91,12 @@ class MemberInfoController extends Controller
 			{
 				$message['message_address']=$country['address_name'].$province['address_name'].$city['address_name'].$area['address_name'].$message['message_address'];
 			}
-			
-			//print_r($message);die;
+			//查询个人信息
+			$user=User::where('user_id',$user_id)->first();
+			if(!empty($user)){
+				$user=$user->toArray();
+			}
+			//print_r($user);die;
 			//工资
 			$salary=array('1000-5000','5000-10000','10000-15000','15000-20000','20000-30000','30000以上');
 			//查询职业
@@ -89,7 +105,7 @@ class MemberInfoController extends Controller
 			//查询地区表的顶级id	
 			$address=Address::where('parent_id',0)->get()->toArray();
 			//print_r($address);die;
-			return view('fronted/MemberInfo/member_info',['data'=>$data,'address'=>$address,'message'=>$message,'salary'=>$salary]);
+			return view('fronted/MemberInfo/member_info',['user'=>$user,'data'=>$data,'address'=>$address,'message'=>$message,'salary'=>$salary]);
 		}
 	}
 	/**
