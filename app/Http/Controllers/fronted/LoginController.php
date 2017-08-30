@@ -66,7 +66,6 @@ class LoginController extends Controller
 	        if ($validator->fails())
 	        {
 	        	return redirect('prompt')->with(['message'=>'验证码错误','url' =>'register', 'jumpTime'=>3,'status'=>false]);
-	           	exit;
 	        }
 
 	        $this->validate($request, [

@@ -53,7 +53,7 @@
 </div>
 <div class="pull-left">
 <div class="field">
-<h6 class="username ng-binding" ng-bind="basicProfile.name">Member_11501404</h6>
+<h6 class="username ng-binding" ng-bind="basicProfile.name">{{Session::get('user_name')}}</h6>
 </div>
 <div class="field clearfix">
 <span class="pull-left">资料完整度</span>
