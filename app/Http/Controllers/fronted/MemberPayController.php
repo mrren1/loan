@@ -15,8 +15,35 @@ class MemberPayController extends Controller
 {
 	public function index()
 	{
-		return view('fronted/member_pay');
+     $user_id = $request->session()->get('user_id');
+     $purseModel = new Purse();
+     $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
+		return view('fronted/member_pay',['Purse'=>$Purse]);
 	}
+    /**
+   * 充值
+   * 渲染页面
+   */
+  public function memberCharge(Request $request)
+  {
+      if($request->isMethod('POST'))
+      {
+        
+      }else
+      {
+        $user_id = $request->session()->get('user_id');
+        $purseModel = new Purse();
+        $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
+        return view('fronted/member_pay/member_charge',['Purse'=>$Purse]);
+      }   
+  }
+  /**
+   * 充值成功
+   */
+  public function chargeSuccess()
+  {
+     return view('fronted/member_pay/charge_success');
+  }
 	/**
 	 * 提现
 	 * 渲染模板
@@ -32,7 +59,7 @@ class MemberPayController extends Controller
 		'SB' =>'盛京银行','BOT'=>'天津银行','BON'=>'宁波银行','CHB'=>'重庆银行','BONA'=>'南京银行',
 		'BOJ'=>'江苏银行','SPB'=>'深圳平安银行','PSBC'=>'中国邮政储蓄银行',
        ];
-	   $user_id = 12;
+	     $user_id = $request->session()->get('user_id');
        $put = new Put();
        $purseModel = new Purse();
 	   $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
@@ -52,7 +79,7 @@ class MemberPayController extends Controller
      */
     public function Add_bank(Request $request)
     {
-       $user_id=12;
+       $user_id = $request->session()->get('user_id');
        $put = new Put();
        $input = $request->all();
        if(empty($input['card_name']) || empty($input['put_num']) || empty($input['put_name']))

@@ -114,7 +114,10 @@
 <span>人</span>
 </label>
 </div>
-<a class="btn btn-block btn-secondary btn-embossed" href="market/plan?planId=157001" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
+
+<!-- {{$lend['lend_id']}} -->
+<a class="btn btn-block btn-secondary btn-embossed" href="debt?id={{$lend['lend_id']}}" ng-show="!isOpen && plan.openAmount>0 ">立即借款</a>
+
 <div class="repayment-status ng-hide" ng-show="isOpen || !plan.openAmount ">
 <span>已满额</span>
 </div>
