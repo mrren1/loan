@@ -51,34 +51,17 @@
               <p><img src="images/qr-code.jpg" /></p> 
              </div> </a> </li> 
           </ul> 
-          <!-- For non-login users --> 
+          @if(Session::has('user_name'))
+          <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
+           <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
+             <li><a href="out">退出</a></li> 
+          </ul>
+          @else
           <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
            <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
            <li><a id="create-account" href="register" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
           </ul> 
-          <!-- For login users --> 
-          <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user ng-cloak" ng-if="isAuthenticated()"> 
-           <!-- Shopping Cart Widget --> 
-           <li ng-show="hasRole('LENDER')" class="dropdown shopping-cart-widget" ng-controller="CartSummaryCtrl"> 
-            <!-- Shopping Cart Widget: Not yet invested --> 
-            <ul class="dropdown-menu" ng-show="cart.amountSum==0"> 
-             <li class="shopping-cart-empty"> <p>你还没有投标，查看<a href="market.html">热投项目</a>，立即开启投资之旅！</p> </li> 
-            </ul> 
-            <!-- Shopping Cart Widget: Invested --> 
-            <ul class="dropdown-menu" ng-show="cart.amountSum!= 0" ng-controller="CartCtrl"> 
-             <li class="shopping-cart-title"> <span>投标 <strong>笔</strong> </span> <span class="pull-right"> 总额<span ng-bind-html="cart.amountSum | slMoney"></span> </span> </li> 
-             <li class="divider"></li> 
-             <li ng-repeat="item in cart.items" class="shopping-cart-item" ng-mouseover="show=true" ng-mouseleave="show=false" ng-init="show=false"> <a href="#"> <span></span> <span ng-bind-html="item.amount | slMoney" ng-class="{hidden:show}"></span> <span data-toggle="modal" data-target="#deleteCartItem" class="sl-icon-trash hidden" ng-click="transId(item.loanId)" ng-class="{hidden:!show}"></span> </a> </li> 
-             <li class="divider"></li> 
-             <li class="shopping-cart-checkout"> <a id="checkout-shopping-cart" href="/market/checkout" class="btn btn-sm btn-primary btn-block btn-embossed">查看购物车</a> </li> 
-            </ul> </li> 
-           <!-- My Account Menu --> 
-           <li class="dropdown"> <a href="member_info.html" class="dropdown-toggle hoverHeader" ng-show="session.firstLoaded &amp;&amp; session.actor.username" data-toggle="dropdown" data-hover="dropdown">的账户 <b class="caret"></b></a> 
-            <ul class="dropdown-menu"> 
-             <li><a href="member_info.html">我的账户</a></li> 
-             <li><a href="#" ng-click="logout()">退出</a></li> 
-            </ul> </li> 
-          </ul> 
+          @endif 
          </div> 
         </nav> 
         <div class="site-menu"> 
