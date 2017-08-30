@@ -17,7 +17,7 @@ class SetloanController extends Controller
 	{
 		if($_POST){
 			$setloan = new Blowloan;
-			$setloan->user_id = 36;
+			$setloan->user_id = $request->session()->get('user_id');
 			$setloan->lend_time = $request['lend_time'];
 			$setloan->lend_money = $request['lend_money'];
 			$setloan->lend_desc = $request['lend_desc'];
