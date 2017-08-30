@@ -65,10 +65,11 @@
 可提现金额：
 <span class="ng-binding" ng-bind-html="summary.availableWithdrawCash | slMoney">
 @if ($Purse['purse_sum'] == 0)
-    <small>0.00元</small>
+    0
 @else
-  <small>{{$Purse['purse_sum']}}.00元</small> 
+   {{$Purse['purse_sum']}}
 @endif
+<small>.00元</small>
 </span>
 </h6>
 <div class="form-horizontal">
