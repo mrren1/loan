@@ -46,3 +46,7 @@ Route::post('register',
 
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
