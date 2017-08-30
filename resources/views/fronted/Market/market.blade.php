@@ -53,47 +53,40 @@
 <i class="spinner sl-icon-loading"></i>
 </p>
 <div class="" ng-show="!loadingPlan">
+
+
+
+@foreach($lendArr as $lend)
 <div class="plan-item ng-scope" ng-repeat="p in plans | orderBy:'orderIndex'" style="">
 <div class="sl-plan-card ng-isolate-scope" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p">
-<div class="left-time-open ng-hide" ng-show="isOpen">
-<span class="sl-icon-b-clock open-clock"></span>
-距下一场发布还有：
-<span class="time ng-binding"></span>
-天
-<span class="time ng-binding"></span>
-时
-<span class="time ng-binding"></span>
-分
-<span class="time ng-binding"></span>
-秒
-</div>
+
 <div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()">
 <div>
-<img class="sl-plan-pic" ng-src="images/liquidity.jpg" src="images/liquidity.jpg">
+<img class="sl-plan-pic" ng-src="images/liquidity.jpg" src="uploads/{{$lend['userInfo']['user_photo']}}">
 <span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span>
 </div>
 </div>
 <div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()">
-<h4 class="title ng-binding">活期投资团</h4>
+<h4 class="title ng-binding">个人借贷</h4>
 <p class="desc ng-binding">
-收益秒杀余额宝，资金存取很灵活。
+{{$lend['lend_desc']}}
 <a class="view-details-link ng-animate ng-hide" title="查看详情" ng-show="hover" style=""> 查看详情</a>
 </p>
 <div class="sl-plan-pay-info">
 <div class="col-xs-4 sl-plan-rate">
-<label class="name col-xs-6">预计年化收益率</label>
+<label class="name col-xs-6">年利率：</label>
 <label class="value col-xs-6 ng-binding">
-5.5
+{{$lend['lend_interest']*100}}
 <span>%</span>
 </label>
 </div>
 <div class="col-xs-5 sl-plan-method">
-<p class="value ng-binding">本金保障</p>
-<p class="name" ng-show="plan.safeguardWay">保障级别</p>
+<p class="value ng-binding">借款人信用：</p>
+<p class="name" ng-show="plan.safeguardWay">极好or差</p>
 </div>
 <div class="col-xs-3 sl-plan-amount">
 <p class="value number ng-binding" ng-show="plan.minInvestAmount">100元</p>
-<p class="name" ng-show="plan.minInvestAmount">起投金额</p>
+<p class="name" ng-show="plan.minInvestAmount">最低借贷金额</p>
 </div>
 </div>
 </div>
@@ -114,353 +107,18 @@
 <span>人</span>
 </label>
 </div>
-<a class="btn btn-block btn-secondary btn-embossed" href="market/plan?planId=157001" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
+<!-- {{$lend['lend_id']}} -->
+<a class="btn btn-block btn-secondary btn-embossed" href="market/plan?planId=157001" ng-show="!isOpen && plan.openAmount>0 ">立即借款</a>
 <div class="repayment-status ng-hide" ng-show="isOpen || !plan.openAmount ">
 <span>已满额</span>
 </div>
 </div>
 </div>
 </div>
-<div class="plan-item ng-scope" ng-repeat="p in plans | orderBy:'orderIndex'" style="">
-<div class="sl-plan-card ng-isolate-scope" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p">
-<div class="left-time-open ng-hide" ng-show="isOpen">
-<span class="sl-icon-b-clock open-clock"></span>
-距下一场发布还有：
-<span class="time ng-binding"></span>
-天
-<span class="time ng-binding"></span>
-时
-<span class="time ng-binding"></span>
-分
-<span class="time ng-binding"></span>
-秒
-</div>
-<div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()">
-<div>
-<img class="sl-plan-pic" ng-src="images/newer.jpg" src="images/newer.jpg">
-<span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span>
-</div>
-</div>
-<div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()">
-<h4 class="title ng-binding">新手投资团</h4>
-<p class="desc ng-binding">
-100元保本保息玩转P2P。
-<a class="view-details-link ng-animate ng-hide" title="查看详情" ng-show="hover" style=""> 查看详情</a>
-</p>
-<div class="sl-plan-pay-info">
-<div class="col-xs-4 sl-plan-rate">
-<label class="name col-xs-6">预计年化收益率</label>
-<label class="value col-xs-6 ng-binding">
-7
-<span>%</span>
-</label>
-</div>
-<div class="col-xs-5 sl-plan-method">
-<p class="value ng-binding">本息有保证</p>
-<p class="name" ng-show="plan.safeguardWay">保障级别</p>
-</div>
-<div class="col-xs-3 sl-plan-amount">
-<p class="value number ng-binding" ng-show="plan.minInvestAmount">100元</p>
-<p class="name" ng-show="plan.minInvestAmount">起投金额</p>
-</div>
-</div>
-</div>
-<div class="sl-plan-active-info col-xs-3">
-<div>
-<span class="sl-icon-account"></span>
-<label>
- 已投金额   
-<span class="amount-text ng-binding">62,501.74</span>
-<span>万元</span>
-</label>
-</div>
-<div>
-<span class="sl-icon-personal"></span>
-<label>
- 加入人数   
-<span class="member-num-text ng-binding">71,205</span>
-<span>人</span>
-</label>
-</div>
-<a class="btn btn-block btn-secondary btn-embossed" href="market/plan?planId=68201" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
-<div class="repayment-status ng-hide" ng-show="isOpen || !plan.openAmount ">
-<span>已满额</span>
-</div>
-</div>
-</div>
-</div>
-<div class="plan-item ng-scope" ng-repeat="p in plans | orderBy:'orderIndex'" style="">
-<div class="sl-plan-card ng-isolate-scope openCard" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p">
-<div class="left-time-open" ng-show="isOpen">
-<span class="sl-icon-b-clock open-clock"></span>
-距下一场发布还有：
-<span class="time ng-binding">00</span>
-天
-<span class="time ng-binding">11</span>
-时
-<span class="time ng-binding">58</span>
-分
-<span class="time ng-binding">45</span>
-秒
-</div>
-<div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()">
-<div>
-<img class="sl-plan-pic" ng-src="images/steadiness.jpg" src="images/steadiness.jpg">
-<span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span>
-</div>
-</div>
-<div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()">
-<h4 class="title ng-binding">稳健投资团</h4>
-<p class="desc ng-binding">
-起投高一点，收益很稳健。
-<a class="view-details-link ng-hide" title="查看详情" ng-show="hover"> 查看详情</a>
-</p>
-<div class="sl-plan-pay-info">
-<div class="col-xs-4 sl-plan-rate">
-<label class="name col-xs-6">预计年化收益率</label>
-<label class="value col-xs-6 ng-binding">
-9
-<span>%</span>
-</label>
-</div>
-<div class="col-xs-5 sl-plan-method">
-<p class="value ng-binding">本金保障</p>
-<p class="name" ng-show="plan.safeguardWay">保障级别</p>
-</div>
-<div class="col-xs-3 sl-plan-amount">
-<p class="value number ng-binding" ng-show="plan.minInvestAmount">1万元</p>
-<p class="name" ng-show="plan.minInvestAmount">起投金额</p>
-</div>
-</div>
-</div>
-<div class="sl-plan-active-info col-xs-3">
-<div>
-<span class="sl-icon-account"></span>
-<label>
- 已投金额   
-<span class="amount-text ng-binding">32,651.89</span>
-<span>万元</span>
-</label>
-</div>
-<div>
-<span class="sl-icon-personal"></span>
-<label>
- 加入人数   
-<span class="member-num-text ng-binding">10,206</span>
-<span>人</span>
-</label>
-</div>
-<a class="btn btn-block btn-secondary btn-embossed ng-hide" href="market/plan?planId=145201" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
-<div class="repayment-status" ng-show="isOpen || !plan.openAmount ">
-<span>已满额</span>
-</div>
-</div>
-</div>
-</div>
-<div class="plan-item ng-scope" ng-repeat="p in plans | orderBy:'orderIndex'" style="">
-<div class="sl-plan-card ng-isolate-scope openCard" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p">
-<div class="left-time-open" ng-show="isOpen">
-<span class="sl-icon-b-clock open-clock"></span>
-距下一场发布还有：
-<span class="time ng-binding">00</span>
-天
-<span class="time ng-binding">11</span>
-时
-<span class="time ng-binding">58</span>
-分
-<span class="time ng-binding">45</span>
-秒
-</div>
-<div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()">
-<div>
-<img class="sl-plan-pic" ng-src="images/high.jpg" src="images/high.jpg">
-<span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span>
-</div>
-</div>
-<div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()">
-<h4 class="title ng-binding">高手投资团</h4>
-<p class="desc ng-binding">
-投资高手玩转灵活收益。
-<a class="view-details-link ng-hide" title="查看详情" ng-show="hover"> 查看详情</a>
-</p>
-<div class="sl-plan-pay-info">
-<div class="col-xs-4 sl-plan-rate">
-<label class="name col-xs-6">预计年化收益率</label>
-<label class="value col-xs-6 ng-binding">
-7-16
-<span>%</span>
-</label>
-</div>
-<div class="col-xs-5 sl-plan-method">
-<p class="value ng-binding">本金保障</p>
-<p class="name" ng-show="plan.safeguardWay">保障级别</p>
-</div>
-<div class="col-xs-3 sl-plan-amount">
-<p class="value number ng-binding" ng-show="plan.minInvestAmount">500元</p>
-<p class="name" ng-show="plan.minInvestAmount">起投金额</p>
-</div>
-</div>
-</div>
-<div class="sl-plan-active-info col-xs-3">
-<div>
-<span class="sl-icon-account"></span>
-<label>
- 已投金额   
-<span class="amount-text ng-binding">7,993.31</span>
-<span>万元</span>
-</label>
-</div>
-<div>
-<span class="sl-icon-personal"></span>
-<label>
- 加入人数   
-<span class="member-num-text ng-binding">8,211</span>
-<span>人</span>
-</label>
-</div>
-<a class="btn btn-block btn-secondary btn-embossed ng-hide" href="market/plan?planId=82801" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
-<div class="repayment-status" ng-show="isOpen || !plan.openAmount ">
-<span>已满额</span>
-</div>
-</div>
-</div>
-</div>
-<div class="plan-item ng-scope" ng-repeat="p in plans | orderBy:'orderIndex'" style="">
-<div class="sl-plan-card ng-isolate-scope" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p">
-<div class="left-time-open ng-hide" ng-show="isOpen">
-<span class="sl-icon-b-clock open-clock"></span>
-距下一场发布还有：
-<span class="time ng-binding"></span>
-天
-<span class="time ng-binding"></span>
-时
-<span class="time ng-binding"></span>
-分
-<span class="time ng-binding"></span>
-秒
-</div>
-<div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()">
-<div>
-<img class="sl-plan-pic" ng-src="images/vip.jpg" src="images/vip.jpg">
-<span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span>
-</div>
-</div>
-<div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()">
-<h4 class="title ng-binding">点融VIP团</h4>
-<p class="desc ng-binding">
-VIP客户专享团。
-<a class="view-details-link ng-hide" title="查看详情" ng-show="hover"> 查看详情</a>
-</p>
-<div class="sl-plan-pay-info">
-<div class="col-xs-4 sl-plan-rate">
-<label class="name col-xs-6">预计年化收益率</label>
-<label class="value col-xs-6 ng-binding">
-11
-<span>%</span>
-</label>
-</div>
-<div class="col-xs-5 sl-plan-method">
-<p class="value ng-binding">本金保障</p>
-<p class="name" ng-show="plan.safeguardWay">保障级别</p>
-</div>
-<div class="col-xs-3 sl-plan-amount">
-<p class="value number ng-binding" ng-show="plan.minInvestAmount">30万元</p>
-<p class="name" ng-show="plan.minInvestAmount">起投金额</p>
-</div>
-</div>
-</div>
-<div class="sl-plan-active-info col-xs-3">
-<div>
-<span class="sl-icon-account"></span>
-<label>
- 已投金额   
-<span class="amount-text ng-binding">3,687.02</span>
-<span>万元</span>
-</label>
-</div>
-<div>
-<span class="sl-icon-personal"></span>
-<label>
- 加入人数   
-<span class="member-num-text ng-binding">93</span>
-<span>人</span>
-</label>
-</div>
-<a class="btn btn-block btn-secondary btn-embossed ng-hide" href="market/plan?planId=189601" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
-<div class="repayment-status" ng-show="isOpen || !plan.openAmount ">
-<span>已满额</span>
-</div>
-</div>
-</div>
-</div>
-<div class="plan-item ng-scope" ng-repeat="p in plans | orderBy:'orderIndex'" style="">
-<div class="sl-plan-card ng-isolate-scope" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p">
-<div class="left-time-open ng-hide" ng-show="isOpen">
-<span class="sl-icon-b-clock open-clock"></span>
-距下一场发布还有：
-<span class="time ng-binding"></span>
-天
-<span class="time ng-binding"></span>
-时
-<span class="time ng-binding"></span>
-分
-<span class="time ng-binding"></span>
-秒
-</div>
-<div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()">
-<div>
-<img class="sl-plan-pic" ng-src="images/svip.jpg" src="images/svip.jpg">
-<span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span>
-</div>
-</div>
-<div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()">
-<h4 class="title ng-binding">点融SVIP团</h4>
-<p class="desc ng-binding">
-超级VIP客户专享团。
-<a class="view-details-link ng-hide" title="查看详情" ng-show="hover"> 查看详情</a>
-</p>
-<div class="sl-plan-pay-info">
-<div class="col-xs-4 sl-plan-rate">
-<label class="name col-xs-6">预计年化收益率</label>
-<label class="value col-xs-6 ng-binding">
-12
-<span>%</span>
-</label>
-</div>
-<div class="col-xs-5 sl-plan-method">
-<p class="value ng-binding">本金保障</p>
-<p class="name" ng-show="plan.safeguardWay">保障级别</p>
-</div>
-<div class="col-xs-3 sl-plan-amount">
-<p class="value number ng-binding" ng-show="plan.minInvestAmount">100万元</p>
-<p class="name" ng-show="plan.minInvestAmount">起投金额</p>
-</div>
-</div>
-</div>
-<div class="sl-plan-active-info col-xs-3">
-<div>
-<span class="sl-icon-account"></span>
-<label>
- 已投金额   
-<span class="amount-text ng-binding">10,165.46</span>
-<span>万元</span>
-</label>
-</div>
-<div>
-<span class="sl-icon-personal"></span>
-<label>
- 加入人数   
-<span class="member-num-text ng-binding">360</span>
-<span>人</span>
-</label>
-</div>
-<a class="btn btn-block btn-secondary btn-embossed ng-hide" href="market/plan?planId=83001" ng-show="!isOpen && plan.openAmount>0 ">立即加入</a>
-<div class="repayment-status" ng-show="isOpen || !plan.openAmount ">
-<span>已满额</span>
-</div>
-</div>
-</div>
-</div>
+@endforeach
+
+
+
 </div>
 </div>
         <div class="col-xs-3 plan-info-col">
