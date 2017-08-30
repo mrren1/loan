@@ -3,8 +3,11 @@
 namespace App\Http\models;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Blowloan extends Model
 {
-	protected $table = 'message';
+	//表名
+	protected $table = 'lend';
+
+	//时间戳
 	public $timestamps = false;
 }

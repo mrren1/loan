@@ -20,7 +20,8 @@
 <a class="ng-binding" ui-sref="leadership" href="#/leadership">管理团队</a>
 </li>
 <li class="partner" ui-sref-active="active" ng-repeat="nav in navs">
-<a class="ng-binding" ui-sref="partner" href="#/partner">合作伙伴</a>
+<a class="ng-b
+inding" ui-sref="partner" href="#/partner">合作伙伴</a>
 </li>
 <li class="media" ui-sref-active="active" ng-repeat="nav in navs">
 <a class="ng-binding" ui-sref="media" href="#/media">媒体报道</a>

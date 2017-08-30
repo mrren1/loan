@@ -94,7 +94,7 @@
           <!--menus--> 
           <li class="main-link-list"> <a class="main-link" href="market"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">我要借款</span> </a> </li> 
           <li class="main-link-list"> <a class="main-link" href="about"> <span class="sl-icon-bold-linkman"></span> <span class="main-link-text">关于我们</span> </a> </li> 
-          <li class="main-link-list" ng-class="{active:isActive('/public/help-center')}"> <a class="main-link" href="/public/about#/contact"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">联系我们</span> </a> </li> 
+          <li class="main-link-list" ng-class="{active:isActive('/public/help-center')}"> <a class="main-link" href="setloan"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">发布借款</span> </a> </li> 
           <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> <span> 400-921-9218</span> </li> 
           <li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> 
          </ul> 
@@ -136,11 +136,23 @@
         </div> 
         <div class="wel-info">
          欢迎回来!
-        </div> 
+        </div>  
+        @if(Session::get('user_name')!='')
         <div class="available-info">
          账户可用余额
         </div> 
-        <div class="number-cash">100.00元</div> 
+        <div class="number-cash">
+          @if($purseInfo!=null)
+            {{$purseInfo['purse_balance']}}
+          @else
+            0.00
+          @endif
+        元</div>
+        @else
+         <div class="number-cash">
+            您还未登录！
+          </div>
+        @endif
         <div> 
          <a class="btn btn-primary recharge" href="member_pay.html">充值</a>
         </div> 
