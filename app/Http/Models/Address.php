@@ -3,8 +3,8 @@
 namespace App\Http\models;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Address extends Model
 {
-	protected $table = 'message';
+	protected $table = 'address';
 	public $timestamps = false;
 }
