@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Models\User;
 use App\Http\Models\log;
 use session;
+
 class LoginController extends Controller
 {
 	/**
@@ -20,7 +21,16 @@ class LoginController extends Controller
 	public function index()
 	{
 
-		return view('/fronted/Login/login');
+		return view('fronted.Login.login');
+	}
+
+	/**
+	 * 用户退出
+	 */
+	public function quit(Request $request)
+	{
+		$request->session()->forget('user_name');
+		return redirect('prompt')->with(['message'=>'退出成功','url' =>'index', 'jumpTime'=>3,'status'=>false]);
 	}
 
 	/**
@@ -41,7 +51,7 @@ class LoginController extends Controller
 
 	        $this->validate($request, [
 		        'user_name' => 'required|max:255',
-		        'user_pwd' => 'required|min:8',
+		        'user_pwd' => 'required|min:6',
 		    ]);
 
 			$user = new User;
@@ -51,10 +61,11 @@ class LoginController extends Controller
 			$user->last_time = time();
 			$info = $user->save();
 			if($info){
+				$request->session()->put('user_name',$user->user_name);
 				return redirect()->action('fronted\IndexController@index');
 			}
 	    }else{
-	    	return view('/fronted/Login/reg');
+	    	return view('fronted.Login.reg');
 	    }	
 	}
 
