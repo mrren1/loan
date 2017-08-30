@@ -8,8 +8,19 @@
              <!--<sl-avatar size="70" class="avatar"></sl-avatar>--> 
              <div class="profile"> 
               <h6 class="user-name ng-binding">
-    晚上好!
-    <p class="say-hi ng-binding">Member_11501404</p>
+    <?php 
+      $H=date('H')/1;
+      if(6<=$H&&$H<12){
+        echo "上午好！";
+      }else if(12<=$H&&$H<=14){
+        echo "中午好！";
+      }else if(14<$H&&$H<18){
+        echo "下午好！";
+      }else{
+        echo "晚上好！";
+      }
+    ?>
+    <p class="say-hi ng-binding">{{Session::get('user_name')}}</p>
     </h6>
              </div> 
             </div> 
