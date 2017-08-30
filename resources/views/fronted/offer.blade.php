@@ -49,6 +49,7 @@
 </div>
 <form class="form-horizontal ng-pristine ng-invalid ng-invalid-required" action="{{ route('debt') }}" method="post">
 <input type="hidden" value="{{ Session::token() }}" name="_token"/>
+<input type="hidden" value="{{$from_id}}" name="from_id">
 <div class="form-group">
 <label class="col-xs-3 col-xs-offset-1 control-label">借款时间</label>
 <div class="col-xs-7">

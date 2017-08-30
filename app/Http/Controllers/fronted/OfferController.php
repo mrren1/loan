@@ -17,13 +17,14 @@ class OfferController extends Controller
 			$debt->debt_money = $request['debt_money'];
 			$debt->debt_btime = $request['debt_btime'];
 			$debt->debt_stime = $request['debt_stime'];
-			$debt->from_id = 1;
+			$debt->from_id = $request['from_id'];
 			$info = $debt->save();
 			if($info){
 				return redirect()->action('fronted\IndexController@index');
 			}
 		}else{
-			return view('fronted/offer');
+			$id = $request['id'];
+			return view('fronted/offer',['from_id'=>$id]);
 		}
 	}
 }

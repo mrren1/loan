@@ -13,9 +13,11 @@ class MemberIndexController extends Controller
 {
 	public function index()
 	{
-		$user_id=7;//用户id
+		//用户id
+		$user_id = $request->session()->get('user_id');
 		$purseModel = new Purse();
-		$Purse = $this->objectToArray($purseModel->GetAll($user_id));//获取用户钱包数据
+		//获取用户钱包数据
+		$Purse = $this->objectToArray($purseModel->GetAll($user_id));
 		return view('fronted/member_index',['Purse'=>$Purse]);
 	}
 	

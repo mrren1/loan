@@ -49,8 +49,8 @@ Route::get('member_pay', 'fronted\MemberPayController@index');
 Route::get('member_bank', 'fronted\MemberBankController@index');
 Route::get('out', 'fronted\LoginController@quit');
 Route::get('setloan', 'fronted\SetloanController@index');
-Route::get('debt', 'fronted\OfferController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
+Route::get('debt', 'fronted\OfferController@index');
 Route::post('register', 
 [
     'uses'=>'fronted\LoginController@register',
