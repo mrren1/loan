@@ -136,11 +136,23 @@
         </div> 
         <div class="wel-info">
          欢迎回来!
-        </div> 
+        </div>  
+        @if(Session::get('user_name')!='')
         <div class="available-info">
          账户可用余额
         </div> 
-        <div class="number-cash">100.00元</div> 
+        <div class="number-cash">
+          @if($purseInfo!=null)
+            {{$purseInfo['purse_balance']}}
+          @else
+            0.00
+          @endif
+        元</div>
+        @else
+         <div class="number-cash">
+            您还未登录！
+          </div>
+        @endif
         <div> 
          <a class="btn btn-primary recharge" href="member_pay.html">充值</a>
         </div> 

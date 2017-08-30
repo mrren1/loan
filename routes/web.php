@@ -25,6 +25,20 @@ Route::get('login', 'fronted\LoginController@index');
 Route::get('register', 'fronted\LoginController@register');
 Route::get('market', 'fronted\MarketController@index');
 //Route::get('borrow', 'BorrowController@index');
+Route::get('help', 'HelpController@index');
+Route::get('about', 'AboutController@index');
+Route::get('member_info', 'MemberInfoController@index');
+Route::get('forget', 'ForgetController@index');
+Route::get('member_index', 'MemberIndexController@index');
+Route::get('member_tuan', 'MemberTuanController@index');
+Route::get('member_bid_record', 'MemberBidRecordController@index');
+Route::get('member_bid_auto', 'MemberBidAutoController@index');
+Route::get('member_trade', 'MemberTradeController@index');
+Route::get('member_pay', 'MemberPayController@index');
+Route::get('member_bank', 'MemberBankController@index');
+Route::get('member_invite', 'MemberInviteController@index');
+Route::get('address', 'fronted\MemberInfoController@getAddress');
+Route::post('member_info', 'fronted\MemberInfoController@index');
 Route::get('help', 'fronted\HelpController@index');
 Route::get('about', 'fronted\AboutController@index');
 Route::get('member_info', 'fronted\MemberInfoController@index');
@@ -44,10 +58,13 @@ Route::post('register',
     'uses'=>'fronted\LoginController@register',
     'as'=>'register',
 ]);
+
 Route::post('setloan', 
 [
     'uses'=>'fronted\SetloanController@index',
     'as'=>'setloan',
 ]);
 Route::any('log','fronted\LoginController@log');
+Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
+
