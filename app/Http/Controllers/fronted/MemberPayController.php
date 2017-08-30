@@ -62,7 +62,7 @@ class MemberPayController extends Controller
 	     $user_id = $request->session()->get('user_id');
        $put = new Put();
        $purseModel = new Purse();
-	     $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
+	   $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
        $arr = $this->objectToArray($put->GetAll($user_id));//个人银行信息
        if(isset($arr))
        {
@@ -98,24 +98,10 @@ class MemberPayController extends Controller
        $put->user_id = $user_id;
        $success=$put->save();
        if($success){
-         return redirect('prompt')->with(['message'=>'','url' =>'member_mention', 'jumpTime'=>2,'status'=>false]);
+         return redirect('prompt')->with(['message'=>'添加成功','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
        }else{
          return redirect('prompt')->with(['message'=>'添加失败','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
        }
-    }
-     /**
-    * 提现
-    */
-    public function addPut(Request $request)
-    {
-       
-    }
-    /**
-     * 提现成功
-     */
-    public function putSuccess()
-    {
-      return view('fronted/member_pay/put_success');
     }
 	//先编码成json字符串，再解码成数组
 	function objectToArray($object) {
