@@ -154,10 +154,10 @@
           </div>
         @endif
         <div> 
-         <a class="btn btn-primary recharge" href="member_pay.html">充值</a>
+         <a class="btn btn-primary recharge" href="member_pay">充值</a>
         </div> 
         <div> 
-         <a class="btn btn-primary account-info" href="member_info.html">我的账户</a>
+         <a class="btn btn-primary account-info" href="member_info">我的账户</a>
         </div> 
        </div> 
       </div>
