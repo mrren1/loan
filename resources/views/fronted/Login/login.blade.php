@@ -50,7 +50,7 @@
       <!-- Login Form --> 
       <div class="col-xs-4 login-content-form"> 
        <h6 class="login-content-form-title">欢迎回来</h6> 
-        <form action="{{url('log')}}" method="post" name="loginForm" class="loginForm" role="form" ng-submit="submit()" novalidate=""> 
+        <form action="{{url('login')}}" method="post" name="loginForm" class="loginForm" role="form" ng-submit="submit()" novalidate=""> 
         <input type="hidden" value="{{ Session::token() }}" name="_token"/>
         <div ng-repeat="error in errors" ng-show="errors.length &gt; 0" ng-cloak="" class="errorInLogin">
         
