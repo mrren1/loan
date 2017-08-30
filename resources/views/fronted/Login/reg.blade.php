@@ -2,6 +2,11 @@
 
 @section('title', '注册') 
   
+<style>
+    #img{
+        cursor: pointer;
+    }
+</style>
 <div class="wrapper create"> 
     @section('content')
    <div class="modal fade" id="deleteCartItem" tabindex="-1" role="dialog" aria-hidden="true"> 
@@ -76,10 +81,7 @@
 <div class="form-inline">
 <span class="input-group-addon tag sl-icon-puzzle" ng-class="{active:inputFocusCaptchaCode}"></span>
 <input class="form-control captcha-verify-input forcePlaceholder inputRemoveBorder specifyInput ng-pristine ng-invalid ng-invalid-required" type="text" ng-blur="inputFocusCaptchaCode=false" ng-focus="inputFocusCaptchaCode=true" placeholder="输入校验码" required="" ng-model="user.captchaVerifyCode" maxlength="6" name="captcha">
-<span width='200px;'><?php echo captcha_img() ?></span>
-<!-- <a class="btn btn-primary btn-embossed refresh-captcha form-control" ng-click="refreshCaptcha()">
-<span class="sl-icon-repayment"></span>
-</a> -->
+<span width='200px;'><img src="<?php echo captcha_src()?>" alt="" id="img"></span>
 <div class="ng-scope" ng-class="ng-hide" name="captchaVerifyCode" sl-validation-errors="">
 <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">请输入图片中的校验码</span>
@@ -96,7 +98,7 @@
 </div>
 <div class="form-group">
 <span class="input-group-addon tag sl-icon-bold-pwd" ng-class="{active:inputFocusPwd}"></span>
-<input id="account-password" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="password" sl-atmost-forty-chars="" sl-atleast-eight-chars="" sl-contains-digits="" sl-contains-letters="" required="" ng-blur="inputFocusPwd=false" ng-focus="inputFocusPwd=true" placeholder="密码为8个以上字母和数字组合" ng-model="user.password" name="user_pwd" style="">
+<input id="account-password" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="password" sl-atmost-forty-chars="" sl-atleast-eight-chars="" sl-contains-digits="" sl-contains-letters="" required="" ng-blur="inputFocusPwd=false" ng-focus="inputFocusPwd=true" placeholder="密码为6个以上字母和数字组合" ng-model="user.password" name="user_pwd" style="">
 <div class="ng-scope" ng-class="ng-hide" name="password" sl-validation-errors="">
 <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">对不起，请输入密码</span>
@@ -192,3 +194,13 @@
    </div>
    <!-- /.modal --> 
   </div> 
+
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script type="text/javascript">
+      $(function(){
+          $("#img").click(function(){
+              var obj = $(this);
+              obj.attr('src',"<?php echo captcha_src()?>"+Math.random());
+          });     
+      })
+  </script>

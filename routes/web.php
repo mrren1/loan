@@ -36,6 +36,7 @@ Route::get('member_bid_auto', 'fronted\MemberBidAutoController@index');
 Route::get('member_trade', 'fronted\MemberTradeController@index');
 Route::get('member_pay', 'fronted\MemberPayController@index');
 Route::get('member_bank', 'fronted\MemberBankController@index');
+Route::get('out', 'fronted\LoginController@quit');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::post('register', 
 [

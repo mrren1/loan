@@ -69,17 +69,17 @@
           <p><img src="images/qr-code.jpg" /></p> 
          </div> </a> </li> 
       </ul> 
+      @if(Session::has('user_name'))
+      <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
+       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
+         <li><a href="out">退出</a></li> 
+      </ul>
+      @else
       <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
        <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
        <li><a id="create-account" href="register" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
       </ul> 
-      <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">{{Session::get('user_name')}}的账户 <b class="caret"></b></a> 
-        <ul class="dropdown-menu"> 
-         <li><a href="member_info.html">我的账户</a></li> 
-         <li><a href="#">退出</a></li> 
-        </ul> </li> 
-      </ul> 
+      @endif 
      </div> 
     </nav> 
     <div class="site-menu"> 
@@ -132,7 +132,7 @@
        <div class="login-content text-center"> 
         <div class="user-info">
          尊敬的用户：
-         <span>{{Session::get('user_name')}}</span>
+         <span>{{ Session::get('user_name') }}</span>
         </div> 
         <div class="wel-info">
          欢迎回来!
