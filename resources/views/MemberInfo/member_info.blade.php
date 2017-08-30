@@ -2,7 +2,7 @@
 
 @section('title', '基本信息')
  
-  <div class="wrapper "> 
+  <div class="wrapper ">  
   @section('content')
    <div class="modal fade" id="deleteCartItem" tabindex="-1" role="dialog" aria-hidden="true"> 
     <div class="modal-dialog" ng-controller="CartCtrl"> 
@@ -260,11 +260,26 @@
 </div>
 <div class="info-row row-line" ng-class="{editing:userIdentity.editing}">
 <div class="ng-scope" ng-if="!basicProfile.profile.isForeigner && !basicProfile.profile.isEnterprise">
+
+<form action="{{url('member_info')}}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+<div class="row">
+<div class="col-xs-3"></div>
+<div class="col-xs-8">
+<span class="display-block bind-red ng-binding" ng-bind="pwdMsg.msg | addAsterisk"></span>
+<span class="btn-group">
+<a class="btn btn-secondary btn-confirm" id="block">添加</a>
+</span>
+</div>
+</div>
+
 <div class="row">
 <div class="col-xs-3 info-value text-center">真实姓名</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.realName">
-  <input class="form-control input-sm ng-pristine ng-valid" name="message_name" placeholder="输入您的真实姓名">
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="message_name" placeholder="输入您的真实姓名"></span>
+  <span id="show">{{$message['message_name']}}</span>
 </span>
 </div>
 <div class="col-xs-4" ng-show="!userIdentity.editing && !basicProfile.securityIcons.idCard.active && !basicProfile.securityIcons.idCard.isNeedVerify">
@@ -278,7 +293,17 @@
 <div class="col-xs-3 info-value text-center">手机号</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
-  <input class="form-control input-sm ng-pristine ng-valid" name="message_phone" placeholder="输入手机号">
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="message_phone" placeholder="输入手机号"></span>
+  <span id="show">{{$message['message_phone']}}</span>
+</span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">邮箱</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="message_email" placeholder="输入邮箱"></span>
+  <span id="show">{{$message['message_email']}}</span>
 </span>
 </div>
 </div>
@@ -286,7 +311,8 @@
 <div class="col-xs-3 info-value text-center">年龄</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
-  <input class="form-control input-sm ng-pristine ng-valid" name="message_age" placeholder="输入年龄">
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="message_age" placeholder="输入年龄"></span>
+  <span id="show">{{$message['message_age']}}</span>
 </span>
 </div>
 </div>
@@ -294,8 +320,15 @@
 <div class="col-xs-3 info-value text-center">性别</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
-  <input type="radio" name="message_sex" value="1">男
-  <input type="radio" name="message_sex" value="0">女
+  <span style="display:none" id="hide">
+  <input type="radio" name="message_sex" value="1"><span>男</span>
+  <input type="radio" name="message_sex" value="0"><span>女</span>
+ </span>
+  @if($message['message_sex']==1)
+  <span id="show">男</span>
+  @else
+  <span id="show">女</span>
+  @endif
 </span>
 </div>
 </div>
@@ -303,175 +336,147 @@
 <div class="col-xs-3 info-value text-center">职业</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
-  <select>
+<span style="display:none" id="hide">
+  <select name="message_job">
     <option value="">选择职位</option>
- 
+     @foreach ($data as $key => $val)
+     <dl>
+       <dt><option value="{{$val['job_name']}}">{{$val['job_name']}}</option></dt>
+       <dd>
+        @foreach ($val['child'] as $kk => $vv)
+        <ul>
+            <span><option value="{{$vv['job_name']}}">{{$vv['dd']}}{{$vv['job_name']}}</option></span>
+        </ul>
+        @endforeach
+        </dd>
+      </dl>
+     @endforeach
   </select>
+  </span>
+  <span id="show">{{$message['message_job']}}</span>
 </span>
 </div>
 </div>
-<div class="row ng-hide" ng-show="userIdentity.editing">
-<div class="col-xs-3"></div>
-<div class="col-xs-8">
-<span class="bind-red display-block ng-binding" ng-bind="userIdentity.msg | addAsterisk"></span>
-<span class="btn-group">
-<a class="btn btn-secondary btn-confirm" href="" ng-click="bindIDAndName()">立即验证</a>
-</span>
-<span class="btn-group">
-<a class="btn btn-secondary bind-blue btn-hollow" href="" ng-click="cancelBindIDAndName()">取消</a>
-</span>
-</div>
-</div>
-</div>
-</div>
-<div class="info-row">
-<form class="ng-pristine ng-valid ng-valid-required" name="verifyEmailForm">
-<div class="row" ng-class="{editing:(userEmail.editing),'close-edit':userEmail.emailSent}">
-<div class="col-xs-3 info-value text-center">绑定邮箱</div>
-<div class="col-xs-5">
-<div class="" ng-show="!userEmail.editing">
-<span class="ng-binding ng-scope" ng-bind="userEmail.email" ng-if="!userEmail.isVerified && userEmail.email">416148489@qq.com</span>
-</div>
-</div>
-<div class="col-xs-8 ng-hide" ng-show="userEmail.editing">
-<input id="account-email" class="form-control email input-sm ng-pristine ng-valid ng-valid-required" type="text" sl-email="" autocomplete="off" placeholder="输入绑定的邮箱地址，提升安全等级" required="" ng-model="userEmail.email" ng-class="{inputError:userEmail.emailError}" name="email">
-<div class="ng-hide ng-scope" name="email" sl-validation-errors="">
-<span class="hide" ng-transclude="">
-<span class="ng-scope" for="email" sl-error-message="">请输入有效的邮箱地址</span>
+<div class="row">
+<div class="col-xs-3 info-value text-center">地址</div>
+<div ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+<span style="display:none" id="hide">
+    <select num="0" class="sel" name="country">
+      <option value="">请选择</option>
+      @foreach ($address as $key => $val)
+        <option value="{{$val['address_id']}}">{{$val['address_name']}}</option>
+      @endforeach
+    </select>
+    <select class="sel" num="1" name="province">
+      <option value="0" selected="selected">请选择</option>
+    </select>
+    <select class="sel" num="2" name="city">
+      <option value="0" selected="selected">请选择</option>
+    </select>
+    <select class="sel" num="3" name="area">
+      <option value="0" selected="selected">请选择</option>
+    </select>
+    </span>
 </span>
 </div>
 </div>
-<div class="col-xs-4" ng-show="!userEmail.emailSent">
-<div class="sl-icons" ng-show="!userEmail.isVerified && !userEmail.editing">
-<a class="btn btn-secondary bind-blue btn-hollow btn-bg-blue ng-scope" ng-click="sendVerifyEmail()" ng-if="userEmail.email" ng-href="http://mail.qq.com" target="_blank" href="http://mail.qq.com">登录邮箱绑定</a>
-</div>
-<div class="sl-icons ng-hide" ng-show="userEmail.isVerified && !userEmail.editing">
-<a class="btn btn-secondary bind-blue btn-hollow" ng-click="userEmail.editing = true" href="">修改</a>
-</div>
-</div>
-</div>
-<div class="row editing ng-hide" ng-show="userEmail.editing">
-<div class="col-xs-3"></div>
-<div class="col-xs-8">
-<span class="bind-red display-block ng-binding" ng-bind="userEmail.msg | addAsterisk"></span>
-<span class="ng-hide" ng-show="userEmail.emailSent">
-验证邮件已发送，立即
-<a target="_blank" ng-href="http://mail.qq.com" href="http://mail.qq.com">登录邮箱</a>
-进行绑定
-</span>
-<span class="btn-group" ng-show="!userEmail.emailSent">
-<a class="btn btn-secondary btn-confirm" ng-click="sendVerifyEmail()" href="">立即绑定</a>
-</span>
-<span class="btn-group" ng-show="!userEmail.emailSent">
-<a class="btn btn-secondary bind-blue btn-hollow" ng-click="cancelSendVerifyEmail()" href="">取消</a>
+<div class="row">
+<div class="col-xs-3 info-value text-center">详细地址</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="message_address" placeholder="输入详细地址"></span>
+  <span id="show">{{$message['message_address']}}</span>
 </span>
 </div>
 </div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">月收入</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+<span style="display:none" id="hide">
+  <select name="message_revenue">
+    <option value="0">请选择</option>
+   @foreach ($salary as $key => $val)
+    <option value="{{$val}}">{{$val}}</option>
+  @endforeach
+  </select>
+  </span>
+  <span id="show">{{$message['message_revenue']}}</span>
+</span>
+</div>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">贷款最大额度</div>
+<div class="col-xs-5" ng-show="!userIdentity.editing">
+<span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
+  <span>{{$message['message_limit']}}</span>
+</span>
+</div>
+</div>
+<div style="display:none" id="hide">
+<div class="row">
+<div class="col-xs-3 info-value text-center">上传个人照片</div>
+<span id="fileinput-button" class="btn btn-success fileinput-button">
+<input id="fileupload" type="file" name="message_photo">
+</span>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">上传隐私照片</div>
+<span id="fileinput-button" class="btn btn-success fileinput-button">
+<input id="fileupload" type="file" name="private_photo">
+</span>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">上传身份证</div>
+<span id="fileinput-button" class="btn btn-success fileinput-button">
+<input id="fileupload" type="file" name="message_idcard">
+</span>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">上传房产证</div>
+<span id="fileinput-button" class="btn btn-success fileinput-button">
+<input id="fileupload" type="file" name="message_fangcard">
+</span>
+</div>
+<div class="row">
+<div class="col-xs-3 info-value text-center">上传驾驶证</div>
+<span id="fileinput-button" class="btn btn-success fileinput-button">
+<input id="fileupload" type="file" name="message_jiacard">
+</span>
+</div>
+</div>
+<table>
+<tr id="img">
+<td>
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_photo']}}" width="90px" />
+</td>
+<td>
+<img src="{{ URL::asset('/') }}uploads/{{$message['private_photo']}}" width="90px" />
+</td>
+<td>
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_idcard']}}" width="90px" />
+</td>
+<td>
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_fangcard']}}" width="90px" />
+</td>
+<td>
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_jiacard']}}" width="90px" />
+</td>
+</tr>
+<tr id="img">
+  <td>个人照片</td>
+  <td>隐私照片</td>
+  <td>身份证照片</td>
+  <td>房产证照片</td>
+  <td>驾驶证照片</td>
+</tr>
+</table>
+<div class="row">
+<input type="submit" style="display:none" id="btn" class="close sl-icon-cross" value="提交">
+</div>
+
 </form>
-</div>
-<div class="info-row">
-<div class="row" ng-show="!cellphoneVerification.phoneEditing">
-<div class="col-xs-3 info-value text-center">绑定手机</div>
-<div class="col-xs-5">
-<span class="ng-binding ng-scope" ng-if="cellphoneVerification.isVerified">180****1538</span>
-</div>
-<div class="col-xs-3">
-<div class="sl-icons bind-green ng-scope" ng-if="cellphoneVerification.isVerified">
-<a class="btn btn-secondary bind-blue btn-hollow" href="" ng-click="cellphoneVerification.phoneEditing=true">修改</a>
-</div>
-</div>
-</div>
-<div class="row editing ng-hide" ng-show="cellphoneVerification.phoneEditing">
-<form class="form-horizontal verifyCellphoneForm ng-pristine ng-invalid ng-invalid-required" novalidate="" role="form" name="verifyCellphoneForm">
-<div class="row">
-<div class="col-xs-3 info-value text-center">绑定手机</div>
-<div class="col-xs-8">
-<input class="form-control phone input-sm ng-pristine ng-invalid ng-invalid-required" type="text" sl-mobile-phone="" autocomplete="off" placeholder="输入新的手机号码" maxlength="11" required="" ng-model="verificationInfo.phone" ng-class="{inputError:cellphoneVerification.phoneError}" name="phone">
-<div class="ng-hide ng-scope" name="phone" sl-validation-errors="">
-<span class="hide" ng-transclude="">
-<span class="ng-scope" for="mobilePhone" sl-error-message="">手机号码格式不正确</span>
-</span>
-</div>
-</div>
-</div>
-<div class="row">
-<div class="col-xs-3 info-value text-center"></div>
-<div class="col-xs-5">
-<input class="form-control phone-verify-input input-sm ng-pristine ng-invalid ng-invalid-required" type="text" placeholder="输入验证码" ng-model="verificationInfo.phoneVerifyCode" maxlength="6" required="" ng-class="{inputError:cellphoneVerification.verifyCodeError}" name="phoneVerifyCode">
-</div>
-<div class="col-xs-3">
-<a class="btn btn-secondary btn-bg-blue verifyPhoneSubmit ng-binding" ng-disabled="verifyCellphoneForm.phone.$invalid|| cellphoneVerification.phoneCodeSent || cellphoneVerification.phoneCodeSending" title="点击发送验证码" ng-click="sendPhoneCode()" disabled="disabled">
-发送验证码
-<span class="phoneCountDown ng-binding ng-hide" ng-show="cellphoneVerification.phoneCodeSent">（60）</span>
-</a>
-<small class="phone-code-info ng-binding ng-hide" ng-bind="cellphoneVerification.codemsg" ng-show="cellphoneVerification.phoneCodeSent"></small>
-</div>
-</div>
-<div class="row">
-<div class="col-xs-3"></div>
-<div class="col-xs-8">
-<span class="bind-red display-block ng-binding" ng-bind="cellphoneVerification.msg | addAsterisk"></span>
-<span class="btn-group">
-<a class="btn btn-secondary btn-confirm" ng-click="submitVerificationCode()" href="">立即绑定</a>
-</span>
-<span class="btn-group">
-<a class="btn btn-secondary bind-blue btn-hollow" ng-click="cancelVerifyPhone()" href="">取消</a>
-</span>
-</div>
-</div>
-</form>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="bindAccount" class="tab-pane social-account-panel">
-<span class="field">关联第三方账号，快速登录点融网，获取第一手新鲜资讯！</span>
-<div class="social-account clearfix">
-<div class="social-account-col pull-left">
-<div class="social-icon-div">
-<img class="img-rounded binding-img" ng-class="{active: isWechatBound(basicProfile.profile)}" src="/static/images/account/bind-wechat.png">
-</div>
-</div>
-<div class="social-account-col erweima-content pull-left ng-scope" ng-if="!isWechatBound(basicProfile.profile)">
-<img src="/static/images/account/erweima-small.png">
-</div>
-<div class="social-account-col pull-left ng-scope" ng-if="!isWechatBound(basicProfile.profile)">
-<div class="wechat-desc">
-<h6>微信</h6>
-<ul class="wechat-bind-step">
-<li>关注点融网微信服务号：dianrongvip</li>
-<li>根据微信提示，用点融网账户与微信号关联</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="social-account clearfix">
-<div class="social-account-col pull-left">
-<div class="social-icon-div">
-<img class="img-rounded binding-img" ng-class="{active: isWeiboBound(basicProfile.profile)}" src="/static/images/account/bind-weibo.png">
-</div>
-</div>
-<div class="social-account-col weibo-content pull-left">
-<h6>新浪微博</h6>
-<p>http://weibo.com</p>
-<a class="btn btn-sm btn-secondary btn-embossed btn-smaller ng-scope" ng-click="weiboBind()" ng-if="!isWeiboBound(basicProfile.profile)" href="">马上关联</a>
-</div>
-</div>
-<div class="social-account clearfix">
-<div class="social-account-col pull-left">
-<div class="social-icon-div">
-<img class="img-rounded binding-img" ng-class="{active: isQQBound(basicProfile.profile)}" src="/static/images/account/bind-qq.png">
-</div>
-</div>
-<div class="social-account-col weibo-content pull-left">
-<h6>QQ</h6>
-<p>http://www.qq.com</p>
-<a class="btn btn-sm btn-secondary btn-embossed btn-smaller ng-scope" ng-click="qqBind()" ng-if="!isQQBound(basicProfile.profile)" href="">马上关联</a>
-</div>
-</div>
-</div>
-</div>
 </section>
 <div id="upload-profile-image-modal" class="modal fade" aria-hidden="true" role="dialog" tabindex="-1">
 <div class="modal-dialog">
@@ -563,8 +568,41 @@
      </div> 
     </div> 
    </div> 
-  @endsection
-   <!-- Modal --> 
+  <script src="{{ URL::asset('/') }}js/jquery.js"></script>
+  <script type="text/javascript">
+     $(".sel").change(function(){
+        //获取当前value值
+        var address_id=$(this).val();
+        //获取自定义属性
+        var num=$(this).attr('num');
+        //获取当前对象
+        var obj=$(this);
+        $.ajax({
+          type:'get',
+          url:'address',
+          data:{address_id:address_id},
+          dataType:'json',
+          success:function(e){
+              str='<option value="0" selected="selected">请选择</option>';
+              $.each(e,function(k,v){
+                  str=str+'<option value="'+v.address_id+'">'+v.address_name+'</option>'
+              });
+              obj.next().html(str);
+              obj.next().nextAll().html('<option value="0" selected="selected">请选择</option>');
+          }
+        });
+     });
+     $("#block").click(function(){
+        $("span #hide").css('display','block');
+        $("span #show").css('display','none');
+        $("#btn").css('display','block');
+        $("div #hide").css('display','block');
+        $("tr").css('display','none')
+     });
+  </script>
+<!--结束-->
+@endsection
+   <!-- Modal--> 
    <div class="modal fade wechat-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
     <div class="modal-dialog modal-sm"> 
      <div class="modal-content"> 
@@ -596,10 +634,4 @@
    </div>
    <!-- /.modal --> 
   </div> 
-  <script src="js/common.js" type="text/javascript"></script>
-  <script src="js/jquery.js" type="text/javascript"></script>
-  <script type="text/javascript">
-      $(function(){
-          $(".change2").addClass('active');            
-      })
-  </script>
+  

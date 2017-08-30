@@ -30,3 +30,6 @@ Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
 Route::get('member_invite', 'MemberInviteController@index');
+Route::get('address', 'MemberInfoController@getAddress');
+Route::get('upload', 'MemberInfoController@upload');
+Route::post('member_info', 'MemberInfoController@index');
