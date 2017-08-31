@@ -9,6 +9,8 @@ use Validator;
 use Illuminate\Support;
 use Illuminate\Support\Facades\Input;
 use App\Http\Models\User;
+use App\Http\Models\Purse;
+use App\Http\Models\Message;
 use App\Http\Models\log;
 use session;
 
@@ -82,7 +84,20 @@ class LoginController extends Controller
 			if($info){
 				$request->session()->put('user_name',$user->user_name);
 				$request->session()->put('user_id',$user_id);
-				return redirect()->action('fronted\IndexController@index');
+				$purse = new Purse;
+				$message = new Message;
+				$purse->user_id = $user_id;
+				$message->user_id = $user_id;
+				$message->message_name = $request['user_name'];
+				$result = $purse->save();
+				$bloon = $message->save();
+				if($result && $bloon){
+					return redirect('prompt')->with(['message'=>'注册成功！正在跳转……','url' =>'index', 'jumpTime'=>3,'status'=>false]);
+				}else{
+					return redirect('prompt')->with(['message'=>'注册失败！请重新注册……','url' =>'register', 'jumpTime'=>3,'status'=>false]);
+				}
+			}else{
+				return redirect('prompt')->with(['message'=>'注册失败！请重新注册……','url' =>'register', 'jumpTime'=>3,'status'=>false]);
 			}
 	    }else{
 	    	return view('fronted.Login.reg');
