@@ -17,7 +17,7 @@ class MemberPayController extends Controller
 	{
      $user_id=$user_id=$request->session()->get('user_id');
      $Purse = Purse::where('user_id',$user_id)->first()->toArray();//钱包
-		return view('fronted/member_pay',['Purse'=>$Purse]);
+		return view('fronted.member_pay',['Purse'=>$Purse]);
 	}
     /**
    * 充值
@@ -32,7 +32,7 @@ class MemberPayController extends Controller
       {
         $user_id=$user_id=$request->session()->get('user_id');
         $Purse = Purse::where('user_id',$user_id)->first()->toArray();//钱包
-        return view('fronted/member_pay/member_charge',['Purse'=>$Purse]);
+        return view('fronted.member_pay.member_charge',['Purse'=>$Purse]);
       }   
   }
   /**
@@ -40,7 +40,7 @@ class MemberPayController extends Controller
    */
   public function chargeSuccess()
   {
-     return view('fronted/member_pay/charge_success');
+     return view('fronted.member_pay.charge_success');
   }
 	/**
 	 * 提现
@@ -63,11 +63,11 @@ class MemberPayController extends Controller
        if(isset($arr))
        {
        	//提现页面
-         return view('fronted/member_pay/put_our',['arr'=>$arr,'Purse'=>$Purse,'data'=>$data]);
+         return view('fronted.member_pay.put_our',['arr'=>$arr,'Purse'=>$Purse,'data'=>$data]);
        }else
        {
        	//添加
-         return view('fronted/member_pay/put_pay',['data'=>$data]);
+         return view('fronted.member_pay.put_pay',['data'=>$data]);
        } 
 	}
     /**
@@ -111,6 +111,6 @@ class MemberPayController extends Controller
      */
     public function putSuccess()
     {
-      return view('fronted/member_pay/put_success');
+      return view('fronted.member_pay.put_success');
     }
 }

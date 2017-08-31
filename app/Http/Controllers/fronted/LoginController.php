@@ -27,8 +27,7 @@ class LoginController extends Controller
         	$userInfo=user::where("user_name",$request['username'])
         	->first();
         	if(empty($userInfo)){
-        		return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'register', 'jumpTime'=>2,'status'=>false]);
-	           	
+        		return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'register', 'jumpTime'=>2,'status'=>false]);   	
         	}else{
         		$userInfo=$userInfo->toArray();
         		if($request['pwd']==decrypt($userInfo['user_pwd'])){
@@ -37,11 +36,10 @@ class LoginController extends Controller
         			return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'index', 'jumpTime'=>2,'status'=>false]);
 	        	}else{
 	        		return redirect('prompt')->with(['message'=>'密码错误！','url' =>'login', 'jumpTime'=>2,'status'=>false]);
-	           		
 	        	}
         	}
         }else{
-        	return view('fronted/Login/login');
+        	return view('fronted.Login.login');
         }
 	}
 

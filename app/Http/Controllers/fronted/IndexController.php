@@ -16,6 +16,6 @@ class IndexController extends Controller
 		if($purseInfo!=null){
 			$purseInfo=$purseInfo->toArray();
 		}
-		return view('fronted/Index/index',array('purseInfo'=>$purseInfo));
+		return view('fronted.Index.index',array('purseInfo'=>$purseInfo));
 	}
 }

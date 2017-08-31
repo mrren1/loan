@@ -39,6 +39,13 @@
                     <ul class="sub">
                         <li><a  href="adminuser_my_loan">我的贷款</a></li><li><a href="adminuser_trtl">偿还贷款</a></li><li><a href="adminuser_ls">贷款统计</a></li></ul>
                 </li>
+                <li class="item" id="user_menu_my" name="user_menu_my">
+                    <h3 class="t1">
+                        权限管理<span title="折叠"></span></h3>
+                    <ul class="sub">
+                        <li><a href="addrole">添加角色</a></li><li><a href="listrole">角色列表</a></li>
+                        <li><a href="addpower">分配权限</a></li><li><a href="listpower">权限列表</a></li>
+                </li>
             </ul>
             <script type="text/javascript">
                 var menuClosed = Ops.getCookie('menuClosed');

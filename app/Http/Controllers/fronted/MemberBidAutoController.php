@@ -9,6 +9,6 @@ class MemberBidAutoController extends Controller
 {
 	public function index()
 	{
-		return view('fronted/member_bid_auto');
+		return view('fronted.member_bid_auto');
 	}
 }
