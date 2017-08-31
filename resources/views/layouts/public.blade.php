@@ -33,67 +33,68 @@
     <body>
         @section('sidebar')
       <!--header--> 
-       <header class="sl-header" ng-controller="HeaderCtrl" id="sl-header"> 
-        <nav class="navbar navbar-inverse navbar-static-top site-nav" role="navigation"> 
-         <div class="container"> 
-          <!-- Contact info --> 
-          <ul class="nav navbar-nav site-nav-sns"> 
-           <li class="site-nav-sns-phone"><span class="navbar-text">客服热线：400-921-9218</span></li> 
-           <li> <a href="#" class="icon-sns qq"> 
-             <div class="social-content"> 
-              <p class="social-title">点融网官方QQ群</p> 
-              <p>141444867</p> 
-             </div> </a> </li> 
-           <li> <a href="http://weibo.com/dianrongwang" target="_blank" class="icon-sns weibo" rel="nofollow"></a> </li> 
-           <li> <a href="#" class="icon-sns wechat"> 
-             <div class="social-content"> 
-              <p class="social-title">扫描关注微信公众号</p> 
-              <p><img src="images/qr-code.jpg" /></p> 
-             </div> </a> </li> 
-          </ul> 
-          @if(Session::has('user_name'))
-          <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-           <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
-             <li><a href="out">退出</a></li> 
-          </ul>
-          @else
-          <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
-           <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
-           <li><a id="create-account" href="register" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
-          </ul> 
-          @endif 
-         </div> 
-        </nav> 
-        <div class="site-menu"> 
-         <div class="header-navbar-container sl-nav-wrapper header-nav-container"> 
-          <nav class="navbar navbar-static-top sl-navbar" role="navigation"> 
-           <div class="container"> 
-            <div class="navbar-header  col-xs-6"> 
-             <button type="button" class="navbar-toggle"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
-             <a class="navbar-brand" href="index"> <span class="sl-logo">点融网 - DianRong</span> </a> 
-            </div> 
-            <div class=" navbar-collapse navbar-ex1-collapse sl-nav"> 
-             <ul class="nav navbar-nav main-menu navbar-right"> 
-              <!--menus--> 
-              <li class="main-link-list" ng-class="{active:isActive('/market')}"> <a class="main-link" href="market"> <span class="main-link-text">我要贷款</span> </a> </li> 
-              <li class="main-link-list" ng-class="{active:isActive('/public/help-center')}"> <a class="main-link" href="help"> <span class="main-link-text">帮助中心</span> </a> </li> 
-              <li class="main-link-list" ng-class="{active:isActive('/public/about')}"> <a class="main-link" href="about"> <span class="main-link-text">关于我们</span> </a> </li> 
-               <li class="main-link-list" ng-class="{active:isActive('/public/about')}"> <a class="main-link" href="setloan"> <span class="main-link-text">发布贷款</span> </a> </li> 
-             </ul> 
-            </div> 
-            <!-- /.navbar-collapse --> 
-           </div> 
-          </nav> 
-         </div> 
-         <!--secondaryNav--> 
-         <!--jumbotron--> 
+       <header class="sl-header new-header ng-scope" ng-controller="HeaderCtrl" id="sl-header"> 
+    <nav class="navbar navbar-inverse navbar-static-top site-nav " role="navigation"> 
+     <div class="container new-home-container"> 
+      <ul class="nav navbar-nav site-nav-sns "> 
+       <li> <a href="#" class="icon-sns qq"> 
+         <div class="social-content"> 
+          <p class="social-title">点融网官方QQ群</p> 
+          <p>141444867</p> 
+         </div> </a> </li> 
+       <li> <a href="http://weibo.com/dianrongwang" target="_blank" class="icon-sns weibo" rel="nofollow"></a> </li> 
+       <li> <a href="#" class="icon-sns wechat"> 
+         <div class="social-content"> 
+          <p class="social-title">扫描关注微信公众号</p> 
+          <p><img src="images/qr-code.jpg" /></p> 
+         </div> </a> </li> 
+      </ul> 
+      @if(Session::has('user_name'))
+      <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
+       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
+         <li><a href="out">退出</a></li> 
+      </ul>
+      @else
+      <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
+       <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
+       <li><a id="create-account" href="register" class="btn btn-sm" rel="nofollow">注册账户</a></li> 
+      </ul> 
+      @endif 
+     </div> 
+    </nav> 
+    <div class="site-menu"> 
+     <div class="header-navbar-container sl-nav-wrapper header-nav-container"> 
+      <nav class="navbar navbar-static-top sl-navbar" role="navigation"> 
+       <div class="container"> 
+        <div class="navbar-header  col-xs-2"> 
+         <a class="navbar-brand" href="index"> <span class="sl-logo">点融网 - DianRong</span> </a> 
         </div> 
-       </header> 
+        <div class="sl-nav col-xs-10"> 
+         <ul class="nav navbar-nav main-menu"> 
+          <!--menus--> 
+          <li class="main-link-list"> <a class="main-link" href="index"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">首页</span> </a> </li> 
+          <li class="main-link-list"> <a class="main-link" href="market"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">我要借款</span> </a> </li> 
+          <li class="main-link-list"> <a class="main-link" href="about"> <span class="sl-icon-bold-linkman"></span> <span class="main-link-text">关于我们</span> </a> </li> 
+          <li class="main-link-list"> <a class="main-link" href="help"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">帮助中心</span> </a> </li> 
+          <li class="main-link-list"> <a class="main-link" href="setloan"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">发布代款</span> </a> </li>
+          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> <span> 400-921-9218</span> </li> 
+          <li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> 
+         </ul> 
+        </div> 
+        <!-- /.navbar-collapse --> 
+       </div> 
+      </nav> 
+     </div> 
+     <!--secondaryNav--> 
+     <!--jumbotron--> 
+    </div> 
+   </header> 
         @show
 
         <div class="container">
             @yield('content')
         </div>
+        @section('footbar')
         <!--footer--> 
        <div class="bottom-menu bottom-menu-large bottom-menu-inverse sl-footer open-bottom footer-animate  footer-navbar"> 
         <div class="container inside-container"> 
@@ -189,5 +190,7 @@
          </div> 
         </div> 
        </div> 
+        @show
     </body>
 </html>
+
