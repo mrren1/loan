@@ -16,7 +16,6 @@ Route::get('/','fronted\IndexController@index');
 
 //页面控制提示并跳转
 Route::resource('prompt','fronted\PromptController');
-
 Route::get('index', 'fronted\IndexController@index');
 Route::get('login', 'fronted\LoginController@index');
 Route::get('register', 'fronted\LoginController@register');
@@ -69,12 +68,12 @@ Route::post('debt',
 Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
-
 Route::post('Add_bank','fronted\MemberPayController@Add_bank');
 Route::post('addPut','fronted\MemberPayController@addPut');
 Route::any('putSuccess','fronted\MemberPayController@putSuccess');
 Route::any('chargeSuccess','fronted\MemberPayController@chargeSuccess');
 Route::any('memberCharge','fronted\MemberPayController@memberCharge');
+
 
 
 //我是后台  个人用户相关
@@ -100,3 +99,8 @@ Route::get('adminuser_fs', 'backend\UserController@user_fs');       //理财统�
 Route::get('adminuser_my_loan', 'backend\UserController@user_my_loan');   //我的贷款
 Route::get('adminuser_trtl', 'backend\UserController@user_trtl');   //偿还贷款
 Route::get('adminuser_ls', 'backend\UserController@user_ls'); 		//债款统计
+
+Route::get('addrole', 'backend\RbacController@role');          //添加角色
+Route::get('listrole', 'backend\RbacController@roleList');	   //角色列表
+Route::get('addpower', 'backend\RbacController@power');		   //分配权限
+Route::get('listpower', 'backend\RbacController@powerList');   //权限列表
