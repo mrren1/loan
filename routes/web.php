@@ -79,7 +79,7 @@ Route::any('memberCharge','fronted\MemberPayController@memberCharge');
 
 //我是后台  个人用户相关
 //后台登陆
-Route::get('admin/','backend\LoginController@index');
+Route::any('admin/','backend\LoginController@index');
 
 Route::get('adminuser', 'backend\UserController@index');         	//个人主页
 Route::get('adminuser_info', 'backend\UserController@userinfo');    //个人资料

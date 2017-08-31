@@ -36,7 +36,7 @@ input {
     width: 270px;
     height: 42px;
     margin-top: 25px;
-    padding: 0 15px;
+    padding: 0 10px;
     background: #2d2d2d; /* browsers that don't support rgba */
     background: rgba(45,45,45,.15);
     -moz-border-radius: 6px;
