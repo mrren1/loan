@@ -48,13 +48,25 @@ Route::get('member_trade', 'fronted\MemberTradeController@index');
 Route::get('member_pay', 'fronted\MemberPayController@index');
 Route::get('member_bank', 'fronted\MemberBankController@index');
 Route::get('out', 'fronted\LoginController@quit');
+Route::get('setloan', 'fronted\SetloanController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
+Route::get('debt', 'fronted\OfferController@index');
 Route::post('register', 
 [
     'uses'=>'fronted\LoginController@register',
     'as'=>'register',
 ]);
-
+Route::post('setloan', 
+[
+    'uses'=>'fronted\SetloanController@index',
+    'as'=>'setloan',
+]);
+Route::post('debt', 
+[
+    'uses'=>'fronted\OfferController@index',
+    'as'=>'debt',
+]);
+Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
 
