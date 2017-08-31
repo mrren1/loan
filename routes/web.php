@@ -77,26 +77,28 @@ Route::any('chargeSuccess','fronted\MemberPayController@chargeSuccess');
 Route::any('memberCharge','fronted\MemberPayController@memberCharge');
 
 
-//我是后台  个人用户相关
+
 //后台登陆
 Route::get('admin/','backend\LoginController@index');
+//首页
+Route::get('admin_index/','backend\AdminController@index');
+Route::get('welcome','backend\AdminController@welcome');
+//权限管理
+Route::any('role','backend\RbacController@admin_role');
+Route::any('role_add','backend\RbacController@admin_role_add');
+Route::any('permission','backend\RbacController@admin_permission');
+Route::any('permission_add','backend\RbacController@admin_permission_add');
+Route::any('admin_list','backend\RbacController@admin_list');
+Route::any('admin_add','backend\RbacController@admin_add');
+//会员管理
+Route::any('member_list','backend\MemberController@member_list');
+Route::any('member_sign','backend\MemberController@member_sign');
+Route::any('sign_add','backend\MemberController@sign_add');
+//广告管理
+Route::any('ad_list','backend\AdController@ad_list');
+Route::any('ad_add','backend\AdController@ad_add');
+//贷款管理
+Route::any('loan_list','backend\LoanController@loan_list');
+//资金管理
+Route::any('purse_list','backend\PurseController@purse_list');
 
-Route::get('adminuser', 'backend\UserController@index');         	//个人主页
-Route::get('adminuser_info', 'backend\UserController@userinfo');    //个人资料
-Route::get('adminuser_uaac', 'backend\UserController@user_uaac');   //认证管理
-Route::get('adminuser_ra', 'backend\UserController@user_ra');       //推荐有奖
-Route::get('adminuser_pwd', 'backend\UserController@user_pwd');     //密码设置
-
-Route::get('adminuser_mr', 'backend\UserController@user_mr'); 		//资金记录		
-Route::get('adminuser_pay_rank', 'backend\UserController@user_pay_rank'); //充值记录
-Route::get('adminuser_wr', 'backend\UserController@user_wr');       //提现记录
-Route::get('adminuser_tph', 'backend\UserController@user_tph');   	//三方托管
-
-Route::get('adminuser_mi', 'backend\UserController@user_mi');		//我的投资
-Route::get('adminuser_crt', 'backend\UserController@user_crt');		//债权转让
-Route::get('adminuser_ab', 'backend\UserController@user_ab'); 		//自动投标
-Route::get('adminuser_fs', 'backend\UserController@user_fs');       //理财统计
-
-Route::get('adminuser_my_loan', 'backend\UserController@user_my_loan');   //我的贷款
-Route::get('adminuser_trtl', 'backend\UserController@user_trtl');   //偿还贷款
-Route::get('adminuser_ls', 'backend\UserController@user_ls'); 		//债款统计
