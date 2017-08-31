@@ -77,8 +77,9 @@ Route::any('memberCharge','fronted\MemberPayController@memberCharge');
 
 
 
+
 //后台登陆
-Route::get('admin/','backend\LoginController@index');
+Route::any('admin_login/','backend\LoginController@index');
 //首页
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
