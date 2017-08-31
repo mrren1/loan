@@ -94,7 +94,7 @@ class MemberPayController extends Controller
        $put->user_id = $user_id;
        $success=$put->save();
        if($success){
-         return redirect('prompt')->with(['message'=>'添加成功','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
+         return redirect('prompt')->with(['message'=>'','url' =>'member_mention', 'jumpTime'=>2,'status'=>false]);
        }else{
          return redirect('prompt')->with(['message'=>'添加失败','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
        }
