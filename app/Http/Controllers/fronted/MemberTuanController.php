@@ -9,6 +9,6 @@ class MemberTuanController extends Controller
 {
 	public function index()
 	{
-		return view('fronted/member_tuan');
+		return view('fronted.member_tuan');
 	}
 }

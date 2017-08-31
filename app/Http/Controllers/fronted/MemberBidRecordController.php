@@ -9,6 +9,6 @@ class MemberBidRecordController extends Controller
 {
 	public function index()
 	{
-		return view('fronted/member_bid_record');
+		return view('fronted.member_bid_record');
 	}
 }
