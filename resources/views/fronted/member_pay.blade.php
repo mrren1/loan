@@ -92,11 +92,14 @@
 <span class="sl-icon-credit-card" style="align:left"></span>
 提现
 </a>
-<a class="btn btn-primary btn-embossed"  href="memberCharge">
+<a class="btn btn-primary btn-embossed" ng-click="checkLoggedIn('load')">
 <span class="sl-icon-piggy-bank" style="align:left"></span>
 充值
 </a>
-
+<a class="btn btn-primary btn-embossed" ng-click="checkLoggedIn('load')">
+<span class="sl-icon-piggy-bank" style="align:right"></span>
+转账
+</a>
 </center>
 </div>
 </div>

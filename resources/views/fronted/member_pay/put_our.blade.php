@@ -69,6 +69,7 @@
 @else
   <small>{{$Purse['purse_sum']}}元</small> 
 @endif
+<small>.00元</small>
 </span>
 </h6>
 <div class="form-horizontal">
