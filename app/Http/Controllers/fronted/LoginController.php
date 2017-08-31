@@ -28,17 +28,16 @@ class LoginController extends Controller
         	->first();
         	if(empty($userInfo)){
         		return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'register', 'jumpTime'=>2,'status'=>false]);
-	           	exit;
+	           	
         	}else{
         		$userInfo=$userInfo->toArray();
         		if($request['pwd']==decrypt($userInfo['user_pwd'])){
         			$request->session()->put('user_id',$userInfo['user_id']);
         			$request->session()->put('user_name',$userInfo['user_name']);
         			return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'index', 'jumpTime'=>2,'status'=>false]);
-	           		exit;
 	        	}else{
 	        		return redirect('prompt')->with(['message'=>'密码错误！','url' =>'login', 'jumpTime'=>2,'status'=>false]);
-	           		exit;
+	           		
 	        	}
         	}
         }else{
