@@ -269,7 +269,11 @@
 <div class="col-xs-8">
 <span class="display-block bind-red ng-binding" ng-bind="pwdMsg.msg | addAsterisk"></span>
 <span class="btn-group">
+@if($message==null)
 <a class="btn btn-secondary btn-confirm" id="block">添加</a>
+@else
+<a class="btn btn-secondary bind-blue btn-hollow" id="update">修改</a>
+@endif
 </span>
 </div>
 </div>
@@ -279,6 +283,7 @@
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.realName">
   <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="message_name" placeholder="输入您的真实姓名"></span>
+  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" name="message_name" value="{{$message['message_name']}}"></span>
   <span id="show">{{$message['message_name']}}</span>
 </span>
 </div>
@@ -477,7 +482,8 @@
 </table>
 @endif
 <div class="row">
-<input type="submit" style="display:none" id="btn" class="close sl-icon-cross" value="提交">
+
+<input type="submit" style="display:none" id="btn" class="btn btn-secondary btn-confirm" value="提交">
 </div>
 
 </form>
