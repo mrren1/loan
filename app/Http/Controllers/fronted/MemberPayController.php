@@ -15,9 +15,8 @@ class MemberPayController extends Controller
 {
 	public function index(Request $request)
 	{
-     $user_id = $request->session()->get('user_id');
-     $purseModel = new Purse();
-     $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
+     $user_id=$user_id=$request->session()->get('user_id');
+     $Purse = Purse::where('user_id',$user_id)->first()->toArray();//钱包
 		return view('fronted/member_pay',['Purse'=>$Purse]);
 	}
     /**
@@ -31,9 +30,8 @@ class MemberPayController extends Controller
         
       }else
       {
-        $user_id = $request->session()->get('user_id');
-        $purseModel = new Purse();
-        $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
+        $user_id=$user_id=$request->session()->get('user_id');
+        $Purse = Purse::where('user_id',$user_id)->first()->toArray();//钱包
         return view('fronted/member_pay/member_charge',['Purse'=>$Purse]);
       }   
   }
@@ -48,22 +46,20 @@ class MemberPayController extends Controller
 	 * 提现
 	 * 渲染模板
 	 */
-	public function member_mention()
+	public function member_mention(Request $request)
 	{
 	  $data=
 	  [
 		'ICBC'=>'中国工商银行','ABC' =>'中国农业银行','BOC' =>'中国银行','CCB' =>'中国建设银行',
 		'BC' =>'交通银行','CB' =>'中信银行','CEB' =>'中国光大银行','HB' =>'华夏银行',
 		'CMB'=>'中国民生银行','SDB'=>'深圳发展银行','MB' =>'招商银行','IB' =>'兴业银行',
-        'SPDB'=>'上海浦东发展银行','BOB'=>'北京银行','CCMB'=>'城市商业银行','RCC'=>'农村信用合作社',
+    'SPDB'=>'上海浦东发展银行','BOB'=>'北京银行','CCMB'=>'城市商业银行','RCC'=>'农村信用合作社',
 		'SB' =>'盛京银行','BOT'=>'天津银行','BON'=>'宁波银行','CHB'=>'重庆银行','BONA'=>'南京银行',
 		'BOJ'=>'江苏银行','SPB'=>'深圳平安银行','PSBC'=>'中国邮政储蓄银行',
        ];
-	     $user_id = $request->session()->get('user_id');
-       $put = new Put();
-       $purseModel = new Purse();
-	     $Purse = $this->objectToArray($purseModel->GetAll($user_id));//钱包
-       $arr = $this->objectToArray($put->GetAll($user_id));//个人银行信息
+	     $user_id=$request->session()->get('user_id');
+	     $Purse = Purse::where('user_id',$user_id)->first()->toArray();
+       $arr= Put::where('user_id',$user_id)->first()->toArray();//个人银行信息
        if(isset($arr))
        {
        	//提现页面
@@ -79,7 +75,7 @@ class MemberPayController extends Controller
      */
     public function Add_bank(Request $request)
     {
-       $user_id = $request->session()->get('user_id');
+       $user_id=$request->session()->get('user_id');
        $put = new Put();
        $input = $request->all();
        if(empty($input['card_name']) || empty($input['put_num']) || empty($input['put_name']))
@@ -117,8 +113,4 @@ class MemberPayController extends Controller
     {
       return view('fronted/member_pay/put_success');
     }
-	//先编码成json字符串，再解码成数组
-	function objectToArray($object) {
-    return json_decode(json_encode($object), true);
-   }
 }
