@@ -66,10 +66,11 @@
 </div>
 </div>
 </div>
+
 <div class="form-group">
-<label class="col-xs-3 col-xs-offset-1 control-label">贷款描述</label>
+<label class="col-xs-3 col-xs-offset-1 control-label">最低贷款金额</label>
 <div class="col-xs-7">
-<textarea name="lend_desc" cols="40" rows="8"></textarea>
+<input name="lend_lack" class="form-control ng-pristine ng-invalid ng-invalid-required">
 <div class="ng-hide ng-scope" name="" sl-validation-errors="">
 </div>
 </div>
@@ -82,7 +83,14 @@
 </div>
 </div>
 </div>
-
+<div class="form-group">
+<label class="col-xs-3 col-xs-offset-1 control-label">贷款描述</label>
+<div class="col-xs-7">
+<textarea name="lend_desc" cols="40" rows="8"></textarea>
+<div class="ng-hide ng-scope" name="" sl-validation-errors="">
+</div>
+</div>
+</div>
 <div class="form-group">
 <div class="card-set-as-default col-xs-4 col-xs-offset-4">
 <div class="modal-footer">

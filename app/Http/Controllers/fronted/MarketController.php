@@ -6,6 +6,7 @@ use App\Market;
 use App\Http\Controllers\fronted\Controller;
 use App\Http\Models\Lend;
 use App\Http\Models\User;
+use App\Http\Models\Debt;
 
 class MarketController extends Controller
 {
@@ -15,7 +16,7 @@ class MarketController extends Controller
 
 		$lendArr=$this->getLendInfo($lend);
 		
-		return view('fronted.Market.market',array('lendArr'=>$lendArr));
+		return view('fronted/Market/market',array('lendArr'=>$lendArr));
 	}
 
 	/**
@@ -27,6 +28,8 @@ class MarketController extends Controller
 		foreach($lends as $key=>$lend){
 			$tmpUserInfo=User::where('user_id',$lend['user_id'])->select('user_name','user_photo')->first()->toArray();
 			$lends[$key]['userInfo']=$tmpUserInfo;
+			$lendNum=Debt::where('from_id',$lend['lend_id'])->count();
+			$lends[$key]['lendNum']=$lendNum;
 		}
 		return $lends;
 	}
