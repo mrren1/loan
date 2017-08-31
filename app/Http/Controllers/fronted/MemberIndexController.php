@@ -11,16 +11,11 @@ use App\Http\Controllers\fronted\Controller;
 
 class MemberIndexController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$user_id=7;//用户id
-		$purseModel = new Purse();
-		$Purse = $this->objectToArray($purseModel->GetAll($user_id));//获取用户钱包数据
+		$user_id=$request->session()->get('user_id');
+		$Purse = Purse::where('user_id',$user_id)->first()->toArray();//获取用户钱包数据
 		return view('fronted/member_index',['Purse'=>$Purse]);
 	}
-	
-	//先编码成json字符串，再解码成数组
-	function objectToArray($object) {
-    return json_decode(json_encode($object), true);
-   }
+
 }

@@ -72,17 +72,17 @@
 <div class="col-xs-6 cashText">可用余额</div>
 <div class="col-xs-6 cashNumber ng-binding" ng-bind-html="summary.availableCash|slMoney">
 @if ($Purse['purse_sum'] == 0)
-    <small>0.00元</small>
+    <small>0元</small>
 @else
-  <small>{{$Purse['purse_sum']}}.00元</small> 
+  <small>{{$Purse['purse_sum']}}元</small> 
 @endif
 </div>
 <div class="col-xs-6 cashText">可提现金额</div>
 <div class="col-xs-6 cashNumber ng-binding" ng-bind-html="summary.availableWithdrawCash |slMoney">
 @if ($Purse['purse_sum'] == 0)
-    <small>0.00元</small>
+    <small>0元</small>
 @else
-  <small>{{$Purse['purse_sum']}}.00元</small> 
+  <small>{{$Purse['purse_sum']}}元</small> 
 @endif
 </div>
 </div>
