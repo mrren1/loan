@@ -31,7 +31,7 @@
 
         <div class="page-container">
             <h1>Login</h1>
-            <form action="{{url('admin')}}" method="post">
+            <form action="{{url('admin_login')}}" method="post">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <input type="text" name="admin_name" class="username" placeholder="Username">
                 <input type="password" name="admin_pwd" class="password" placeholder="Password">

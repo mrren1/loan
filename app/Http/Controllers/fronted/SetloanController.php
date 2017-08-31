@@ -21,6 +21,7 @@ class SetloanController extends Controller
 			$setloan->lend_time = $request['lend_time'];
 			$setloan->lend_money = $request['lend_money'];
 			$setloan->lend_desc = $request['lend_desc'];
+			$setloan->lend_lack = $request['lend_lack'];
 			$usance = $request['lend_interest'];
 			$lend_interest = substr($usance,0,strpos($usance,'%'));
 			$setloan->lend_interest = ($lend_interest/100);
@@ -29,7 +30,7 @@ class SetloanController extends Controller
 				return redirect('prompt')->with(['message'=>'发布贷款成功','url' =>'index', 'jumpTime'=>3,'status'=>false]);
 			}
 		}else{
-			return view('fronted/setloan');
+			return view('fronted.setloan.setloan');
 		}
 	}
 

@@ -21,7 +21,7 @@ class LoginController extends Controller
                $validator = Validator::make(Input::all(), $captcha);
                if($validator->fails())
                {
-                   return redirect('prompt')->with(['message'=>'验证码错误！','url' =>'admin', 'jumpTime'=>2,'status'=>false]);
+                   return redirect('prompt')->with(['message'=>'验证码错误！','url' =>'admin_login', 'jumpTime'=>2,'status'=>false]);
                     
                }
                else
@@ -29,7 +29,7 @@ class LoginController extends Controller
                    $admin_arr=admin::where("admin_name",$request['admin_name'])->first();
                     if(empty($admin_arr))
                     {
-                         return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'admin', 'jumpTime'=>2,'status'=>false]);
+                         return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'admin_login', 'jumpTime'=>2,'status'=>false]);
                          
                     }
                     else
@@ -44,7 +44,7 @@ class LoginController extends Controller
                               return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'admin_index', 'jumpTime'=>2,'status'=>false]);
                     }
                     else{
-                         return redirect('prompt')->with(['message'=>'密码错误！','url' =>'admin', 'jumpTime'=>2,'status'=>false]);
+                         return redirect('prompt')->with(['message'=>'密码错误！','url' =>'admin_login', 'jumpTime'=>2,'status'=>false]);
                               
                          }
                     }
