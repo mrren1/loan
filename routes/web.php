@@ -16,7 +16,6 @@ Route::get('/','fronted\IndexController@index');
 
 //页面控制提示并跳转
 Route::resource('prompt','fronted\PromptController');
-
 Route::get('index', 'fronted\IndexController@index');
 Route::get('login', 'fronted\LoginController@index');
 Route::get('register', 'fronted\LoginController@register');
@@ -69,7 +68,6 @@ Route::post('debt',
 Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
-
 Route::post('Add_bank','fronted\MemberPayController@Add_bank');
 Route::post('addPut','fronted\MemberPayController@addPut');
 Route::any('putSuccess','fronted\MemberPayController@putSuccess');
@@ -81,3 +79,31 @@ Route::post('jia_upload', 'fronted\MemberInfoController@jia_upload');
 Route::post('img_upload', 'fronted\MemberInfoController@img_upload');
 Route::post('id_upload', 'fronted\MemberInfoController@id_upload');
 Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
+
+
+
+
+
+//后台登陆
+Route::any('admin_login/','backend\LoginController@index');
+//首页
+Route::get('admin_index/','backend\AdminController@index');
+Route::get('welcome','backend\AdminController@welcome');
+//权限管理
+Route::any('role','backend\PowerController@admin_role');
+Route::any('role_add','backend\PowerController@admin_role_add');
+Route::any('permission','backend\PowerController@admin_permission');
+Route::any('permission_add','backend\PowerController@admin_permission_add');
+Route::any('admin_list','backend\PowerController@admin_list');
+Route::any('admin_add','backend\PowerController@admin_add');
+//会员管理
+Route::any('member_list','backend\MemberController@member_list');
+Route::any('member_sign','backend\MemberController@member_sign');
+Route::any('sign_add','backend\MemberController@sign_add');
+//广告管理
+Route::any('ad_list','backend\AdController@ad_list');
+Route::any('ad_add','backend\AdController@ad_add');
+//贷款管理
+Route::any('loan_list','backend\LoanController@loan_list');
+//资金管理
+Route::any('purse_list','backend\PurseController@purse_list');

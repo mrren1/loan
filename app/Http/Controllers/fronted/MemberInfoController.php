@@ -129,7 +129,7 @@ class MemberInfoController extends Controller
 			//查询地区表的顶级id	
 			$address=Address::where('parent_id',0)->get()->toArray();
 			//print_r($address);die;
-			return view('fronted/MemberInfo/member_info',['user'=>$user,'data'=>$data,'address'=>$address,'message'=>$message,'salary'=>$salary]);
+			return view('fronted.MemberInfo.member_info',['user'=>$user,'data'=>$data,'address'=>$address,'message'=>$message,'salary'=>$salary]);
 		}
 	}
 	 /**

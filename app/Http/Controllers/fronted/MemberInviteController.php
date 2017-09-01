@@ -9,6 +9,6 @@ class MemberInviteController extends Controller
 {
 	public function index()
 	{
-		return view('fronted/member_invite');
+		return view('fronted.member_invite');
 	}
 }

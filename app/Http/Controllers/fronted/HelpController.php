@@ -8,6 +8,6 @@ class HelpController extends Controller
 {
 	public function index()
 	{
-		return view('fronted/help');
+		return view('fronted.help');
 	}
 }
