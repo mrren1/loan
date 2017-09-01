@@ -25,66 +25,18 @@
 </head>
 <body>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-admin-add">
+	<form class="form form-horizontal" id="form-admin-add" method="post" action="{{route('addpower')}}">
+	<input type="hidden" name="_token" value="{{ Session::token() }}">
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="adminName">
+			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="node_name">
 		</div>
 	</div>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限描述：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-			<div class="radio-box">
-				<input name="sex" type="radio" id="sex-1" checked>
-				<label for="sex-1">男</label>
-			</div>
-			<div class="radio-box">
-				<input type="radio" id="sex-2" name="sex">
-				<label for="sex-2">女</label>
-			</div>
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" placeholder="@" name="email" id="email">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">角色：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="adminRole" size="1">
-				<option value="0">超级管理员</option>
-				<option value="1">总编</option>
-				<option value="2">栏目主辑</option>
-				<option value="3">栏目编辑</option>
-			</select>
-			</span> </div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">备注：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			<textarea name="node_desc" id="" cols="40" rows="10"></textarea>
 		</div>
 	</div>
 	<div class="row cl">

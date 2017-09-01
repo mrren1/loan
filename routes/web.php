@@ -115,3 +115,8 @@ Route::any('ad_add','backend\AdController@ad_add');
 Route::any('loan_list','backend\LoanController@loan_list');
 //资金管理
 Route::any('purse_list','backend\PurseController@purse_list');
+Route::post('addpower', 
+[
+    'uses'=>'backend\PurseController@admin_add_power',
+    'as'=>'addpower',
+]);
