@@ -43,35 +43,37 @@
 </div>
 <div class="alert alert-info">
 <p>
-为保证借款成功，请填写相关信息
-<strong class="ng-binding"></strong>
+总贷款总金额为<font color="red">{{$lendInfo['lend_money']}}</font>元，目前剩余<font color="red">{{$lendInfo['lend_money']-$lendInfo['lend_used']}}</font>元，利率为<font color="red">{{$lendInfo['lend_interest']*100}}%</font>，最低借款为：<font color="red">{{$lendInfo['lend_lack']}}</font>元，您的贷款额度最多为<font color="red">{{$userMessage['message_limit']}}</font>元。
+<strong class="ng-binding"></strong><span id="lilv" style="display:none;">{{$lendInfo['lend_interest']}}</span>
 </p>
 </div>
 <form class="form-horizontal ng-pristine ng-invalid ng-invalid-required" action="{{ route('debt') }}" method="post">
 <input type="hidden" value="{{ Session::token() }}" name="_token"/>
 <input type="hidden" value="{{$from_id}}" name="from_id">
-<div class="form-group">
-<label class="col-xs-3 col-xs-offset-1 control-label">借款时间</label>
-<div class="col-xs-7">
-<input class="form-control ng-pristine ng-invalid ng-invalid-required" type="text" name="debt_btime">
-<div class="ng-hide ng-scope" name="card_name" sl-validation-errors="">
-</div>
-</div>
-</div>
 
 <div class="form-group">
 <label class="col-xs-3 col-xs-offset-1 control-label">借款金额</label>
 <div class="col-xs-7">
-<input class="form-control ng-pristine ng-invalid ng-invalid-required" type="text" name="debt_money">
+<span><input class="form-control ng-pristine ng-invalid ng-invalid-required" type="text" id="jisuan" style="display:inline;" name="debt_money">&nbsp;&nbsp;<span id="jieguo"></span></span>
 <div class="ng-hide ng-scope" name="" sl-validation-errors="">
 </div>
 </div>
 </div>
 
 <div class="form-group">
+<label class="col-xs-3 col-xs-offset-1 control-label">借款时间</label>
+<div class="col-xs-7">
+<input class="form-control ng-pristine ng-invalid ng-invalid-required" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})"  type="text" name="debt_btime">
+<div class="ng-hide ng-scope" name="card_name" sl-validation-errors="">
+</div>
+</div>
+</div>
+
+
+<div class="form-group">
 <label class="col-xs-3 col-xs-offset-1 control-label">还款时间</label>
 <div class="col-xs-7">
-<input class="form-control ng-pristine ng-invalid ng-invalid-required" type="text" name="debt_stime">
+<input class="form-control ng-pristine ng-invalid ng-invalid-required" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="debt_stime">
 <div class="ng-hide ng-scope" name="" sl-validation-errors="">
 </div>
 </div>
@@ -89,6 +91,20 @@
 </div>
 </div>
 </div>
+  <script src="js/common.js" type="text/javascript"></script>
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script type="text/javascript">
+      $(function(){
+          $(".change7").addClass('active');            
+      })
+      $('#jisuan').blur(function(){
+        var money=$(this).val();
+        var lilv=$('#lilv').text();
+        var sum=money/1*(1+lilv/1);
+        var aa=(sum.toFixed(3))/1;
+        $('#jieguo').html('共需要偿还'+aa+'元，本金:'+money+'+利息:'+(money/1*lilv/1).toFixed(2));
+      });
+  </script>
 @endsection
 
    <!-- Modal --> 
@@ -129,4 +145,8 @@
       $(function(){
           $(".change7").addClass('active');            
       })
+      $('#jisuan').blur(function(){
+        alert(1)
+      });
   </script>
+  <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
