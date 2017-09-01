@@ -24,28 +24,51 @@
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
+<center>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-admin-add">
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="adminName">
-		</div>
+	<input type="hidden" value="{{$role_id}}" id="role_id"/>
+	<div class="formControls col-xs-8 col-sm-9">
+		<dl class="permission-list">
+			<dt>
+				<label>已分配权限</label>
+			</dt>
+			<dd>
+				<dl class="cl permission-list2">
+					<dt id="have">
+					@foreach($nodeData['has'] as $val)
+						<label class="">
+							<input type="checkbox" value="{{$val['node_id']}}" name="has" id="user-Character-0-0" checked="checked">
+							{{$val['node_name']}}</label>
+					@endforeach
+					</dt>
+				</dl>
+			</dd>
+		</dl>
+		<dl class="permission-list">
+			<dt>
+				<label>未分配权限</label>
+			</dt>
+			<dd>
+				<dl class="cl permission-list2">
+					<dt id="none">
+					@foreach($nodeData['no'] as $val)
+						<label class="">
+							<input type="checkbox" value="{{$val['node_id']}}" name="no" id="user-Character-1-0">
+							{{$val['node_name']}}</label>
+					@endforeach
+					</dt>		
+				</dl>
+			</dd>
+		</dl>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">备注：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-			<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button type="button" class="btn btn-success radius" id="link"><i class="icon-ok"></i> 确定</button>
+			</div>
 		</div>
-	</div>
-	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
-	</form>
 </article>
+</center>
+
 
 <!--_footer 作为公共模版分离出去--> 
 <script type="text/javascript" src="admin/lib/jquery/1.9.1/jquery.min.js"></script> 
@@ -115,6 +138,46 @@ $(function(){
 	});
 });
 </script> 
+<script type="text/javascript">
+	$(function(){
+		$("#link").click(function(){
+			var role_id = $("#role_id").val();
+			var has = '';
+			var no = '';
+			$("input[name='has']:checked").each(function(){
+				has = has+','+$(this).val();
+			});
+			$("input[name='no']:checked").each(function(){
+				no = no+','+$(this).val();
+			});
+			has = has.substr(1);
+			no = no.substr(1);
+			$.ajax({
+				type: 'get',
+				url: 'setpower',
+				data: {has:has,no:no,role_id:role_id},
+				dataType: 'json',
+				success: function(result){
+					if(result == 0){
+						alert("分配权限失败");
+						return false;
+					}else{
+						var have = '';
+						var none = '';
+						$.each(result.has,function(k,v){
+							have = have+'<span> <input type="checkbox" name="has" value="'+v.node_id+'" checked="checked"> '+v.node_name+'</span>';
+						})
+						$.each(result.no,function(kk,vv){
+							none = none+'<span> <input type="checkbox" name="no" value="'+vv.node_id+'"> '+vv.node_name+'</span>'
+						})
+						$("#none").html(none);
+						$("#have").html(have);	
+					}
+				}
+			});
+		});
+	})
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>
