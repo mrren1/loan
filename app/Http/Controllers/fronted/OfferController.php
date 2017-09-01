@@ -14,17 +14,17 @@ class OfferController extends Controller
 	public function index(Request $request)
 	{
 		//获取贷款人额度
-		$user_id = $request->session()->get('user_id');
-		$userInfo = Message::where('user_id',$user_id)
-		->first()
-		->toArray();
-		//获取借款信息
-		$lend_id=$request['id'];
-		$lendInfo=Lend::where('lend_id',$lend_id)
-		->first();
-		if($lendInfo!=''){
-			$lendInfo=$lendInfo->toArray();
-		}
+		// $user_id = $request->session()->get('user_id');
+		// $userInfo = Message::where('user_id',$user_id)
+		// ->first()
+		// ->toArray();
+		// //获取借款信息
+		// $lend_id=$request['id'];
+		// $lendInfo=Lend::where('lend_id',$lend_id)
+		// ->first();
+		// if($lendInfo!=''){
+		// 	$lendInfo=$lendInfo->toArray();
+		// }
 
 		if($_POST){
 			$debt = new Debt;
@@ -38,7 +38,8 @@ class OfferController extends Controller
 				return redirect()->action('fronted\IndexController@index');
 			}
 		}else{
-			return view('fronted.Offer.offer',['from_id'=>$lend_id,'userMessage'=>$userInfo,'lendInfo'=>$lendInfo]);
+			//['from_id'=>$lend_id,'userMessage'=>$userInfo,'lendInfo'=>$lendInfo]
+			return view('fronted.Offer.offer');
 		}
 	}
 }
