@@ -132,70 +132,11 @@
        </div> 
       </div> 
      </div> 
+
      <div class="row advertise-words-row"> 
-      <h3 class="text-center">为什么选择点融网？</h3> 
+      <h3 class="text-center">推荐贷款</h3> 
       <div class="text-center tech-words">
-       我们用技术让借贷更简单，借款人更易借到款，投资人获得好收益。
-      </div> 
-     </div> 
-     <div class="row choose-row"> 
-      <div class="col-xs-8 choose-left-part"> 
-       <div class="choose-info"> 
-        <div class="row desc"> 
-         <div class="col-xs-4 text-center"> 
-          <span class="bg-images simple"></span> 
-          <h4>简单</h4> 
-          <span class="descprition ">技术自动分散投资</span> 
-          <span>您可安心坐享高收益</span> 
-         </div> 
-         <div class="col-xs-4  text-center"> 
-          <span class="bg-images interest"></span> 
-          <h4>收益</h4> 
-          <span class="descprition">团团赚加入本金保障计划</span> 
-          <span class="">5.5%-16%灵活净收益产品任选</span> 
-         </div> 
-         <div class="col-xs-4 text-center"> 
-          <span class="bg-images safe"></span> 
-          <h4>安全</h4> 
-          <span class="descprition ">银行级严密风控</span> 
-          <span>保障投资安全</span> 
-         </div> 
-        </div> 
-        <div class="arrow" ng-click="showDetail=!showDetail" ng-show="!showDetail">
-<span class="sl-icon-arrow-down"></span>
-</div>
-        <div class="row desc ng-hide"> 
-         <div class="col-xs-4 text-center"> 
-          <span class="bg-images guard"></span> 
-          <h4>保障</h4> 
-          <span class="descprition ">点融网不介入交易</span> 
-          <span>不接触资金不赚利差</span> 
-         </div> 
-         <div class="col-xs-4 text-center"> 
-          <span class="bg-images team"></span> 
-          <h4>高管团队</h4> 
-          <span class="descprition ">被新浪财经誉为</span> 
-          <span>P2P行业最牛黄金管理团队</span> 
-         </div> 
-         <div class="col-xs-4 text-center"> 
-          <span class="bg-images vip"></span> 
-          <h4>VIP</h4> 
-          <span class="descprition ">VIP客户专享</span> 
-          <span>1对1理财专属服务</span> 
-         </div> 
-        </div> 
-        <div class="arrow ng-hide"style="display:none"> 
-         <span class="sl-icon-arrow-up"></span> 
-        </div> 
-       </div> 
-      </div> 
-      <div class="col-xs-4 video-link" ng-click="linkToYouku()"> 
-      </div> 
-     </div> 
-     <div class="row advertise-words-row"> 
-      <h3 class="text-center">明星产品-团团赚</h3> 
-      <div class="text-center tech-words">
-       真正安全，省心，高收益的组团投资方式
+       筛选高信用，高品质的贷款。给您最好的选择。
       </div> 
      </div> 
      <div class="row plans-row"> 
@@ -206,47 +147,40 @@
           <img class="picture" src="images/plan-tuan.png" /> 
          </div> 
          <div class="col-xs-9 general-info"> 
-          <span class="mark-green">7%,9%或更高灵活净收益</span> 
-          <span>百元起投 | 本金保障 | 安全透明</span> 
-          <span>安全、省心、高收益的组团投资方式</span> 
+          <span class="mark-green">团队层层筛选</span> 
+          <span>贷款速度快 | 信用高 | 安全透明</span> 
+          <span>安全、省心、贷款方式</span> 
          </div> 
          <div class="col-xs-1"></div> 
         </div> 
         <div class="row plan-content"> 
-         <span>点融网利用先进技术推出安全、省心、高收益的团团赚。</span> 
-         <span>系统自动为您分散投资，100元也能极度分散投上千上万</span> 
-         <span>个标并且动态增加，真正将风险分散至近0，团团赚家族</span> 
-         <span>有投资团已加入本金保障机制，不同收益的投资团满足</span> 
-         <span>更多投资人需求，让您本息无忧，坐享其成！</span> 
+         <span>速贷网利用先进技术推出安全、省心、高收益的贷款。</span> 
+         <span>系统自动推荐贷款，利率低，安全，极速。</span>  
         </div> 
         <div class="row">
-         <a class="btn btn-secondary btn-embossed link-quarter-report" href="http://www.dianrong.com/landing/ttzreportvol2/">团团赚季报</a>
+         
         </div> 
        </div> 
       </div> 
-      <div class="col-xs-7 plans-info-right" style="block"> 
-       <!-- ngRepeat: plan in plans -->
-       <div class="row right-part ng-scope" ng-repeat="plan in plans">
+  <div class="col-xs-7 plans-info-right" style="block"> 
+      @foreach($ad_arr as $val)
+  <div class="row right-part ng-scope" ng-repeat="plan in plans">
+
 <div class="col-xs-2 plan-tuan-img">
-<img class="tuan-img group-grade-157001" src="images/plan-tuan.png">
-<p class="name-plan ng-binding">活期团</p>
+<img class="tuan-img group-grade-68201" src="images/plan-tuan.png">
+<p class="name-plan ng-binding">豪华团</p>
 </div>
-<div class="col-xs-3">
-<p class="rate-col">
-<span class="rate-red ng-binding">5.5</span>
-<span class="sign">%</span>
-</p>
-<p class="word-rate">预计年化收益率</p>
+<div>
+  <h4 style="color:orange;">{{$val['ad_name']}}</h4>
 </div>
-<div class="col-xs-2 ">
-<p class="top-margin ng-binding">本金保障</p>
-<p>保障级别</p>
+<div>
 </div>
-<div class="col-xs-2">
-<p class="top-margin ng-binding">100元</p>
-<p>起投金额</p>
+<div>
+  <p>{{$val['ad_desc']}}</p>
 </div>
-<div class="col-xs-3 btn-right">
+</div>
+@endforeach
+<!-- <div class="col-xs-3 btn-right">
 <a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=157001">立即加入</a>
 </div>
 </div>
@@ -275,76 +209,37 @@
 </div>
 </div>
        <div class="row right-part ng-scope" ng-repeat="plan in plans">
-<div class="col-xs-2 plan-tuan-img">
-<img class="tuan-img group-grade-145201" src="images/plan-tuan.png">
-<p class="name-plan ng-binding">稳健团</p>
-</div>
-<div class="col-xs-3">
-<p class="rate-col">
-<span class="rate-red ng-binding">9</span>
-<span class="sign">%</span>
-</p>
-<p class="word-rate">预计年化收益率</p>
-</div>
-<div class="col-xs-2 ">
-<p class="top-margin ng-binding">本金保障</p>
-<p>保障级别</p>
-</div>
-<div class="col-xs-2">
-<p class="top-margin ng-binding">10000元</p>
-<p>起投金额</p>
-</div>
-<div class="col-xs-3 btn-right">
-<a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=145201">立即加入</a>
-</div>
-</div>
-       <div class="more-link">
-        <a href="market.html">更多&gt;</a>
-       </div> 
+  <div class="col-xs-2 plan-tuan-img">
+  <img class="tuan-img group-grade-145201" src="images/plan-tuan.png">
+  <p class="name-plan ng-binding">稳健团</p>
+  </div>
+  <div class="col-xs-3">
+  <p class="rate-col">
+  <span class="rate-red ng-binding">9</span>
+  <span class="sign">%</span>
+  </p>
+  <p class="word-rate">预计年化收益率</p>
+  </div>
+  <div class="col-xs-2 ">
+  <p class="top-margin ng-binding">本金保障</p>
+  <p>保障级别</p>
+  </div>
+  <div class="col-xs-2">
+  <p class="top-margin ng-binding">10000元</p>
+  <p>起投金额</p>
+  </div>
+  <div class="col-xs-3 btn-right">
+  <a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=145201">立即加入</a>
+  </div>
+</div> -->
+      <!--  <div class="more-link">
+        <a href="market">更多&gt;</a>
+       </div>  -->
+     
       </div> 
      </div> 
-     <div class="row advertise-words-row"> 
-      <h3 class="text-center">点融,一手&quot;掌&quot;握</h3> 
-      <div class="text-center tech-words">
-       即刻下载APP，关注点融微信，第一手讯息助您成为投资高手。
-      </div> 
-     </div> 
-     <div class="row app-row"> 
-      <div class="col-xs-3 mobile-phone"></div> 
-      <div class="col-xs-7 qr-code-part"> 
-       <div class="row app-qr-img"> 
-        <div class="col-xs-4"> 
-         <p class="qr-code download-apple"></p> 
-         <p> </p> 
-         <div class="inner-con"> 
-          <a href="https://itunes.apple.com/us/app/dian-rong-wang/id725186555?mt=8" target="_blank" class="inner-con"> <span class="sl-icon-apple"> 从苹果商店下载</span> </a> 
-         </div> 
-         <p></p> 
-        </div> 
-        <div class="col-xs-4 "> 
-         <p class="qr-code download-andro"></p> 
-         <p> </p>
-         <div class="inner-con"> 
-          <a href="http://app.mi.com/detail/56106" target="_blank" class="inner-con"> <span class="sl-icon-android"> 下载Android应用</span> </a> 
-         </div> 
-         <p></p> 
-        </div> 
-        <div class="col-xs-4"> 
-         <p class="qr-code focus-weixin"></p> 
-         <p> </p>
-         <div class="inner-con"> 
-          <span class="sl-icon-wechat"> 扫码关注微信</span> 
-         </div> 
-         <p></p> 
-        </div> 
-       </div> 
-       <div class="row app-info"> 
-        <span>点融网APP，轻松了解投资动向，快速知晓收益信息，及时接收新标上线提</span> 
-        <span>醒。即刻下载点融网APP，享用会生钱的手机钱包。万千财讯，一手在握。</span> 
-       </div> 
-      </div> 
-      <div class="col-xs-2"></div> 
-     </div> 
+
+
      <div class="row advertise-words-row"> 
       <h3 class="text-center">关于我们</h3> 
       <div class="text-center tech-words">

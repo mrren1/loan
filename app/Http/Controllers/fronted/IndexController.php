@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Models\Demo;
 use App\Http\Models\Purse;
 use Illuminate\Http\Request;
+use App\Http\Models\Advert;
 class IndexController extends Controller
 {
 	public function index(Request $request)
@@ -16,6 +17,10 @@ class IndexController extends Controller
 		if($purseInfo!=null){
 			$purseInfo=$purseInfo->toArray();
 		}
-		return view('fronted.Index.index',array('purseInfo'=>$purseInfo));
+		//$ad_arr = DB::select('select lend_money from ad order by lend_money desc limit 3');
+		$ad_arr = Advert::orderBy('lend_money','desc')->limit(3)->get()->toArray();
+		//echo "<pre>";
+		 //dd($ad_arr);exit;
+		return view('fronted.Index.index',array('purseInfo'=>$purseInfo,'ad_arr'=>$ad_arr));
 	}
 }
