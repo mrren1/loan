@@ -162,29 +162,25 @@
         </div> 
        </div> 
       </div> 
-      <div class="col-xs-7 plans-info-right" style="block"> 
-       <!-- ngRepeat: plan in plans -->
-       <div class="row right-part ng-scope" ng-repeat="plan in plans">
+  <div class="col-xs-7 plans-info-right" style="block"> 
+      @foreach($ad_arr as $val)
+  <div class="row right-part ng-scope" ng-repeat="plan in plans">
+
 <div class="col-xs-2 plan-tuan-img">
-<img class="tuan-img group-grade-157001" src="images/plan-tuan.png">
-<p class="name-plan ng-binding">活期团</p>
+<img class="tuan-img group-grade-68201" src="images/plan-tuan.png">
+<p class="name-plan ng-binding">豪华团</p>
 </div>
-<div class="col-xs-3">
-<p class="rate-col">
-<span class="rate-red ng-binding">5.5</span>
-<span class="sign">%</span>
-</p>
-<p class="word-rate">预计年化收益率</p>
+<div>
+  <h4 style="color:orange;">{{$val['ad_name']}}</h4>
 </div>
-<div class="col-xs-2 ">
-<p class="top-margin ng-binding">本金保障</p>
-<p>保障级别</p>
+<div>
 </div>
-<div class="col-xs-2">
-<p class="top-margin ng-binding">100元</p>
-<p>起投金额</p>
+<div>
+  <p>{{$val['ad_desc']}}</p>
 </div>
-<div class="col-xs-3 btn-right">
+</div>
+@endforeach
+<!-- <div class="col-xs-3 btn-right">
 <a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=157001">立即加入</a>
 </div>
 </div>
@@ -213,32 +209,33 @@
 </div>
 </div>
        <div class="row right-part ng-scope" ng-repeat="plan in plans">
-<div class="col-xs-2 plan-tuan-img">
-<img class="tuan-img group-grade-145201" src="images/plan-tuan.png">
-<p class="name-plan ng-binding">稳健团</p>
-</div>
-<div class="col-xs-3">
-<p class="rate-col">
-<span class="rate-red ng-binding">9</span>
-<span class="sign">%</span>
-</p>
-<p class="word-rate">预计年化收益率</p>
-</div>
-<div class="col-xs-2 ">
-<p class="top-margin ng-binding">本金保障</p>
-<p>保障级别</p>
-</div>
-<div class="col-xs-2">
-<p class="top-margin ng-binding">10000元</p>
-<p>起投金额</p>
-</div>
-<div class="col-xs-3 btn-right">
-<a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=145201">立即加入</a>
-</div>
-</div>
-       <div class="more-link">
+  <div class="col-xs-2 plan-tuan-img">
+  <img class="tuan-img group-grade-145201" src="images/plan-tuan.png">
+  <p class="name-plan ng-binding">稳健团</p>
+  </div>
+  <div class="col-xs-3">
+  <p class="rate-col">
+  <span class="rate-red ng-binding">9</span>
+  <span class="sign">%</span>
+  </p>
+  <p class="word-rate">预计年化收益率</p>
+  </div>
+  <div class="col-xs-2 ">
+  <p class="top-margin ng-binding">本金保障</p>
+  <p>保障级别</p>
+  </div>
+  <div class="col-xs-2">
+  <p class="top-margin ng-binding">10000元</p>
+  <p>起投金额</p>
+  </div>
+  <div class="col-xs-3 btn-right">
+  <a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=145201">立即加入</a>
+  </div>
+</div> -->
+      <!--  <div class="more-link">
         <a href="market">更多&gt;</a>
-       </div> 
+       </div>  -->
+     
       </div> 
      </div> 
 
