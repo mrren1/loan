@@ -25,6 +25,30 @@ class MemberInfoController extends Controller
 			{
 				//修改数据
 				$arr=$request->all();
+				$tel=$arr['message_phone'];
+				$name=$arr['message_name'];
+				$email=$arr['message_email'];
+				//验证姓名
+				if(!empty($name)){
+					$len=mb_strlen($name);
+					if($len<2||$len>9){
+						return redirect('prompt')->with(['message'=>'姓名不合格','url' =>'member_info', 'jumpTime'=>2,'status'=>false]);
+					}
+				}
+				if(!empty($tel)){
+					//验证手机号
+					$reg="/^1[3,5,8]\d{9}$/";
+					if(!preg_match($reg,$tel)){
+						return redirect('prompt')->with(['message'=>'手机号不合格','url' =>'member_info', 'jumpTime'=>2,'status'=>false]);
+					}
+				}
+				if(!empty($email)){
+					//验证邮箱
+					$reg1="/^\w+@\w+(\.)com|net|cn|edu$/";
+					if(!preg_match($reg1,$email)){
+						return redirect('prompt')->with(['message'=>'邮箱不合格','url' =>'member_info', 'jumpTime'=>2,'status'=>false]);
+					}
+				}
 				//print_r($arr);die;
 				$data=$this->fiter($arr);
 				unset($data['_token']);
@@ -43,9 +67,31 @@ class MemberInfoController extends Controller
 			{
 				//添加
 				$data=$request->all();
-				// $photo = $request->file('message_photo');	
-				//print_r($data);die;
-				// print_r($file);die;
+
+				$tel=$data['phone'];
+				$name=$data['name'];
+				$email=$data['email'];
+				//验证姓名
+				if(!empty($name)){
+					$len=mb_strlen($name);
+					if($len<2||$len>9){
+						return redirect('prompt')->with(['message'=>'姓名不合格','url' =>'member_info', 'jumpTime'=>2,'status'=>false]);
+					}
+				}
+				if(!empty($tel)){
+					//验证手机号
+					$reg="/^1[3,5,8]\d{9}$/";
+					if(!preg_match($reg,$tel)){
+						return redirect('prompt')->with(['message'=>'手机号不合格','url' =>'member_info', 'jumpTime'=>2,'status'=>false]);
+					}
+				}
+				if(!empty($email)){
+					//验证邮箱
+					$reg1="/^\w+@\w+(\.)com|net|cn|edu$/";
+					if(!preg_match($reg1,$email)){
+						return redirect('prompt')->with(['message'=>'邮箱不合格','url' =>'member_info', 'jumpTime'=>2,'status'=>false]);
+					}
+				}
 				$message=new Message;
 				$message->user_id=$user_id;
 				$message->message_name=$data['name'];
