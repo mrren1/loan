@@ -170,6 +170,20 @@ class RbacController extends Controller
      }
 
      /**
+      * @access public
+      * @param 添加权限
+      * @return  [description]
+      */
+     public function admin_add_power(Request $request)
+     {
+        $node = new node;
+        $node->node_name = $request['node_name'];
+        $node->node_desc = $requwst['node_desc'];
+        $info = $node->save();
+        echo $info;
+     }
+
+     /**
       * 管理员添加
       */
       public function admin_add()
