@@ -209,12 +209,12 @@
           }); 
           //当失去点击的时候进行后Ajax
           $('#account-email').blur(function(){
-          	var _this=$('#user_name')
+            var _this=$('#user_name')
             var _username = $(this).val();
             var _test = /^[\u2E80-\u9FFF\w\d]{2,8}$/;
             //JS验证  确定进行唯一验证，否则阻止登录
             if(_test.test(_username)){
-            	
+              
               $.ajax({
               type: "get",
               url: "register_only",
@@ -234,22 +234,22 @@
               }
               });
             }else{
-            	_this.html('<p id="user_name"><font  style="color: red">请按照规定输入</font></p>');
+              _this.html('<p id="user_name"><font  style="color: red">请按照规定输入</font></p>');
               // alert('请按照规定输入')
             }
 
           })
            //判断密码是否合理
           $('#account-password').blur(function(){
-          	var _this=$('#user_pwd');
+            var _this=$('#user_pwd');
             var _password = $(this).val();
             var _test = /^[\w\d]{6,16}$/;
             if(_test.test(_password)){
-            	_this.html('<p id="user_pwd"><font  style="color: blue">OK  可以使用</font></p>');
+              _this.html('<p id="user_pwd"><font  style="color: blue">OK  可以使用</font></p>');
               // alert("可以使用")
               password = true;
             }else{
-            	_this.html('<p id="user_pwd"><font  style="color: red">请按照规则输入</font></p>');
+              _this.html('<p id="user_pwd"><font  style="color: red">请按照规则输入</font></p>');
               // alert("不符合")
               password = false;
             }

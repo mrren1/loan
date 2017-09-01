@@ -68,10 +68,20 @@ class LoginController extends Controller
 	        	return redirect('prompt')->with(['message'=>'验证码错误','url' =>'register', 'jumpTime'=>3,'status'=>false]);
 	        }
 
+
 	        $this->validate($request, [
-		        'user_name' => 'required|max:255',
-		        'user_pwd' => 'required|min:6',
+		        'user_name' => ["regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]{2,8}$/u",'required'],
+		        'user_pwd' => ['regex:/^[_a-zA-Z0-9]{6,18}$/u','required'],
 		    ]);
+		    // echo 1;
+		    // die;
+		    // $preg_user_name = '/^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$';
+		    // $preg_user_pwd = '/^[_a-zA-Z0-9]{6,16}$';
+		    
+		    // if(preg_match("/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]{2,8}$/u" , $request['user_name'])){
+		    // 	echo 1;
+		    // }
+		    
 
 			$user = new User;
 			$user->user_name = $request['user_name'];
@@ -89,6 +99,21 @@ class LoginController extends Controller
 	    	return view('fronted.Login.reg');
 	    }	
 	}
+	/**
+	 * 验证唯一性
+	 * @param register_only
+	 */
+	public function register_only(Request $request,$username='')
+	{
+		$post = $request->get('name');
+		$userInfo=user::where("user_name",$post)
+        	->first();
+     	if($userInfo){
+     		echo 1;
+     	}else{
+     		echo 0;
+     	}
 
+	}
 
 }
