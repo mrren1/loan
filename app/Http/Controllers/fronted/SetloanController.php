@@ -30,7 +30,7 @@ class SetloanController extends Controller
 				return redirect('prompt')->with(['message'=>'发布贷款成功','url' =>'index', 'jumpTime'=>3,'status'=>false]);
 			}
 		}else{
-			return view('fronted.setloan.setloan');
+			return view('fronted.Setloan.setloan');
 		}
 	}
 
