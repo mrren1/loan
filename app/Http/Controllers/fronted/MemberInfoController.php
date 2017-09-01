@@ -5,6 +5,7 @@ namespace App\Http\Controllers\fronted;
 use App\MemberInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\fronted\Controller;
+use Illuminate\Support\Facades\Schema;
 use App\Http\Models\Message;
 use App\Http\Models\Job;
 use App\Http\Models\User;
@@ -19,38 +20,61 @@ class MemberInfoController extends Controller
 		$user_id=$request->session()->get('user_id');
 		if($request->isMethod('POST'))
 		{
-			$data=$request->all();
-			// $photo = $request->file('message_photo');	
-			// print_r();die;
-			// print_r($file);die;
-			$message=new Message;
-			$message->user_id=$user_id;
-			$message->message_name=$data['message_name'];
-			$message->message_age=$data['message_age'];
-			$message->message_sex=$data['message_sex'];
-			$message->message_phone=$data['message_phone'];
-			$message->message_email=$data['message_email'];
-			$message->message_job=$data['message_job'];
-			$message->message_revenue=$data['message_revenue'];
-			$message->country=$data['country'];
-			$message->province=$data['province'];
-			$message->city=$data['city'];
-			$message->area=$data['area'];
-			$message->message_address=$data['message_address'];
-			$message->message_photo=$this->upload($data['message_photo']);
-			$message->private_photo=$this->upload($data['private_photo']);
-			$message->message_idcard=$this->upload($data['message_idcard']);
-			$message->message_fangcard=$this->upload($data['message_fangcard']);
-			$message->message_jiacard=$this->upload($data['message_jiacard']);
-			//print_r($message);die;
-			$res=$message->save();
-			if($res)
+			$message_id=$request->input('message_id');
+			if(!empty($message_id))
 			{
-				return redirect('prompt')->with(['message'=>'添加成功','url' =>'member_info', 'jumpTime'=>3,'status'=>false]);
+				//修改数据
+				$arr=$request->all();
+				//print_r($arr);die;
+				$data=$this->fiter($arr);
+				unset($data['_token']);
+				//print_r($data);die;
+				$res=Message::where("message_id",$message_id)->update($data);
+				if($res)
+				{
+					return redirect('prompt')->with(['message'=>'修改成功','url' =>'member_info', 'jumpTime'=>3,'status'=>false]);
+				}
+				else
+				{
+					return redirect('prompt')->with(['message'=>'修改失败','url' =>'member_info', 'jumpTime'=>3,'status'=>false]);
+				}
 			}
 			else
 			{
-				return redirect('prompt')->with(['message'=>'添加失败','url' =>'member_info', 'jumpTime'=>3,'status'=>false]);
+				//添加
+				$data=$request->all();
+				// $photo = $request->file('message_photo');	
+				//print_r($data);die;
+				// print_r($file);die;
+				$message=new Message;
+				$message->user_id=$user_id;
+				$message->message_name=$data['name'];
+				$message->message_age=$data['age'];
+				$message->message_sex=$data['sex'];
+				$message->message_phone=$data['phone'];
+				$message->message_email=$data['email'];
+				$message->message_job=$data['job'];
+				$message->message_revenue=$data['revenue'];
+				$message->country=$data['country1'];
+				$message->province=$data['province1'];
+				$message->city=$data['city1'];
+				$message->area=$data['area1'];
+				$message->message_address=$data['address'];
+				$message->message_photo=$data['photo'];
+				$message->private_photo=$data['img'];
+				$message->message_idcard=$data['idcard'];
+				$message->message_fangcard=$data['fangcard'];
+				$message->message_jiacard=$data['jiacard'];
+				//print_r($message);die;
+				$res=$message->save();
+				if($res)
+				{
+					return redirect('prompt')->with(['message'=>'添加成功','url' =>'member_info', 'jumpTime'=>3,'status'=>false]);
+				}
+				else
+				{
+					return redirect('prompt')->with(['message'=>'添加失败','url' =>'member_info', 'jumpTime'=>3,'status'=>false]);
+				}
 			}
 		}
 		else
@@ -61,12 +85,12 @@ class MemberInfoController extends Controller
 				return redirect('prompt')->with(['message'=>'没有登录，请先登录','url' =>'login', 'jumpTime'=>3,'status'=>false]);
 			}
 			$message=Message::where("user_id",$user_id)->first();
-			// // print_r($message);die;
+			//print_r($message);die;
 			if(!empty($message))
 			{
 				$message=$message->toArray();
 			}
-			
+			//print_r($message);die;
 			if(!empty($message['country'])){
 				$country=Address::where('address_id',$message['country'])->first()->toArray();
 			}else{
@@ -108,11 +132,29 @@ class MemberInfoController extends Controller
 			return view('fronted.MemberInfo.member_info',['user'=>$user,'data'=>$data,'address'=>$address,'message'=>$message,'salary'=>$salary]);
 		}
 	}
-	/**
+	 /**
+     * 定义字段过滤方法
+     * @access public 
+     * @param  array
+     */
+    public function fiter($data)
+    {
+    	$str=Schema::getColumnListing('message');
+    	//print_r($str);die;
+    	foreach($data as $key=>$val){
+    		if(!in_array($key,$str)){
+    			unset($data[$key]);
+    		}
+    	}
+    	return $data;
+    }
+    /**
 	 * 文件上传
 	 */
-	public function upload($file)
+	public function user_upload(Request $request)
 	{	    
+		$file=$request->file('user_photo');
+		$user_id=$request->session()->get('user_id');
 		//文件是否上传成功
 	    if($file->isValid()){	//判断文件是否上传成功
 	        $originalName = $file->getClientOriginalName(); //源文件名
@@ -124,8 +166,146 @@ class MemberInfoController extends Controller
 	        $realPath = $file->getRealPath();   //临时文件的绝对路径
 			
 	        $fileName = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;  //新文件名
-	        Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
-	        return $fileName;
+	        $res=Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
+	        if($res){
+	        	$data=array('user_photo'=>$fileName);
+	        	$res=User::where("user_id",$user_id)->update($data);
+	        	return $fileName;
+	        }else{
+	        	return 0;
+	        }
+	        
+	    }
+	}
+	/**
+	 * 文件上传
+	 */
+	public function upload(Request $request)
+	{	    
+		$file=$request->file('message_photo');
+		//print_r($file);die;
+		//文件是否上传成功
+	    if($file->isValid()){	//判断文件是否上传成功
+	        $originalName = $file->getClientOriginalName(); //源文件名
+
+	        $ext = $file->getClientOriginalExtension();    //文件拓展名
+ 			
+	        $type = $file->getClientMimeType(); //文件类型
+			
+	        $realPath = $file->getRealPath();   //临时文件的绝对路径
+			
+	        $fileName = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;  //新文件名
+	        $res=Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
+	        if($res){
+	        	return $fileName;
+	        }else{
+	        	return 0;
+	        }
+	        
+	    }
+	}
+	public function id_upload(Request $request)
+	{	    
+		// $file=$_FILES['myfile'];
+		// print_r($file);die;
+		$file=$request->file('message_idcard');
+		//print_r($file);die;
+		//文件是否上传成功
+	    if($file->isValid()){	//判断文件是否上传成功
+	        $originalName = $file->getClientOriginalName(); //源文件名
+
+	        $ext = $file->getClientOriginalExtension();    //文件拓展名
+ 			
+	        $type = $file->getClientMimeType(); //文件类型
+			
+	        $realPath = $file->getRealPath();   //临时文件的绝对路径
+			
+	        $fileName = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;  //新文件名
+	        $res=Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
+	        if($res){
+	        	return $fileName;
+	        }else{
+	        	return 0;
+	        }
+	        
+	    }
+	}
+	public function fang_upload(Request $request)
+	{	    
+		// $file=$_FILES['myfile'];
+		// print_r($file);die;
+		$file=$request->file('message_fangcard');
+		//print_r($file);die;
+		//文件是否上传成功
+	    if($file->isValid()){	//判断文件是否上传成功
+	        $originalName = $file->getClientOriginalName(); //源文件名
+
+	        $ext = $file->getClientOriginalExtension();    //文件拓展名
+ 			
+	        $type = $file->getClientMimeType(); //文件类型
+			
+	        $realPath = $file->getRealPath();   //临时文件的绝对路径
+			
+	        $fileName = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;  //新文件名
+	        $res=Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
+	        if($res){
+	        	return $fileName;
+	        }else{
+	        	return 0;
+	        }
+	        
+	    }
+	}
+	public function jia_upload(Request $request)
+	{	    
+		// $file=$_FILES['myfile'];
+		// print_r($file);die;
+		$file=$request->file('message_jiacard');
+		//print_r($file);die;
+		//文件是否上传成功
+	    if($file->isValid()){	//判断文件是否上传成功
+	        $originalName = $file->getClientOriginalName(); //源文件名
+
+	        $ext = $file->getClientOriginalExtension();    //文件拓展名
+ 			
+	        $type = $file->getClientMimeType(); //文件类型
+			
+	        $realPath = $file->getRealPath();   //临时文件的绝对路径
+			
+	        $fileName = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;  //新文件名
+	        $res=Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
+	        if($res){
+	        	return $fileName;
+	        }else{
+	        	return 0;
+	        }
+	        
+	    }
+	}
+	public function img_upload(Request $request)
+	{	    
+		// $file=$_FILES['myfile'];
+		// print_r($file);die;
+		$file=$request->file('private_photo');
+		//print_r($file);die;
+		//文件是否上传成功
+	    if($file->isValid()){	//判断文件是否上传成功
+	        $originalName = $file->getClientOriginalName(); //源文件名
+
+	        $ext = $file->getClientOriginalExtension();    //文件拓展名
+ 			
+	        $type = $file->getClientMimeType(); //文件类型
+			
+	        $realPath = $file->getRealPath();   //临时文件的绝对路径
+			
+	        $fileName = date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;  //新文件名
+	        $res=Storage::disk('uploads')->put($fileName,file_get_contents($realPath));   //传成功返回bool值
+	        if($res){
+	        	return $fileName;
+	        }else{
+	        	return 0;
+	        }
+	        
 	    }
 	}
 	/**
