@@ -33,6 +33,7 @@ Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
 Route::get('member_invite', 'MemberInviteController@index');
+
 Route::get('address', 'fronted\MemberInfoController@getAddress');
 Route::post('member_info', 'fronted\MemberInfoController@index');
 Route::get('help', 'fronted\HelpController@index');
@@ -50,11 +51,18 @@ Route::get('out', 'fronted\LoginController@quit');
 Route::get('setloan', 'fronted\SetloanController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::get('debt', 'fronted\OfferController@index');
+//用户唯一性
+Route::get('register_only', 'fronted\LoginController@register_only');
+
+
+//注册用户
+
 Route::post('register', 
 [
     'uses'=>'fronted\LoginController@register',
     'as'=>'register',
 ]);
+
 Route::post('setloan', 
 [
     'uses'=>'fronted\SetloanController@index',
@@ -79,7 +87,6 @@ Route::post('jia_upload', 'fronted\MemberInfoController@jia_upload');
 Route::post('img_upload', 'fronted\MemberInfoController@img_upload');
 Route::post('id_upload', 'fronted\MemberInfoController@id_upload');
 Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
-
 
 
 

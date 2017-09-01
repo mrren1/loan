@@ -54,10 +54,10 @@
 <div id="lender" class="tab-pane active">
 <div class="create-account-form ng-isolate-scope" referral-name="">
 <h5 class="create-account-form-title"> 30秒注册，开始投资 </h5>
-<form class="ng-pristine ng-invalid ng-invalid-required" novalidate="" ng-submit="submit()" role="form" name="createAccountForm" action="{{ route('register') }}" method="post">
+<form class="ng-pristine ng-invalid ng-invalid-required" novalidate="" ng-submit="submit()" role="form" name="createAccountForm" action="{{ route('register') }}" method="post" onsubmit="return submitTest();">
 <input id="referral_name" type="hidden" value="" name="referral_name">
 <input type="hidden" value="{{ Session::token() }}" name="_token"/>
-<div class="form-group ng-hide" ng-show="formType!=2">
+<!-- <div class="form-group ng-hide" ng-show="formType!=2">
 <input id="account-email-phone" class="form-control forcePlaceholder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="text" sl-mobile-phone="" sl-email-available="" sl-email-or-phone="" autocomplete="off" placeholder="手机号码或电子邮箱" required="" ng-model="user.emailOrPhone" name="emailOrPhone" style="">
 <div class="ng-scope" ng-class="ng-hide" name="emailOrPhone" sl-validation-errors="">
 <span class="hide" ng-transclude="">
@@ -65,18 +65,20 @@
 <span class="ng-scope" for="emailAvailable" sl-error-message="">你输入的邮箱已被注册，请重新输入"</span>
 </span>
 </div>
-</div>
+</div> -->
 <div class="form-group" ng-show="formType==2">
 <span class="input-group-addon tag sl-icon-bold-email" ng-class="{active:inputFocusMail}"></span>
 <input id="account-email" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="text" sl-email-available="" sl-email="" ng-blur="inputFocusMail=false" ng-focus="inputFocusMail=true" autocomplete="off" placeholder="用户名" required="" ng-model="user.email" name="user_name" style="">
-<div class="ng-scope" ng-class="ng-hide" name="email" sl-validation-errors="">
-<span class="hide" ng-transclude="">
+<!-- <div class="ng-scope" ng-class="ng-hide" name="email" sl-validation-errors=""> -->
+<!-- <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">请输入用户名</span>
 <span class="ng-scope" for="email" sl-error-message="">用户名有误</span>
-<span class="ng-scope" for="emailAvailable" sl-error-message="">你输入的用户名已被注册，请重新输入"</span>
-</span>
+<span id='sss'>你输入的用户名已被注册，请重新输入"</span>
+</span> -->
+<!-- </div> -->
+
 </div>
-</div>
+<p id='user_name'><span style="color: blue"></span></p>
 <div class="form-group ng-scope" ng-if="!isNoCaptcha" style="">
 <div class="form-inline">
 <span class="input-group-addon tag sl-icon-puzzle" ng-class="{active:inputFocusCaptchaCode}"></span>
@@ -99,16 +101,17 @@
 <div class="form-group">
 <span class="input-group-addon tag sl-icon-bold-pwd" ng-class="{active:inputFocusPwd}"></span>
 <input id="account-password" class="form-control forcePlaceholder inputRemoveBorder ng-pristine ng-animate ng-valid-remove ng-invalid-add ng-valid-remove-active ng-invalid ng-invalid-add-active ng-invalid-required" type="password" sl-atmost-forty-chars="" sl-atleast-eight-chars="" sl-contains-digits="" sl-contains-letters="" required="" ng-blur="inputFocusPwd=false" ng-focus="inputFocusPwd=true" placeholder="密码为6个以上字母和数字组合" ng-model="user.password" name="user_pwd" style="">
-<div class="ng-scope" ng-class="ng-hide" name="password" sl-validation-errors="">
-<span class="hide" ng-transclude="">
+<!-- <div class="ng-scope" ng-class="ng-hide" name="password" sl-validation-errors=""> -->
+<!-- <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">对不起，请输入密码</span>
 <span class="ng-scope" for="containsLetters" sl-error-message="">你的密码必须包括至少一个字母</span>
 <span class="ng-scope" for="containsDigits" sl-error-message="">你的密码必须包括至少一个数字</span>
 <span class="ng-scope" for="atleastEightChars" sl-error-message="">你的密码必须至少为8个字符长</span>
 <span class="ng-scope" for="atmostFortyChars" sl-error-message="">你的密码最多为40个字符长</span>
-</span>
+</span> -->
+<!-- </div> -->
 </div>
-</div>
+<p id="user_pwd"><font  style="color: blue"></font></p>
 <div class="accept-agreement form-group">
 创建账户，代表我同意并接受点融网
 <a class="open-agreement-popup" href="/public/terms-of-use?protocol=terms-of-use">注册协议</a>
@@ -197,10 +200,71 @@
 
   <script src="js/jquery.js" type="text/javascript"></script>
   <script type="text/javascript">
+  var username = false;
+        var password = false;
       $(function(){
           $("#img").click(function(){
               var obj = $(this);
               obj.attr('src',"<?php echo captcha_src()?>"+Math.random());
-          });     
+          }); 
+          //当失去点击的时候进行后Ajax
+          $('#account-email').blur(function(){
+          	var _this=$('#user_name')
+            var _username = $(this).val();
+            var _test = /^[\u2E80-\u9FFF\w\d]{2,8}$/;
+            //JS验证  确定进行唯一验证，否则阻止登录
+            if(_test.test(_username)){
+            	
+              $.ajax({
+              type: "get",
+              url: "register_only",
+              data: "name="+_username,
+              success: function(msg){
+                //返回 1：有数据  0：没有数据
+                if(msg==0){
+                  // alert("可以使用")
+                  // _this.after('<span style="color:green;>√</span>').html();
+                  _this.html('<p id="user_name"><font  style="color: blue">OK  可以使用</font></p>');
+                  username = true;
+                }else{
+                  // alert('不可以使用')
+                  _this.html('<p id="user_name"><font  style="color: red">用户已存在</font></p>');
+                  username = false;
+                }
+              }
+              });
+            }else{
+            	_this.html('<p id="user_name"><font  style="color: red">请按照规定输入</font></p>');
+              // alert('请按照规定输入')
+            }
+
+          })
+           //判断密码是否合理
+          $('#account-password').blur(function(){
+          	var _this=$('#user_pwd');
+            var _password = $(this).val();
+            var _test = /^[\w\d]{6,16}$/;
+            if(_test.test(_password)){
+            	_this.html('<p id="user_pwd"><font  style="color: blue">OK  可以使用</font></p>');
+              // alert("可以使用")
+              password = true;
+            }else{
+            	_this.html('<p id="user_pwd"><font  style="color: red">请按照规则输入</font></p>');
+              // alert("不符合")
+              password = false;
+            }
+          })    
       })
+      //判断是否可以提交
+      function submitTest(){
+        $('#account-email').trigger('blur')
+        $('#account-password').trigger('blur')
+        if(username==true && password==true){
+          return true
+        }else{
+           return false;
+        }
+            
+          }
+
   </script>
