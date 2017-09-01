@@ -24,7 +24,7 @@ class OfferController extends Controller
 			}
 		}else{
 			$id = $request['id'];
-			return view('fronted/offer',['from_id'=>$id]);
+			return view('fronted.offer',['from_id'=>$id]);
 		}
 	}
 }

@@ -85,7 +85,7 @@
 <p class="name" ng-show="plan.safeguardWay">极好or差</p>
 </div>
 <div class="col-xs-3 sl-plan-amount">
-<p class="value number ng-binding" ng-show="plan.minInvestAmount">100元</p>
+<p class="value number ng-binding" ng-show="plan.minInvestAmount">{{$lend['lend_lack']}}元</p>
 <p class="name" ng-show="plan.minInvestAmount">最低借贷金额</p>
 </div>
 </div>
@@ -95,16 +95,25 @@
 <span class="sl-icon-account"></span>
 <label>
  已投金额   
-<span class="amount-text ng-binding">1,939.66</span>
-<span>万元</span>
+<span class="amount-text ng-binding">{{$lend['lend_money']}}</span>
+<span>元</span>
+</label>
+</div>
+
+<div>
+<span class="sl-icon-personal"></span>
+<label>
+ 已借款人数   
+<span class="member-num-text ng-binding">{{$lend['lendNum']}}</span>
+<span>人</span>
 </label>
 </div>
 <div>
 <span class="sl-icon-personal"></span>
 <label>
- 加入人数   
-<span class="member-num-text ng-binding">4,881</span>
-<span>人</span>
+剩余金额  
+<span class="member-num-text ng-binding">{{$lend['lend_money']/1-$lend['lend_used']/1}}</span>
+<span>元</span>
 </label>
 </div>
 <!-- {{$lend['lend_id']}} -->
