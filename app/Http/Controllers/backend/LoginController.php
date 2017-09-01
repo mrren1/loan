@@ -40,7 +40,8 @@ class LoginController extends Controller
                               $admin = new Admin;
                               $admin->where('admin_id',$admin_arr['admin_id'])->update(array('log_time'=>time()));
                               $request->session()->put('admin_id',$admin_arr['admin_id']);
-                              
+                              $request->session()->put('admin_name',$admin_arr['admin_name']);
+                              // $a=$request->session()->get('admin_name');
                               return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'admin_index', 'jumpTime'=>2,'status'=>false]);
                     }
                     else{
