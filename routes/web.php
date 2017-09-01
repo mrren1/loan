@@ -90,12 +90,13 @@ Route::any('admin_login/','backend\LoginController@index');
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
 //权限管理
-Route::any('role','backend\PowerController@admin_role');
-Route::any('role_add','backend\PowerController@admin_role_add');
-Route::any('permission','backend\PowerController@admin_permission');
-Route::any('permission_add','backend\PowerController@admin_permission_add');
-Route::any('admin_list','backend\PowerController@admin_list');
-Route::any('admin_add','backend\PowerController@admin_add');
+Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
+Route::any('setpower','backend\RbacController@setPower');    //分配权限
+Route::any('getpower','backend\RbacController@admin_get_power');    //设置权限
+Route::any('role_add','backend\RbacController@admin_role_add');
+Route::any('permission','backend\RbacController@admin_permission');   //角色列表
+Route::any('permission_add','backend\RbacController@admin_permission_add');
+Route::any('admin_add','backend\RbacController@admin_add');
 //会员管理
 Route::any('member_list','backend\MemberController@member_list');
 Route::any('member_sign','backend\MemberController@member_sign');
