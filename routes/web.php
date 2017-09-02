@@ -104,6 +104,9 @@ Route::any('role_add','backend\RbacController@admin_role_add');
 Route::any('permission','backend\RbacController@admin_permission');   //角色列表
 Route::any('permission_add','backend\RbacController@admin_permission_add');
 Route::any('admin_add','backend\RbacController@admin_add');
+Route::any('admin_power','backend\RbacController@admin_power');
+Route::any('role_premission','backend\RbacController@role_premission');
+Route::any('setrole','backend\RbacController@setrole');
 //会员管理
 Route::any('member_list','backend\MemberController@member_list');
 Route::any('member_sign','backend\MemberController@member_sign');

@@ -117,7 +117,7 @@
 </label>
 </div>
 <!-- {{$lend['lend_id']}} -->
-<a class="btn btn-block btn-secondary btn-embossed" href="debt?id={{$lend['lend_id']}}" ng-show="!isOpen && plan.openAmount>0 ">立即借款</a>
+<a class="btn btn-block btn-secondary btn-embossed" href="debt?lend_id={{$lend['lend_id']}}" ng-show="!isOpen && plan.openAmount>0 ">立即借款</a>
 <div class="repayment-status ng-hide" ng-show="isOpen || !plan.openAmount ">
 <span>已满额</span>
 </div>
