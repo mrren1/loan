@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\backend;
 use App\Rbac;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Models\Role;
@@ -9,7 +9,7 @@ use App\Http\Models\Node;
 use App\Http\Models\RoleNode;
 use App\Http\Models\Admin;
 use App\Http\Models\Adminrole;
-class RbacController extends Controller
+class RbacController extends BackendController
 {
      /**
       * 角色添加

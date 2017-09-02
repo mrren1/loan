@@ -3,7 +3,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Login;
 use Illuminate\Http\Request;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Validator;
 use Illuminate\Support;
 use Illuminate\Support\Facades\Input;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Models\admin;
 use session;
 
-class LoginController extends Controller
+class LoginController extends BackendController
 {
      public function index(Request $request)
      {

@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\backend;
 use App\Loan;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
-class LoanController extends Controller
+class LoanController extends BackendController
 {
      public function loan_list()
      {
