@@ -7,14 +7,27 @@ use Illuminate\Http\Request;
 use App\Http\Models\Role;
 use App\Http\Models\Node;
 use App\Http\Models\RoleNode;
+use App\Http\Models\Admin;
+use App\Http\Models\Adminrole;
 class RbacController extends Controller
 {
      /**
       * 角色添加
       */
-     public function admin_role_add()
+     public function admin_role_add(Request $request)
      {
-     	return view('backend/Rbac/admin_role_add');
+         if($request->isMethod('POST'))
+         {
+           $role =new Role;
+           $role ->role_name=$request['role_name'];
+           $role ->role_desc=$request['role_desc'];
+           $info =$role->save();
+         }
+         else
+         {
+           return view('backend/Rbac/admin_role_add');
+         }
+     	  
      }
 
      /**
@@ -67,7 +80,128 @@ class RbacController extends Controller
         }  
         return view('backend/Rbac/admin_permission_add',['nodeData'=>$nodeData,'role_id'=>$role_id]);
      }
+        /**
+      * @access public
+      * @param admin_permission() 设置角色
+      * @return  [description]
+      */
+     public function role_premission(Request $request)
+     {
+        $admin_id = $request['admin_id'];
+        $adminroleData = adminrole::where('admin_id',$admin_id)->get()->toArray();
+        // echo "<pre>";
+        // var_dump($adminroleData);die;
+        foreach($adminroleData as $key => $val){
+          $roleId[] = $val['role_id'];
+        }
 
+      
+        $powerData = role::get()->toArray();
+        if(!empty($roleId)){
+          foreach($powerData as $key => $val){
+            if(in_array($val['role_id'],$roleId)){
+              $nodeData['has'][$key]['role_id'] = $val['role_id'];
+              $nodeData['has'][$key]['role_name'] = $val['role_name'];
+            }else{
+              $nodeData['no'][$key]['role_id'] = $val['role_id'];
+              $nodeData['no'][$key]['role_name'] = $val['role_name'];
+            }
+          }
+          if(!isset($nodeData['no'])){
+              $nodeData['no'] = [];
+          }
+        }else{
+          $nodeData = [
+            'has' => [],
+            'no' => $powerData,
+          ]; 
+        }  
+         return view('backend/Rbac/rolepermission',['nodeData'=>$nodeData,'admin_id'=>$admin_id]);
+     }
+     /**
+      * @access public
+      * @param setPower() 角色添加
+      * @return  [description]
+      */
+     public function setrole(Request $request)
+     {
+          $adminRole = new adminrole;
+          $admin_id = $request['admin_id'];
+          $has = $request['has'];
+          $no = $request['no'];
+          if(empty($has) && !empty($no)){
+              $bloon = adminrole::where('admin_id',$admin_id)->delete();
+              $noData = explode(',',$no);
+              foreach($noData as $key => $val){
+                  $data[$key]['admin_id'] = $admin_id; 
+                  $data[$key]['role_id'] = $val; 
+              }
+              $info = DB::table('admin_role')->insert($data);
+              if(!$info){
+                  return 0;
+              }
+          }else if(!empty($has) && !empty($no)){
+              $bloon = adminrole::where('admin_id',$admin_id)->delete();
+              $hasData = explode(',',$has);
+              foreach($hasData as $k => $v){
+                  $tmp[$k]['admin_id'] = $admin_id; 
+                  $tmp[$k]['role_id'] = $v; 
+              }
+              $result = DB::table('admin_role')->insert($tmp);
+              $noData = explode(',',$no);
+              foreach($noData as $key => $val){
+                  $data[$key]['admin_id'] = $admin_id; 
+                  $data[$key]['role_id'] = $val; 
+              }
+              $info = DB::table('admin_role')->insert($data);
+              if(!$bloon || !$result || !$info){
+                  return 0;
+              }
+          }else if(!empty($has) && empty($no)){
+              $bloon = adminrole::where('admin_id',$admin_id)->delete();
+              $hasData = explode(',',$has);
+              foreach($hasData as $k => $v){
+                  $tmp[$k]['admin_id'] = $admin_id; 
+                  $tmp[$k]['role_id'] = $v; 
+              }
+              $result = DB::table('admin_role')->insert($tmp);
+              if(!$bloon || !$result){
+                  return 0;
+              }
+          }else{
+              echo 1;
+              $bloon = adminrole::where('admin_id',$admin_id)->delete();
+              if(!$bloon){
+                  return 0;
+              }
+          }
+          //返回数据
+          $roleNodeData = adminRole::where('admin_id',$admin_id)->get()->toArray();
+          foreach($roleNodeData as $key => $val){
+            $roleId[] = $val['role_id'];
+          }
+          $powerData = role::get()->toArray();
+          if(!empty($roleId)){
+            foreach($powerData as $key => $val){
+              if(in_array($val['role_id'],$roleId)){
+                $nodeData['has'][$key]['role_id'] = $val['role_id'];
+                $nodeData['has'][$key]['role_name'] = $val['role_name'];
+              }else{
+                $nodeData['no'][$key]['role_id'] = $val['role_id'];
+                $nodeData['no'][$key]['role_name'] = $val['role_name'];
+              }
+            }
+            if(!isset($nodeData['no'])){
+                $nodeData['no'] = [];
+            }
+          }else{
+            $nodeData = [
+              'has' => [],
+              'no' => $powerData,
+            ]; 
+          }
+          return json_encode($nodeData);
+      }
      /**
       * @access public
       * @param setPower() 权限添加
@@ -186,8 +320,10 @@ class RbacController extends Controller
      /**
       * 管理员添加
       */
-      public function admin_add()
+      public function admin_power()
      {
-     	return view('backend/Rbac/admin_add');
+      $adminData = admin::get();
+      // var_dump($adminData);die;
+     	return view('backend/Rbac/admin_power',['adminData'=>$adminData]);
      }
 }
