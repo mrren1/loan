@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\backend;
 use App\Purse;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
-class PurseController extends Controller
+class PurseController extends BackendController
 {
      public function purse_list()
      {

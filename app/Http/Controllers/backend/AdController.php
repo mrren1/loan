@@ -3,7 +3,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Ad;
 use Illuminate\Http\Request;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Support;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Models\Lend;
 use App\Http\Models\Advert;
 
-class AdController extends Controller
+class AdController extends BackendController
 {
 
      public function ad_list()

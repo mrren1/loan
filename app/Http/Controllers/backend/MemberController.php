@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\backend;
 use App\Member;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
-class MemberController extends Controller
+class MemberController extends BackendController
 {
      public function member_list()
      {
