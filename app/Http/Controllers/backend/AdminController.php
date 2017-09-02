@@ -12,6 +12,7 @@ class AdminController extends BackendController
      //首页展示
      public function welcome()
      {
-     	return view('backend/Admin/welcome');
+     	$data = $_SERVER;
+     	return view('backend/Admin/welcome',['data'=>$data]);
      }
 }
