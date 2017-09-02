@@ -162,82 +162,44 @@
         </div> 
        </div> 
       </div> 
-  <div class="col-xs-7 plans-info-right" style="block"> 
-      @foreach($ad_arr as $val)
-  <div class="row right-part ng-scope" ng-repeat="plan in plans">
 
+
+<div class="col-xs-7 plans-info-right" style="block"> 
+@foreach($adArr as $ad)
+<div class="row right-part ng-scope" ng-repeat="plan in plans">
 <div class="col-xs-2 plan-tuan-img">
-<img class="tuan-img group-grade-68201" src="images/plan-tuan.png">
-<p class="name-plan ng-binding">豪华团</p>
-</div>
-<div>
-  <h4 style="color:orange;">{{$val['ad_name']}}</h4>
-</div>
-<div>
-</div>
-<div>
-  <p>{{$val['ad_desc']}}</p>
-</div>
-</div>
-@endforeach
-<!-- <div class="col-xs-3 btn-right">
-<a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=157001">立即加入</a>
-</div>
-</div>
-       <div class="row right-part ng-scope" ng-repeat="plan in plans">
-<div class="col-xs-2 plan-tuan-img">
-<img class="tuan-img group-grade-68201" src="images/plan-tuan.png">
-<p class="name-plan ng-binding">新手团</p>
+<img class="tuan-img group-grade-68201" src="uploads/{{$ad['userInfo']['user_photo']}}">
+<p class="name-plan ng-binding">推荐借款</p>
 </div>
 <div class="col-xs-3">
 <p class="rate-col">
-<span class="rate-red ng-binding">7</span>
+<span class="rate-red ng-binding">{{$ad['lend_interest']*100}}</span>
 <span class="sign">%</span>
 </p>
-<p class="word-rate">预计年化收益率</p>
+<p class="word-rate">年利率</p>
 </div>
 <div class="col-xs-2 ">
-<p class="top-margin ng-binding">安享本息</p>
-<p>保障级别</p>
+<p class="top-margin ng-binding">{{$ad['lend_money']}}</p>
+<p>总金额</p>
 </div>
 <div class="col-xs-2">
-<p class="top-margin ng-binding">100元</p>
-<p>起投金额</p>
+<p class="top-margin ng-binding">{{$ad['lend_lack']}}</p>
+<p>起借金额</p>
 </div>
 <div class="col-xs-3 btn-right">
-<a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=68201">立即加入</a>
+<a class="btn btn-secondary btn-embossed btn-small" href="debt?lend_id={{$ad['lend_id']}}">立即借款</a>
 </div>
 </div>
-       <div class="row right-part ng-scope" ng-repeat="plan in plans">
-  <div class="col-xs-2 plan-tuan-img">
-  <img class="tuan-img group-grade-145201" src="images/plan-tuan.png">
-  <p class="name-plan ng-binding">稳健团</p>
-  </div>
-  <div class="col-xs-3">
-  <p class="rate-col">
-  <span class="rate-red ng-binding">9</span>
-  <span class="sign">%</span>
-  </p>
-  <p class="word-rate">预计年化收益率</p>
-  </div>
-  <div class="col-xs-2 ">
-  <p class="top-margin ng-binding">本金保障</p>
-  <p>保障级别</p>
-  </div>
-  <div class="col-xs-2">
-  <p class="top-margin ng-binding">10000元</p>
-  <p>起投金额</p>
-  </div>
-  <div class="col-xs-3 btn-right">
-  <a class="btn btn-secondary btn-embossed btn-small" href="/market/plan?planId=145201">立即加入</a>
-  </div>
-</div> -->
-      <!--  <div class="more-link">
-        <a href="market">更多&gt;</a>
-       </div>  -->
-     
-      </div> 
-     </div> 
+@endforeach
+
+
+
+<div class="more-link">
+<a href="market">更多&gt;</a>
+</div> 
+
+</div> 
+</div> 
 
 
      <div class="row advertise-words-row"> 
