@@ -6,11 +6,26 @@ use App\Offer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\fronted\Controller;
 use App\Http\Models\Debt;
+use App\Http\Models\Message;
+use App\Http\Models\Lend;
 
 class OfferController extends Controller
 {
 	public function index(Request $request)
 	{
+		//获取贷款人额度
+		// $user_id = $request->session()->get('user_id');
+		// $userInfo = Message::where('user_id',$user_id)
+		// ->first()
+		// ->toArray();
+		// //获取借款信息
+		// $lend_id=$request['id'];
+		// $lendInfo=Lend::where('lend_id',$lend_id)
+		// ->first();
+		// if($lendInfo!=''){
+		// 	$lendInfo=$lendInfo->toArray();
+		// }
+
 		if($_POST){
 			$debt = new Debt;
 			$debt->user_id = $request->session()->get('user_id');
@@ -23,8 +38,8 @@ class OfferController extends Controller
 				return redirect()->action('fronted\IndexController@index');
 			}
 		}else{
-			$id = $request['id'];
-			return view('fronted.offer',['from_id'=>$id]);
+			//['from_id'=>$lend_id,'userMessage'=>$userInfo,'lendInfo'=>$lendInfo]
+			return view('fronted.Offer.offer');
 		}
 	}
 }

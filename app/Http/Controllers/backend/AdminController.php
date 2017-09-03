@@ -1,10 +1,10 @@
 <?php
 namespace App\Http\Controllers\backend;
 use App\Admin;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
 use App\Http\Models\User;
-class AdminController extends Controller
+class AdminController extends BackendController
 {
      public function index()
      {

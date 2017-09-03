@@ -292,8 +292,9 @@
 <div class="col-xs-3 info-value text-center">真实姓名</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.realName">
-  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="name" placeholder="输入您的真实姓名"></span>
-  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" name="message_name" value="{{$message['message_name']}}"></span>
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" id="name" name="name" placeholder="输入您的真实姓名"></span>
+  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" id="u_name" name="message_name" value="{{$message['message_name']}}"></span>
+  <span id="t_name"></span>
   <span id="show">{{$message['message_name']}}</span>
 </span>
 </div>
@@ -308,8 +309,9 @@
 <div class="col-xs-3 info-value text-center">手机号</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
-  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="phone" placeholder="输入手机号"></span>
-  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" name="message_phone" value="{{$message['message_phone']}}"></span>
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" id="tel" name="phone" placeholder="输入手机号"></span>
+  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" id="u_tel" name="message_phone" value="{{$message['message_phone']}}"></span>
+  <span id="t_tel"></span>
   <span id="show">{{$message['message_phone']}}</span>
 </span>
 </div>
@@ -318,8 +320,9 @@
 <div class="col-xs-3 info-value text-center">邮箱</div>
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
-  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" name="email" placeholder="输入邮箱"></span>
-  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" name="message_email" value="{{$message['message_email']}}"></span>
+  <span style="display:none" id="hide"><input class="form-control input-sm ng-pristine ng-valid" id="email" name="email" placeholder="输入邮箱"></span>
+  <span style="display:none" id="up"><input class="form-control input-sm ng-pristine ng-valid" id="u_email" name="message_email" value="{{$message['message_email']}}"></span>
+  <span id="t_email"></span>
   <span id="show">{{$message['message_email']}}</span>
 </span>
 </div>
@@ -339,7 +342,7 @@
 <div class="col-xs-5" ng-show="!userIdentity.editing">
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
   <span style="display:none" id="hide">
-  <input type="radio" name="sex" value="1"><span>男</span>
+  <input type="radio" name="sex" value="1" checked="checked"><span>男</span>
   <input type="radio" name="sex" value="0"><span>女</span>
  </span>
  <span style="display:none" id="up">
@@ -743,6 +746,48 @@
           }
         });
      });
+     //验证姓名
+     $("#u_name,#name").blur(function(){
+        var u_name=$(this).val();
+        var len=u_name.length;
+        $("#t_name").html('');
+        if(u_name!=""){
+          if(len>1&&len<10){
+            return true;
+          }else{
+            $("#t_name").html("<font color='red'>名字不合格</font>");
+            return false;
+          }
+        }
+     });
+      //验证手机号
+      $("#u_tel,#tel").blur(function(){
+        var tel=$(this).val();
+        var reg=/^1[3,7,5,8]\d{9}$/;
+        $("#t_tel").html('');
+        if(tel!=""){
+          if(reg.test(tel)){
+            return true;
+          }else{
+            $("#t_tel").html("<font color='red'>手机号不合格</font>");
+            return false;
+          }
+        }
+      });
+       //验证邮箱
+      $("#u_email,#email").blur(function(){
+        var email=$(this).val();
+        var reg=/^\w+@\w+(\.)com|net|cn|edu$/;
+        $("#t_email").html('');
+        if(email!=""){
+          if(reg.test(email)){
+            return true;
+          }else{
+            $("#t_email").html("<font color='red'>邮箱不合格</font>");
+            return false;
+          }
+        }
+      });
       //上传头像
      $("#head").change(function(){
       var form = new FormData();
