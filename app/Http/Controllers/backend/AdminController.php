@@ -3,6 +3,7 @@ namespace App\Http\Controllers\backend;
 use App\Admin;
 use App\Http\Controllers\fronted\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Models\User;
 class AdminController extends Controller
 {
      public function index()
@@ -14,4 +15,5 @@ class AdminController extends Controller
      {
      	return view('backend/Admin/welcome');
      }
+
 }
