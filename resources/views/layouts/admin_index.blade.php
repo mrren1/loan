@@ -113,6 +113,7 @@
 				<ul>
 					<li><a data-href="member_list" data-title="会员列表" href="javascript:;">会员列表</a></li>
 					<li><a data-href="member_sign" data-title="积分管理" href="javascript:;">积分管理</a></li>
+					<li><a data-href="admin_member_msg" data-title="会员信息审核列表" href="javascript:;">会员信息审核列表</a></li>
 			</ul>
 		</dd>
 	</dl>
