@@ -3,6 +3,7 @@ namespace App\Http\Controllers\backend;
 use App\Admin;
 use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
+use App\Http\Models\User;
 class AdminController extends BackendController
 {
      public function index()
@@ -15,4 +16,5 @@ class AdminController extends BackendController
      	$data = $_SERVER;
      	return view('backend/Admin/welcome',['data'=>$data]);
      }
+
 }
