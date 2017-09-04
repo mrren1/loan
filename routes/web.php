@@ -131,3 +131,12 @@ Route::any('admin_member_start','backend\memberController@admin_member_start'); 
 Route::any('admin_mpm_status','backend\memberController@admin_mpm_status'); //新会员 照片       填写审核状态页
 Route::any('admin_mpm_status_do','backend\memberController@admin_mpm_status_do'); //新会员 照片 审核状态入库
 
+Route::post('addpower', 
+[
+    'uses'=>'backend\PurseController@admin_add_power',
+    'as'=>'addpower',
+]);
+
+//ajax计算利息
+Route::any('arithmetic','fronted\OfferController@arithmetic');
+
