@@ -307,6 +307,16 @@ class RbacController extends BackendController
 
      /**
       * @access public
+      * @param 添加权限列表
+      * @return  [description]
+      */
+     public function admin_add(Request $request)
+     {
+        return view('backend/Rbac/admin_add');
+     }
+
+     /**
+      * @access public
       * @param 添加权限
       * @return  [description]
       */
@@ -314,9 +324,13 @@ class RbacController extends BackendController
      {
         $node = new node;
         $node->node_name = $request['node_name'];
-        $node->node_desc = $requwst['node_desc'];
+        $node->node_desc = $request['node_desc'];
         $info = $node->save();
-        echo $info;
+        if($info){
+          return 1;
+        }else{
+          return 0;
+        }
      }
 
      /**
@@ -329,6 +343,35 @@ class RbacController extends BackendController
         $adminData = admin::get();
         $admin_num = admin::get()->count();
        	return view('backend/Rbac/admin_power',['adminData'=>$adminData,'admin_num'=>$admin_num]);
+     }
+
+      /**
+      * @access public
+      * @param admin_add_any() 添加管理员列表
+      * @return  [description]
+      */
+     public function admin_add_any()
+     {
+        return view('backend/Rbac/admin_add_any');
+     }
+
+      /**
+      * @access public
+      * @param add_admin() 添加管理员列表
+      * @return  [description]
+      */
+     public function add_admin(Request $request)
+     {
+        $admin = new Admin;
+        $admin->admin_name = $request['admin_name'];
+        $admin->admin_pwd = encrypt($request['admin_pwd']);
+        $admin->log_time = time();
+        $info = $admin->save();
+        if($info){
+          return 1;
+        }else{
+          return 0;
+        }
      }
 
      /**

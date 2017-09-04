@@ -107,6 +107,9 @@ Route::any('role_add','backend\RbacController@admin_role_add');
 Route::any('permission','backend\RbacController@admin_permission');   //角色列表
 Route::any('permission_add','backend\RbacController@admin_permission_add');
 Route::any('admin_add','backend\RbacController@admin_add');
+Route::any('addpower','backend\RbacController@admin_add_power');    //添加权限
+Route::any('admin_add_any','backend\RbacController@admin_add_any');   //添加管理员列表
+Route::any('add_admin','backend\RbacController@add_admin');   //添加管理员列表
 Route::any('admin_power','backend\RbacController@admin_power');
 Route::any('role_premission','backend\RbacController@role_premission');
 Route::any('setrole','backend\RbacController@setrole');
@@ -128,8 +131,3 @@ Route::any('admin_member_start','backend\memberController@admin_member_start'); 
 Route::any('admin_mpm_status','backend\memberController@admin_mpm_status'); //新会员 照片       填写审核状态页
 Route::any('admin_mpm_status_do','backend\memberController@admin_mpm_status_do'); //新会员 照片 审核状态入库
 
-Route::post('addpower', 
-[
-    'uses'=>'backend\PurseController@admin_add_power',
-    'as'=>'addpower',
-]);
