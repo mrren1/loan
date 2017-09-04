@@ -118,12 +118,22 @@ Route::any('ad_add','backend\AdController@ad_add');
 Route::any('loan_list','backend\LoanController@loan_list');
 //资金管理
 Route::any('purse_list','backend\PurseController@purse_list');
-
+/* 
+this is 会员审核相关
+*/
 Route::any('admin_member_msg','backend\memberController@admin_member_msg'); //新会员 照片信息审核
 Route::any('admin_member_stop','backend\memberController@admin_member_stop'); //新会员 照片信息状态改为 未审核
 Route::any('admin_member_start','backend\memberController@admin_member_start'); //新会员 照片信息改为 审核通过
 Route::any('admin_mpm_status','backend\memberController@admin_mpm_status'); //新会员 照片       填写审核状态页
 Route::any('admin_mpm_status_do','backend\memberController@admin_mpm_status_do'); //新会员 照片 审核状态入库
+
+/*
+this is 贷款列表 
+ */
+Route::any('admin_loan_list','backend\memberController@admin_loan_list'); //后台哦  贷款列表 
+Route::any('admin_loan_list_stop','backend\memberController@admin_loan_list_stop'); //后台哦    贷款列表  审核通过
+Route::any('admin_loan_list_start','backend\memberController@admin_loan_list_start'); //后台哦  贷款列表  审核为通过
+
 
 Route::post('addpower', 
 [
