@@ -123,3 +123,6 @@ Route::post('addpower',
     'uses'=>'backend\PurseController@admin_add_power',
     'as'=>'addpower',
 ]);
+
+//ajax计算利息
+Route::any('arithmetic','fronted\OfferController@arithmetic');

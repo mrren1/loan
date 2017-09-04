@@ -587,27 +587,37 @@
 <tr>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_photo']}}" @if($message['message_photo']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_photo']}}" @if($message['message_photo']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['private_photo']}}" @if($message['private_photo']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['private_photo']}}" @if($message['private_photo']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_idcard']}}" @if($message['message_idcard']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_idcard']}}" @if($message['message_idcard']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_fangcard']}}" @if($message['message_fangcard']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_fangcard']}}" @if($message['message_fangcard']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_jiacard']}}" @if($message['message_jiacard']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_jiacard']}}" @if($message['message_jiacard']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 </tr>

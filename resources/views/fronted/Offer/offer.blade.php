@@ -14,103 +14,73 @@
 	  	    	   <div class="bor_detail_box">
 	  	    	   	    <div class="bor_det_one clearfix pt30 pb30">
 	  	    	   	    	  <div class="bor_det_onel fl">
-	  	    	   	    	  	       <p class="bor_p1">中兴财富平台的借款功能旨在帮助借款用户以
-										低成本获得借款。用户在需要资金时，可以将
-										自有房产和车产作为抵押物，小油菜线下审核
-										通过后，根据抵押物的价值融资。</p>
-										<p class="bor_p2">中兴财富平台的借款功能旨在帮助借款用户以
-										低成本获得借款。用户在需要资金时，可以将
-										自有房产和车产作为抵押物，小油菜线下审核
-										通过后，根据抵押物的价值融资。</p>
-										<h3 class="bor_onel_tit"><span>申请条件</span></h3>
+	  	    	   	    	  	       <p class="bor_p1">速贷网专注于快速贷款，优质挑选最快速的互联网金融，把您空闲的钱放上去就能升值，同时别人也可以拿来救急。</p>
+										<h3 class="bor_onel_tit"><span>贷款人详情</span></h3>
+										尊敬的用户：<font color="red">{{$userInfo['message_name']}}</font><br>
 										<ul class="bor_onel_ul">
-											 <li><img src="images/bor_pic01.png" alt="">年满18周岁以上的公民
-											 </li>
-											 <li><img src="images/bor_pic02.png" alt="">需要北京房产或车产抵押
-											 </li>
-											 <li><img src="images/bor_pic03.png" alt="">个人或企业银行征信记录良好
-											 </li>
-											 <li><img src="images/bor_pic04.png" alt="">
-											  无现有诉讼记录
-											 </li>
-											 
+											 <li>您的贷款额度为：<font color="red">{{$userInfo['message_limit']}}</font></li>
 										</ul>
-										<h3 class="bor_onel_tit"><span>提交资料</span></h3>
+										<h4 class="bor_onel_tit"><span>此贷款详情</span></h4>
 										<ul class="bor_onel_ul">
-											 <li>&nbsp;<img src="images/bor_pic05.png" alt="">省份证
-											 </li>
-											 <li><img src="images/bor_pic06.png" alt="">申请资料
-											 </li>
-											 <li><img src="images/bor_pic07.png" alt="">其他
-											 </li>
-											
-											 
+											 <li>贷款总金额：<font color="red">{{$lendInfo['lend_money']}}</font></li>
+											<li>目前剩余金额：<font color="red">{{$lendInfo['lend_money']-$lendInfo['lend_used']}}</font></li>
+											<li>贷款利率为：<font color="red">{{$lendInfo['lend_interest']*100}}%</font></li>
+											<li>已借款人数：<font color="red">{{$lendNum}}</font></li>
 										</ul>
 	  	    	   	    	  </div>  
+	  	    	   	    	  <input type="hidden" value="{{$lendInfo['lend_interest']}}" id="lend">
 	  	    	   	    	  <!-- end l -->
-	  	    	   	    	  <div class="bor_det_oner fl">
-	  	    	   	    	  	     <form>
-	  	    	   	    	  	     	  <fieldset>
-	  	    	   	    	  	     	  	   <div>
-	  	    	   	    	  	     	  	   	   <label>申请人</label>
-	  	    	   	    	  	     	  	   	   <input type="" >
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt15">
-	  	    	   	    	  	     	  	   	   <label>*借款金额</label>
-	  	    	   	    	  	     	  	   	   <input type="" class="bor_inputbg01">
-	  	    	   	    	  	     	  	   </div>
-                                               <div class="mt15">
-	  	    	   	    	  	     	  	   	   <label>*借款期限</label>
-	  	    	   	    	  	     	  	   	   <input type="" class="bor_inputbg02">
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt15">
-	  	    	   	    	  	     	  	   	   <label>*手机号码</label>
-	  	    	   	    	  	     	  	   	   <input type="" >
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt15 guarmethod clearfix">
-	  	    	   	    	  	     	  	   	   <label class="guarmethod_l fl">*担保方式</label>
-	  	    	   	    	  	     	  	   	   <div class="fl">
-	  	    	   	    	  	     	  	   	   	  <span>房屋数量</span>
-	  	    	   	    	  	     	  	   	   	  <input type="text" class="bor_inputbg03 input2"><br><br>
-	  	    	   	    	  	     	  	   	   	  <span>总价值</span>
-	  	    	   	    	  	     	  	   	   	  <input type="text" class="bor_inputbg04 input2"><br>
-	  	    	   	    	  	     	  	   	   </div>
-	  	    	   	    	  	     	  	   	   
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt15">
-	  	    	   	    	  	     	  	   	   <label>*借款用途</label>
-	  	    	   	    	  	     	  	   	   <select>
-	  	    	   	    	  	     	  	   	   	  <option>选择借款类别</option>
-	  	    	   	    	  	     	  	   	   	  <option>1</option>
-	  	    	   	    	  	     	  	   	   </select>
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	    <div class="mt15">
-	  	    	   	    	  	     	  	   	   <label>*借款描述</label> 
-	  	    	   	    	  	     	  	   	   <textarea></textarea>
-	  	    	   	    	  	     	  	   	 
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt15">
-	  	    	   	    	  	     	  	   	   <label>*借款情况</label>
-	  	    	   	    	  	     	  	   	   <input type="radio" class="input3">
-	  	    	   	    	  	     	  	   	   普通借款
-	  	    	   	    	  	     	  	  	   <input type="radio" class="input3">
-	  	    	   	    	  	     	  	   	   紧急借款 
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt15" >
-	  	    	   	    	  	     	  	   	   <label>*验证码</label>
-	  	    	   	    	  	     	  	   	   <input type="text" class="yanzheng" >
-	  	    	   	    	  	     	  	   	   
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  	   <div class="mt30">
-	  	    	   	    	  	     	  	   	   <label></label>
-	  	    	   	    	  	     	  	   	   <a href="#" class="bor_btn">提交材料</a>
-	  	    	   	    	  	     	  	   </div>
-	  	    	   	    	  	     	  </fieldset>
-	  	    	   	    	  	     </form>
-	  	    	   	    	  </div>
+	    	  <div class="bor_det_oner fl">
+	    	  	     <form>
+	    	  	     	  <fieldset>
+	    	  	     	  	   <div class="mt15">
+	    	  	     	  	   	   <label>*借款金额</label>
+	    	  	     	  	   	   <input type="text" id="borrowMoney" class="bor_inputbg01">
+	    	  	     	  	   </div>
+                       <div class="mt15">
+	    	  	     	  	   	   <label>*借款时间</label>
+	    	  	     	  	   	   <input type="text" id="time1" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="bor_inputbg02">
+	    	  	     	  	   </div>
+	    	  	     	  	   
+                        <div class="mt15">
+	    	  	     	  	   	   <label>*还款时间</label>
+	    	  	     	  	   	   <input type="text" id="time2" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="bor_inputbg02">
+	    	  	     	  	   </div>
+	    	  	     	  	    <div class="mt15">
+	    	  	     	  	   	   <label>*借款描述</label> 
+	    	  	     	  	   	   <textarea  id="jisuan"></textarea>
+	    	  	     	  	   	 
+	    	  	     	  	   </div>
+	    	  	     	  	   <div class="mt30">
+	    	  	     	  	   	   <label></label>
+	    	  	     	  	   	   <a href="#" class="bor_btn">申请借款</a>
+	    	  	     	  	   </div>
+	    	  	     	  </fieldset>
+	    	  	     </form>
+	    	  </div>
 	  	    	   	    </div>
 	  	    	   </div>
 	  	    </div>
 	  </div>
 </div>
+<script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+<script src="./public/js/jquery.js"></script>
+<script>
+	$('#jisuan').blur(function(){
+		var money=$('#borrowMoney').val();
+		var lend=$('#lend').val();
+		var time1=$('#time1').val();
+		var time2=$('#time2').val();
+		//发送ajax后台计算利息
+		$.ajax({
+			type:'get',
+			url:"{{url('arithmetic')}}",
+			data:{money:money,time1:time1,time2:time2,lend:lend},
+			dataType:'json',
+			success:function(result){
+				alert('利息为：'+result.interest);
+			}
+		});
+	});
+</script>
  @endsection
