@@ -37,21 +37,13 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">ID</th>
 				<th width="100">用户名</th>
-				<th width="40">用户头像</th>
+				<th width="40">用户照片</th>
 				<th width="40">身份证照片</th>
-				<th width="40">家卡</th>
-				<th width="40">房卡</th>
+				<th width="40">驾驶证</th>
+				<th width="40">房产证</th>
+				<th width="40">私人照片</th>
 				<th width="100">审核照片</th>
-				<th width="20">性别</th>
-				<th width="20">工作</th>
-				<th width="90">年龄</th>
-				<th width="90">月收入范围</th>
-				<th width="90">手机</th>
-				<th width="60">地址</th>
-				<th width="150">邮箱</th>
-				<th width="130">加入时间</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
@@ -63,22 +55,44 @@
 		@foreach ($member_msg as $member_msg)
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
-				<td>{{ $member_msg->message_id }}</td>
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{{ $member_msg->message_name  }}</u></td>
-				<td><img src="uploads/{{ $member_msg->message_idcard }}" alt=""></td>
-				<td><img src="uploads/{{ $member_msg->private_photo }}" alt=""></td>
-				<td><img src="uploads/{{ $member_msg->message_jiacard }}" alt=""></td>
-				<td><img src="uploads/{{ $member_msg->message_fangcard }}" ></td>
+				<td>
+				@if($member_msg->message_idcard!='')
+					<img src="uploads/{{ $member_msg->message_idcard }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->message_photo!='')
+					<img src="uploads/{{ $member_msg->message_photo }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->message_jiacard!='')
+					<img src="uploads/{{ $member_msg->message_jiacard }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->message_fangcard!='')
+					<img src="uploads/{{ $member_msg->message_fangcard }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->private_photo!='')
+					<img src="uploads/{{ $member_msg->private_photo }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
 				<td>
 				<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a title="审核照片请按顺序填写照片的状态，1为通过，0为不通过" href="javascript:;" onclick="member_redact('编辑照片状态','admin_mpm_status?message_id={{ $member_msg->message_id }}','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 编辑照片状态</a></span></div></td>
-				<td>@if ( $member_msg->message_sex == 0 ) 女 @else 男 @endif</td>
-				<td>{{ $member_msg->message_job }}</td>
-				<td>{{ $member_msg->message_age }}</td>
-				<td>{{ $member_msg->message_revenue }}</td>
-				<td>{{ $member_msg->message_phone }}</td>
-				<td class="text-l">{{ $member_msg->message_address }}</td>
-				<td>{{ $member_msg->message_email }}</td>
-				<td>2014-6-11 11:11:42</td>
 				<td class="td-status"><span class="label label-success radius">@if ( $member_msg->message_stars === '1,1,1,1,1' ) 审核通过 @elseif( strpos( $member_msg->message_stars,"0" ) !== false )<span class="label label-defaunt radius">审核未通过 </span> @else 未审核 @endif</span></td>
 				<td class="td-manage">@if( $member_msg->message_stars == '1,1,1,1,1' )<a class="manage" style="text-decoration:none" onClick="member_stop(this,'{{ $member_msg->message_id }}')" href="javascript:;" title="点击改为审核未通过">@elseif( strpos( $member_msg->message_stars,"0" ) !== false )<a class="manage" style="text-decoration:none" onClick="member_start(this,'{{ $member_msg->message_id }}')" href="javascript:;" title="点击改为审核通过">@else<a class="manage" style="text-decoration:none" onClick="member_start(this,'{{ $member_msg->message_id }}')" href="javascript:;" title="点击改为审核通过">@endif<i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
