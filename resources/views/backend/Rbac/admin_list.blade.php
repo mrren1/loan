@@ -26,7 +26,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权限管理 <span class="c-gray en">&gt;</span> 权限列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加权限','admin_add','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a></span> <!-- <span class="r">共有数据：<strong>54</strong> 条</span> --> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_add('添加权限','admin_add','800','500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a></span> <span class="r">共有数据：<strong>{{$node_num}}</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -48,7 +48,7 @@
 				<td>{{$val['node_name']}}</td>
 				<td>{{$val['node_desc']}}</td>
 				<td class="td-manage">
-					<a title="删除" href="javascript:;" onclick="admin_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					<a href="javascript:;" class="ml-5 delete" style="text-decoration:none" title="{{$val['node_id']}}"><i class="Hui-iconfont">&#xe6e2;</i></a>
 				</td>
 			</tr>
 			@endforeach
@@ -124,6 +124,27 @@ function admin_start(obj,id){
 		layer.msg('已启用!', {icon: 6,time:1000});
 	});
 }
+</script>
+<script type="text/javascript">
+	$(function(){
+		$(".delete").click(function(){
+			var obj = $(this);
+			var node_id = obj.attr('title');
+			$.ajax({
+				type: 'get',
+				url: 'delnode',
+				data: {node_id:node_id},
+				success: function(result){
+					if(result == 0){
+						alert('删除失败');
+						return false;
+					}else{
+						obj.parent().parent().remove();
+					}
+				}
+			});
+		});
+	})
 </script>
 </body>
 </html>

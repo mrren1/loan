@@ -38,12 +38,13 @@ class RbacController extends BackendController
      public function admin_permission()
      {
         $roleData = role::get();
+        $role_num = role::get()->count();
         if(isset($roleData)){
           $roleData = $roleData->toArray();
         }else{
           $roleData = [];
         }
-        return view('backend/Rbac/admin_permission',['roleData'=>$roleData]);
+        return view('backend/Rbac/admin_permission',['roleData'=>$roleData,'role_num'=>$role_num]);
      }
 
      /**
@@ -295,12 +296,13 @@ class RbacController extends BackendController
      public function admin_power_list()
      {
         $nodeData = node::get();
+        $node_num = node::get()->count();
         if(isset($nodeData)){
           $nodeData = $nodeData->toArray();
         }else{
           $nodeData = [];
         }
-        return view('backend/Rbac/admin_list',['nodeData'=>$nodeData]);
+        return view('backend/Rbac/admin_list',['nodeData'=>$nodeData,'node_num'=>$node_num]);
      }
 
      /**
@@ -318,12 +320,65 @@ class RbacController extends BackendController
      }
 
      /**
-      * 管理员添加
+      * @access public
+      * @param admin_power() 管理员列表
+      * @return  [description]
       */
       public function admin_power()
      {
-      $adminData = admin::get();
-      // var_dump($adminData);die;
-     	return view('backend/Rbac/admin_power',['adminData'=>$adminData]);
+        $adminData = admin::get();
+        $admin_num = admin::get()->count();
+       	return view('backend/Rbac/admin_power',['adminData'=>$adminData,'admin_num'=>$admin_num]);
+     }
+
+     /**
+      * @access public
+      * @param deleteAdmin() 删除管理员
+      * @return  [description]
+      */
+     public function deleteAdmin(Request $request)
+     {
+        $admin_id = $request['admin_id'];
+        Adminrole::where('admin_id',$admin_id)->delete();
+        $bloon = admin::where('admin_id',$admin_id)->delete();
+        if($bloon){
+          return 1;
+        }else{
+          return 0;
+        }
+     }
+
+     /**
+      * @access public
+      * @param deleteRole() 删除角色
+      * @return  [description]
+      */
+     public function deleteRole(Request $request)
+     {
+        $role_id = $request['role_id'];
+        Adminrole::where('role_id',$role_id)->delete();
+        rolenode::where('role_id',$role_id)->delete();
+        $bloon = role::where('role_id',$role_id)->delete();
+        if($bloon){
+          return 1;
+        }else{
+          return 0;
+        }
+     }
+
+     /**
+      * @access public
+      * @param deleteNode() 删除权限
+      * @return  [description]
+      */
+     public function deleteNode(Request $request)
+     {
+        $node_id = $request['node_id'];
+        $bloon = node::where('node_id',$node_id)->delete();
+        if($bloon){
+          return 1;
+        }else{
+          return 0;
+        }
      }
 }

@@ -22,9 +22,9 @@
 <title>角色管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 角色管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权限管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','role_add','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a></span> <span class="r">共有数据：<strong>{{$admin_num}}</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -44,7 +44,7 @@
 				<td>{{$val['admin_id']}}</td>
 				<td>{{$val['admin_name']}}</td>
 				<td width="300px;">
-					<a href="javascript:;" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 删除</a>&nbsp;&nbsp;&nbsp;
+					<a href="javascript:;" class="btn btn-danger radius delete" title="{{$val['admin_id']}}"><i class="Hui-iconfont">&#xe6e2;</i> 删除</a>&nbsp;&nbsp;&nbsp;
 					<a href="role_premission?admin_id={{$val['admin_id']}}" class="btn btn-primary radius">分配角色</a>
 				</td>
 			</tr>
@@ -86,6 +86,27 @@ function admin_role_del(obj,id){
 		});		
 	});
 }
+</script>
+<script type="text/javascript">
+	$(function(){
+		$(".delete").click(function(){
+			var obj = $(this);
+			var admin_id = obj.attr('title');
+			$.ajax({
+				type: 'get',
+				url: 'deladmin',
+				data: {admin_id:admin_id},
+				success: function(result){
+					if(result == 0){
+						alert('删除失败');
+						return false;
+					}else{
+						obj.parent().parent().remove();
+					}
+				}
+			});
+		});
+	})
 </script>
 </body>
 </html>

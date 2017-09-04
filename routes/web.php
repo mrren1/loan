@@ -98,6 +98,9 @@ Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
 //权限管理
 Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
+Route::any('delrole','backend\RbacController@deleteRole'); //删除角色
+Route::any('delnode','backend\RbacController@deleteNode'); //删除权限
+Route::any('deladmin','backend\RbacController@deleteAdmin'); //删除管理员
 Route::any('setpower','backend\RbacController@setPower');    //分配权限
 Route::any('getpower','backend\RbacController@admin_get_power');    //设置权限
 Route::any('role_add','backend\RbacController@admin_role_add');
