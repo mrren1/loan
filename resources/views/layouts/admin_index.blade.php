@@ -104,6 +104,8 @@
 			<dd>
 				<ul>
 					<li><a data-href="loan_list" data-title="贷款列表" href="javascript:;">贷款列表</a></li>
+					<li><a data-href="" data-title="发布贷款列表" href="javascript:;">发布贷款列表</a></li>
+					<li><a data-href="" data-title="申请借款列表" href="javascript:;">申请借款列表</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -113,6 +115,7 @@
 				<ul>
 					<li><a data-href="member_list" data-title="会员列表" href="javascript:;">会员列表</a></li>
 					<li><a data-href="member_sign" data-title="积分管理" href="javascript:;">积分管理</a></li>
+					<li><a data-href="admin_member_msg" data-title="会员信息审核列表" href="javascript:;">会员信息审核列表</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -120,7 +123,7 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i>权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="role" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+					<li><a data-href="admin_power" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
 					<li><a data-href="permission" data-title="角色列表" href="javascript:void(0)">角色列表</a></li>
 					<li><a data-href="powerlist" data-title="权限列表" href="javascript:void(0)">权限列表</a></li>
 			</ul>

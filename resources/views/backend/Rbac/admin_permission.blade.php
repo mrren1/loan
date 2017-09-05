@@ -24,7 +24,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权限管理 <span class="c-gray en">&gt;</span> 角色列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加权限节点','permission_add','','310')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a></span> <!-- <span class="r">共有数据：<strong>54</strong> 条</span> --> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加角色','role_add','','310')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a></span> <span class="r">共有数据：<strong>{{$role_num}}</strong> 条</span> </div>
 	<table class="table table-border table-bordered table-bg">
 		<thead>
 			<tr>
@@ -46,7 +46,7 @@
 				<td>{{$val['role_name']}}</td>
 				<td>{{$val['role_desc']}}</td>
 				<td width="300px;">
-					<a href="javascript:;" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 删除</a>&nbsp;&nbsp;&nbsp;
+					<a href="javascript:;" class="btn btn-danger radius delete" title="{{$val['role_id']}}"><i class="Hui-iconfont">&#xe6e2;</i> 删除</a>&nbsp;&nbsp;&nbsp;
 					<a href="permission_add?role_id={{$val['role_id']}}" class="btn btn-primary radius">分配权限</a>
 				</td>
 			</tr>
@@ -98,6 +98,27 @@ function admin_permission_del(obj,id){
 		});		
 	});
 }
+</script>
+<script type="text/javascript">
+	$(function(){
+		$(".delete").click(function(){
+			var obj = $(this);
+			var role_id = obj.attr('title');
+			$.ajax({
+				type: 'get',
+				url: 'delrole',
+				data: {role_id:role_id},
+				success: function(result){
+					if(result == 0){
+						alert('删除失败');
+						return false;
+					}else{
+						obj.parent().parent().remove();
+					}
+				}
+			});
+		});
+	})
 </script>
 </body>
 </html>

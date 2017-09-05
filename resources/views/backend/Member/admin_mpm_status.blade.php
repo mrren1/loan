@@ -1,3 +1,4 @@
+<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -6,6 +7,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="/favicon.ico" >
+<link rel="Shortcut Icon" href="/favicon.ico" />
 <!--[if lt IE 9]>
 <script type="text/javascript" src="admin/lib/html5shiv.js"></script>
 <script type="text/javascript" src="admin/lib/respond.min.js"></script>
@@ -19,44 +22,39 @@
 <script type="text/javascript" src="admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>添加管理员 - 管理员管理 - H-ui.admin v3.1</title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+<!--/meta 作为公共模版分离出去-->
+
+<title> 照片审核 </title>
 </head>
 <body>
 <article class="page-container">
-<form action="">
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" id="node_name" name="node_name">
+	<!-- <form action="admin_mpm_status_do" method="post" class="form form-horizontal" id="form-member-add"> -->
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>照片审核状态：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" placeholder="请按照片顺序填写，1为通过审核，0为未通过审核！！！用英文逗号隔开。例子：1,1,1,1,1," class="mpm_status" id="mpm_status">
+			</div>
 		</div>
-	</div>
-	<br>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限描述：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="node_desc" id="node_desc" cols="40" rows="10"></textarea>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<a href="javascript:;" ><input class="btn btn-primary radius" type="button"  onclick="admin_mpm_status_do(this,{{$_GET['message_id']}})" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"></a>
+			</div>
 		</div>
-	</div>
-	<div class="row cl">
-		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-			<input class="btn btn-primary radius" id="link" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-		</div>
-	</div>
-	</form>
+	<!-- </form> -->
 </article>
 
-<!--_footer 作为公共模版分离出去--> 
+<!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="admin/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="admin/static/h-ui/js/H-ui.min.js"></script> 
 <script type="text/javascript" src="admin/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
-<!--请在下方写此页面业务相关的脚本-->
+<!--请在下方写此页面业务相关的脚本--> 
+<script type="text/javascript" src="admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript" src="admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="admin/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="admin/lib/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.skin-minimal input').iCheck({
@@ -65,78 +63,66 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-admin-add").validate({
+	$("#form-member-add").validate({
 		rules:{
-			adminName:{
+			username:{
 				required:true,
-				minlength:4,
+				minlength:2,
 				maxlength:16
-			},
-			password:{
-				required:true,
-			},
-			password2:{
-				required:true,
-				equalTo: "#password"
 			},
 			sex:{
 				required:true,
 			},
-			phone:{
+			mobile:{
 				required:true,
-				isPhone:true,
+				isMobile:true,
 			},
 			email:{
 				required:true,
 				email:true,
 			},
-			adminRole:{
+			uploadfile:{
 				required:true,
 			},
+			
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			$(form).ajaxSubmit({
-				type: 'post',
-				url: "xxxxxxx" ,
-				success: function(data){
-					layer.msg('添加成功!',{icon:1,time:1000});
-				},
-                error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
-				}
-			});
+			//$(form).ajaxSubmit();
 			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
+			//parent.$('.btn-refresh').click();
 			parent.layer.close(index);
 		}
 	});
 });
+var a = "<font color=red>提示:30秒之内不点击提交按钮或打开审核页面30秒之后页面将自动刷新!!!</font>";
+	alert(a);
+/*填写用户照片--审核状态-- 1pass ,0 out*/
+function admin_mpm_status_do(obj,id){
+	var mpm_status = document.getElementById("mpm_status").value;
+	
+	console.log(mpm_status)
+	layer.confirm("确认要修改---<font color=red>审核状态</font>---吗？",function(index){
+		$.ajax({
+			type: 'GET',
+			data:"id="+id+"&mpm_status="+mpm_status,
+			url: 'admin_mpm_status_do',
+			dataType: 'json',
+			success: function(data){
+
+				layer.msg('修改完成！！！',{icon: 6,time:1000});
+				
+			},
+			error:function(data) {
+				// .msg
+				console.log(data);
+			},
+		});		
+	});
+}
 </script> 
-<script type="text/javascript">
-	$(function(){
-		$("#link").click(function(){
-			var node_name = $("#node_name").val();
-			var node_desc = $("#node_desc").val();
-			$.ajax({
-				type: 'post',
-				url: 'addpower',
-				data: {node_name:node_name,node_desc:node_desc},
-				success: function(result){
-					if(result == 0){
-						alert('添加权限失败');
-						return false;
-					}else{
-						alert('添加权限成功');
-						return true;
-					}
-				}
-			});
-		});
-	})
-</script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

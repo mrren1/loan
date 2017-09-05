@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers\backend;
 use App\Admin;
-use App\Http\Controllers\fronted\Controller;
+use App\Http\Controllers\backend\BackendController;
 use Illuminate\Support\Facades\DB;
-class AdminController extends Controller
+use App\Http\Models\User;
+class AdminController extends BackendController
 {
      public function index()
      {
@@ -12,6 +13,8 @@ class AdminController extends Controller
      //首页展示
      public function welcome()
      {
-     	return view('backend/Admin/welcome');
+     	$data = $_SERVER;
+     	return view('backend/Admin/welcome',['data'=>$data]);
      }
+
 }
