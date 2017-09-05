@@ -98,12 +98,18 @@ Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
 //权限管理
 Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
+Route::any('delrole','backend\RbacController@deleteRole'); //删除角色
+Route::any('delnode','backend\RbacController@deleteNode'); //删除权限
+Route::any('deladmin','backend\RbacController@deleteAdmin'); //删除管理员
 Route::any('setpower','backend\RbacController@setPower');    //分配权限
 Route::any('getpower','backend\RbacController@admin_get_power');    //设置权限
 Route::any('role_add','backend\RbacController@admin_role_add');
 Route::any('permission','backend\RbacController@admin_permission');   //角色列表
 Route::any('permission_add','backend\RbacController@admin_permission_add');
 Route::any('admin_add','backend\RbacController@admin_add');
+Route::any('addpower','backend\RbacController@admin_add_power');    //添加权限
+Route::any('admin_add_any','backend\RbacController@admin_add_any');   //添加管理员列表
+Route::any('add_admin','backend\RbacController@add_admin');   //添加管理员列表
 Route::any('admin_power','backend\RbacController@admin_power');
 Route::any('role_premission','backend\RbacController@role_premission');
 Route::any('setrole','backend\RbacController@setrole');
@@ -143,5 +149,7 @@ Route::post('addpower',
 
 //ajax计算利息
 Route::any('arithmetic','fronted\OfferController@arithmetic');
+
 //添加借款申请
 Route::any('adddebt','fronted\OfferController@adddebt');
+
