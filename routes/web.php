@@ -167,10 +167,11 @@ Route::any('admin_mpm_status_do','backend\memberController@admin_mpm_status_do')
 /*
 this is 贷款列表 
  */
-Route::any('admin_loan_list','backend\memberController@admin_loan_list'); //贷款列表 
+Route::any('admin_loan_list','backend\SetloanController@admin_loan_list'); //贷款列表 
+Route::any('admin_status_pass','backend\SetloanController@admin_status_pass'); //修改贷款成功状态 
 Route::any('admin_offer_list','backend\OfferController@admin_offer_list'); //借款列表 
-Route::any('admin_loan_list_stop','backend\memberController@admin_loan_list_stop'); //后台哦    贷款列表  审核通过
-Route::any('admin_loan_list_start','backend\memberController@admin_loan_list_start'); //后台哦  贷款列表  审核为通过
+Route::any('admin_loan_list_stop','backend\SetloanController@admin_loan_list_stop'); //后台哦    贷款列表  审核通过
+Route::any('admin_loan_list_start','backend\SetloanController@admin_loan_list_start'); //后台哦  贷款列表  审核为通过
 
 
 Route::post('addpower', 
