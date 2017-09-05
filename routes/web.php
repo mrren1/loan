@@ -96,9 +96,8 @@ Route::any('admin_login/','backend\LoginController@index');
 //首页
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
-Route::group(['middleware'=>['checkuser','dealuser']],function(){
 
-	   
+Route::group(['middleware'=>['checkuser','dealuser']],function(){   
 	Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
 	Route::any('setpower','backend\RbacController@setPower');    //分配权限
 	Route::any('getpower','backend\RbacController@admin_get_power');    //设置权限
@@ -126,6 +125,7 @@ Route::group(['middleware'=>['checkuser','dealuser']],function(){
 	    'as'=>'addpower',
 	]);
 });
+
 //权限管理
 Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
 Route::any('delrole','backend\RbacController@deleteRole'); //删除角色
@@ -186,3 +186,5 @@ Route::any('arithmetic','fronted\OfferController@arithmetic');
 //添加借款申请
 Route::any('adddebt','fronted\OfferController@adddebt');
 
+//借款的审核
+Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');

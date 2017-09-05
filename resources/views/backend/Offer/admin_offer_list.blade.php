@@ -44,7 +44,7 @@
 				<th>还款时间</th>
 				<th>贷款ID</th>
 				<th>借款状态</th>
-				<th width="100">操作</th>
+				<th width="150">操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -58,7 +58,7 @@
 				<td>{{$val['debt_btime']}}</td>
 				<td>{{$val['debt_stime']}}</td>
 				<td>{{$val['from_id']}}</td>
-				<td class="td-status">
+				<td class="td-status{{$val['debt_id']}}">
 					@if($val['debt_status'] == 1)
 					<span class="label label-success radius">审核通过</span>  
 					@elseif($val['debt_status'] == 2)
@@ -67,10 +67,13 @@
 					<span class="label label-defaunt radius">未审核</span> 
 					@endif
 				</td>
-				<td class="td-manage">
-					<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,'')" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
-					<a class="manage" style="text-decoration:none" onClick="loan_list_stop(this,'')" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>&nbsp;&nbsp;&nbsp; 
-					<!-- <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a> -->
+				<td class="td-manage{{$val['debt_id']}}">
+				<?php if($val['debt_status']==0||$val['debt_status']==2){?>
+					<a class="manage" style="text-decoration:none" data-biao="1" data-id="{{$val['debt_id']}}" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;
+				<?php }?>
+				<?php if($val['debt_status']==1||$val['debt_status']==0){?>
+					<a class="manage" style="text-decoration:none" data-biao='2' data-id="{{$val['debt_id']}}" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp; 
+				<?php }?>
 				</td>
 			</tr>
 		@endforeach
@@ -101,90 +104,33 @@ $(function(){
 	});
 	
 });
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-照片审核编辑*/
-function member_redact(title,url,w,h){
-	layer_show(title,url,w,h);
-	setTimeout(reload,1000*20);// 设定 20秒后 执行 刷新当前页面
-}
-function reload(){
-	window.location.reload();//刷新当前页面
-}
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*贷款-改为未审核状态*/
-function loan_list_stop(obj,id){
-	layer.confirm("确认要改为---<font color=red>审核未通过</font>---吗？",function(index){
-		$.ajax({
-			type: 'POST',
-			data:"id="+id,
-			url: 'admin_loan_list_stop',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="admin_loan_list_start(this,'+id+')" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">审核未通过</span>');
-				$(obj).remove();
-				layer.msg('审核未通过!！',{icon: 5,time:1000});
-			},
-			error:function(data) {
-				// .msg
-				console.log(data);
-			},
-		});		
-	});
-}
-
-/*贷款-通过审核*/
-function admin_loan_list_start(obj,id){
-	layer.confirm('确认要改为---<font color=red>审核通过</font>---吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			data:"id="+id,
-			url: 'admin_loan_list_start',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,'+id+')" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">审核通过</span>');
-				$(obj).remove();
-				layer.msg('审核通过！',{icon: 6,time:1000});
-			},
-			error:function(data) {
-				// .msg
-				console.log(data);
-			},
-		});
-	});
-}
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
-}
-/*用户-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
-}
 </script> 
 </body>
 </html>
+<script>
+	$(document).delegate('.manage','click',function(){
+	//$('.manage').click(function(){
+		var status=$(this).data('biao');
+		var debt_id=$(this).data('id');
+		var obj=$(this);
+		var td=$('.td-status'+debt_id);
+		$.ajax({
+			type:'get',
+			url:"changeDebtStatus",
+			//async:false,
+			data:{status:status,debt_id:debt_id},
+			success:function(result){
+				alert(result)
+				// if(result==1){
+				// 	if(status/1==1){
+				// 		td.html('<span class="label label-success radius">审核通过</span> ');
+				// 		obj.html('<a class="manage" style="text-decoration:none" data-biao="2" data-id="'+debt_id+'" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp;');
+				// 	}else if(status/1==2){
+				// 		td.html('<span class="label radius" style="background:red">审核未通过</span>');
+				// 		obj.html('<a class="manage" style="text-decoration:none" data-biao="1" data-id="'+debt_id+'" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;');
+				// 	}
+				// }
+			}
+		});
+	});
+</script>
