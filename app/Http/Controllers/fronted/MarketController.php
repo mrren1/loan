@@ -15,7 +15,6 @@ class MarketController extends Controller
 		$lend=Lend::limit(6)->get()->toArray();
 
 		$lendArr=$this->getLendInfo($lend);
-		
 		return view('fronted/Market/market',array('lendArr'=>$lendArr));
 	}
 
