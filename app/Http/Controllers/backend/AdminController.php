@@ -22,7 +22,6 @@ class AdminController extends BackendController
           {
                return redirect('prompt')->with(['message'=>'请登录!','url' =>'admin_login', 'jumpTime'=>2,'status'=>false]); 
           }
-     	
      }
      //首页展示
      public function welcome()

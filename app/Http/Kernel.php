@@ -45,12 +45,30 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+    // protected $routeMiddleware = [
+    //     'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+    //     'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+    //     'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    //     'can' => \Illuminate\Auth\Middleware\Authorize::class,
+    //     'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    //     'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+    // ];
+
+    //权限验证
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+    
+        'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        //加入定义的中间件
+        'checkuser'=>\App\Http\Middleware\BeforeUserMiddleware::class,
+        'dealuser'=>\App\Http\Middleware\AfterUserMiddleware::class,
+        //结束
+    'role' => Zizaco\Entrust\Middleware\EntrustRole::class,
+    'permission' => Zizaco\Entrust\Middleware\EntrustPermission::class,
+    'ability' => Zizaco\Entrust\Middleware\EntrustAbility::class,
     ];
+
+
+
 }
