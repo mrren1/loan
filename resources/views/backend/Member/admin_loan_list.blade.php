@@ -37,8 +37,8 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th>贷款ID</th>
-				<th>用户ID</th>
+				<th width="60px;">贷款ID</th>
+				<th width="60px;">用户ID</th>
 				<th>贷款截止时间</th>
 				<th>贷款金额</th>
 				<th>贷款利息</th>
@@ -149,7 +149,7 @@ function loan_list_stop(obj,id){
 
 /*贷款-通过审核*/
 function admin_loan_list_start(obj,id){
-	layer.confirm('确认要改为---<font color=red>审核通过!!!</font>---吗？',function(index){
+	layer.confirm('确认要改为---<font color=red>审核通过</font>---吗？',function(index){
 		$.ajax({
 			type: 'POST',
 			data:"id="+id,

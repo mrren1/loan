@@ -99,22 +99,8 @@ class MemberController extends BackendController
       */
      public function admin_loan_list()
      {
-        $setloanData = lend::orderBy('lend_id')->get()->toArray();
+        $setloanData = lend::get()->toArray();
         $setloancount = lend::get()->count();
         return view('backend/Member/admin_loan_list',['setloanData'=>$setloanData,'setloancount'=>$setloancount]);  
      }
-
-     /**
-      * @access public
-      * @param admin_offer_list()
-      * @return array();
-      * 申请借款列表
-      */
-     public function admin_offer_list()
-     {
-        $offerData = debt::orderBy('debt_id','debt_btime')->get()->toArray();
-        $offercount = debt::get()->count();
-        return view('backend/Member/admin_offer_list',['offerData'=>$offerData,'offercount'=>$offercount]);
-     }
-
  }
