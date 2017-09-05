@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\backend;
 use App\Member;
 use App\Http\Controllers\backend\BackendController;
+use App\Http\Models\debt;
+use App\Http\Models\lend;
 use Illuminate\Support\Facades\DB;
 class MemberController extends BackendController
 {
@@ -21,7 +23,6 @@ class MemberController extends BackendController
      public function admin_member_msg()
      {
          $member_msg = DB::table('message')->get();
-         // var_dump($member_msg);die;
          return view( 'backend/Member/admin_member_msg',[ "member_msg" => $member_msg ] );
      }
      //会员一键审核 ---》》》 修改审核状态为  --未审核--
@@ -69,30 +70,36 @@ class MemberController extends BackendController
         $status = json_encode($status);
         return $status;
      }
-     public function admin_loan_list()//---- 后台 发布贷款人 审核 ----
-     {
-        $loan_list_msg = DB::table('lend')
-            ->get();
-        return view( 'backend/Member/admin_loan_list' , ["loan_list_msg" => $loan_list_msg ] );
-         
-     }
-     //贷款一键审核 ---》》》 修改审核状态为  --未审核--
-     public function admin_loan_list_stop()
-     {
-        $id = $_POST['id'];
-        $status = 0;
-        $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
-        $status = json_encode($status);
-        return $status;
-     }
-     //贷款一键审核 ---》》》 修改审核状态为  --审核通过--
-       public function admin_loan_list_start()
-     {
-        $id = $_POST['id'];
-        $status = 1;
-        $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
-        $status = json_encode($status);
-        return $status;
-     }
 
+     //贷款一键审核 ---》》》 修改审核状态为  --未审核--
+     // public function admin_loan_list_stop()
+     // {
+     //    $id = $_POST['id'];
+     //    $status = 0;
+     //    $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
+     //    $status = json_encode($status);
+     //    return $status;
+     // }
+     //贷款一键审核 ---》》》 修改审核状态为  --审核通过--
+     // public function admin_loan_list_start()
+     // {
+     //    $id = $_POST['id'];
+     //    $status = 1;
+     //    $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
+     //    $status = json_encode($status);
+     //    return $status;
+     // }
+
+     /**
+      * @access public
+      * @param admin_loan_list()
+      * @return array();
+      * 发布代款列表
+      */
+     public function admin_loan_list()
+     {
+        $setloanData = lend::get()->toArray();
+        $setloancount = lend::get()->count();
+        return view('backend/Member/admin_loan_list',['setloanData'=>$setloanData,'setloancount'=>$setloancount]);  
+     }
  }

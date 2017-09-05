@@ -67,7 +67,7 @@
       <nav class="navbar navbar-static-top sl-navbar" role="navigation"> 
        <div class="container"> 
         <div class="navbar-header  col-xs-2"> 
-         <a class="navbar-brand" href="index"> <span class="sl-logo">点融网 - DianRong</span> </a> 
+         <a class="navbar-brand" href="index"> <span class="sl-logo"></span> </a> 
         </div> 
         <div class="sl-nav col-xs-10"> 
          <ul class="nav navbar-nav main-menu"> 

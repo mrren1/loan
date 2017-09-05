@@ -22,7 +22,7 @@
 <title>贷款管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 贷款管理 <span class="c-gray en">&gt;</span> 贷款列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 贷款管理 <span class="c-gray en">&gt;</span> 借款列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c"> 日期范围：
 		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
@@ -31,49 +31,41 @@
 		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加积分','sign_add','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加积分</a></span> <span class="r">共有数据：<strong>{{$setloancount}}</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加积分','sign_add','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加积分</a></span> <span class="r">共有数据：<strong>{{$offercount}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="60px;">贷款ID</th>
-				<th width="60px;">用户ID</th>
-				<th>贷款截止时间</th>
-				<th>贷款金额</th>
-				<th>贷款利息</th>
-				<th>贷款最低额度</th>
+				<th>借款ID</th>
+				<th>用户ID</th>
 				<th>借款金额</th>
-				<th>贷款类型</th>
-				<th>联系人</th>
-				<th>联系电话</th>
-				<th>贷款状态</th>
-				<th>操作</th>
+				<th>借款时间</th>
+				<th>还款时间</th>
+				<th>贷款ID</th>
+				<th>借款状态</th>
+				<th width="100">操作</th>
 			</tr>
 		</thead>
 		<tbody>
 		<div class="container">
-		@foreach($setloanData as $key => $val)
+		@foreach($offerData as $key => $val)
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
-				<td>{{$val['lend_id']}}</td>
+				<td>{{$val['debt_id']}}</td>
 				<td>{{$val['user_id']}}</td>
-				<td>{{$val['lend_time']}}</td>
-				<td>{{$val['lend_money']}}</td>
-				<td>{{$val['lend_interest']}}</td>
-				<td>{{$val['lend_lack']}}</td>
-				<td>{{$val['lend_used']}}</td>
-				<td>{{$val['lend_type']}}</td>
-				<td>{{$val['lend_person']}}</td>
-				<td>{{$val['lend_phone']}}</td>
+				<td>{{$val['debt_money']}}</td>
+				<td>{{$val['debt_btime']}}</td>
+				<td>{{$val['debt_stime']}}</td>
+				<td>{{$val['from_id']}}</td>
 				<td class="td-status">
-					@if ($val['lend_status'] == 1 ) 
-						<span class="label label-success radius">审核通过</span> 
-					@elseif($val['lend_status'] == 2 )
-						<span class="label radius" style="background:red">审核未通过</span> 
-					@else 
-						<span class="label label-defaunt radius">未审核</span> 
-					@endif</span>
+					@if($val['debt_status'] == 1)
+					<span class="label label-success radius">审核通过</span>  
+					@elseif($val['debt_status'] == 2)
+					<span class="label radius" style="background:red">审核未通过</span>
+					@else
+					<span class="label label-defaunt radius">未审核</span> 
+					@endif
 				</td>
 				<td class="td-manage">
 					<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,'')" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
@@ -104,7 +96,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,8,8]}// 制定列不参与排序
 		]
 	});
 	
