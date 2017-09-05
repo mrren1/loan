@@ -50,7 +50,7 @@ Route::get('member_bank', 'fronted\MemberBankController@index');
 Route::get('out', 'fronted\LoginController@quit');
 Route::get('setloan', 'fronted\SetloanController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
-Route::get('debt', 'fronted\OfferController@index');
+Route::any('debt', 'fronted\OfferController@index');
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
 
@@ -133,3 +133,5 @@ Route::post('addpower',
 
 //ajax计算利息
 Route::any('arithmetic','fronted\OfferController@arithmetic');
+//添加借款申请
+Route::any('adddebt','fronted\OfferController@adddebt');
