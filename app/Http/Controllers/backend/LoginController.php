@@ -21,8 +21,7 @@ class LoginController extends BackendController
                $validator = Validator::make(Input::all(), $captcha);
                if($validator->fails())
                {
-                   return redirect('prompt')->with(['message'=>'验证码错误！','url' =>'admin_login', 'jumpTime'=>2,'status'=>false]);
-                    
+                   return redirect('prompt')->with(['message'=>'验证码错误！','url' =>'admin_login', 'jumpTime'=>2,'status'=>false]);   
                }
                else
                {
@@ -41,7 +40,6 @@ class LoginController extends BackendController
                               $admin->where('admin_id',$admin_arr['admin_id'])->update(array('log_time'=>time()));
                               $request->session()->put('admin_id',$admin_arr['admin_id']);
                               $request->session()->put('admin_name',$admin_arr['admin_name']);
-                              // $a=$request->session()->get('admin_name');
                               return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'admin_index', 'jumpTime'=>2,'status'=>false]);
                     }
                     else{
@@ -57,6 +55,11 @@ class LoginController extends BackendController
      		return view('backend/Login/login');
      	}
      	
+     }
+     public function quit(Request $request)
+     {
+          $request->session()->forget('admin_name');
+          return redirect('prompt')->with(['message'=>'退出成功','url' =>'admin_index', 'jumpTime'=>3,'status'=>false]);
      }
 
 }

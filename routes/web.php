@@ -117,6 +117,7 @@ Route::any('setrole','backend\RbacController@setrole');
 Route::any('member_list','backend\MemberController@member_list');
 Route::any('member_sign','backend\MemberController@member_sign');
 Route::any('sign_add','backend\MemberController@sign_add');
+Route::get('admin_out', 'backend\LoginController@quit');
 //广告管理
 Route::any('ad_list','backend\AdController@ad_list');
 Route::any('ad_add','backend\AdController@ad_add');
