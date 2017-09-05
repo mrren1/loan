@@ -429,7 +429,7 @@
     <select num="0" class="sel" name="country">
       <option value="">请选择</option>
       @foreach ($address as $key => $val)
-        <option value="{{$val['address_id']}}" @if($message['country']==$val['address_id'])selected="selected"@endif>{{$val['address_name']}}</option>
+        <option value="{{$val['address_id']}}">{{$val['address_name']}}</option>
       @endforeach
     </select>
     <select class="sel" num="1" name="province">
