@@ -2,10 +2,13 @@
 
 namespace App\Http\models;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-class Purse extends Model
+
+class Platform extends Model
 {
-	protected $table = 'purse';
+	//表名
+	protected $table = 'platform';
+
+	//时间戳
 	public $timestamps = false;
-    
+
 }

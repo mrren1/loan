@@ -45,32 +45,8 @@
 <ul id="invest-history-tab" class="nav nav-tabs">
 <li class="active" ng-click="updateByGroup('MyNotesNew')">
 <a data-toggle="tab" href="#ih-myNotes">
-还款中的投资
-<span class="badge ng-binding" ng-bind="allRecords">0</span>
-</a>
-</li>
-<li>
-<a data-toggle="tab" href="#ih-myPendingNotes">
-投标中的投资
-<span class="badge ng-binding" ng-bind="myPendingNotesTotalRecords">0</span>
-</a>
-</li>
-<li>
-<a data-toggle="tab" href="#ih-history">
-已结清的投资
-<span class="badge ng-binding" ng-bind="myCompleteNotesTotalRecords">0</span>
-</a>
-</li>
-<li>
-<a data-toggle="tab" href="#ih-securitizedNotes">
-转让中的债权
-<span class="badge ng-binding" ng-bind="secNotesTotalRecords">0</span>
-</a>
-</li>
-<li>
-<a data-toggle="tab" href="#ih-transferSecuritizedNotes">
-已售出的债权
-<span class="badge ng-binding" ng-bind="myTransferedNotesTotalRecords">0</span>
+还款列表
+<span class="badge ng-binding" ng-bind="allRecords">{{$count}}</span>
 </a>
 </li>
 </ul>
@@ -83,15 +59,13 @@
 <div class="row summary-section">
 <div class="col-xs-5 divider monthly">
 <h3 class="highlighted-sum ng-binding" ng-bind-html="repaymentInfo.thisMonth | slMoney">
-0
-<small>.00元</small>
+<small id="sum" style="cursor:pointer;">{{$month_sum}}元</small>
 </h3>
-<p class="highlighted-sum-caption ng-binding">本月预期还款 (3月)</p>
+<p class="highlighted-sum-caption ng-binding">本月预期还款 (<span id="mon"><?php echo date('n')?></span>月)</p>
 </div>
 <div class="col-xs-5 dayly">
 <h3 class="highlighted-sum ng-binding" ng-bind-html="repaymentInfo.thisDay | slMoney">
-0
-<small>.00元</small>
+<small>{{$day_sum}}元</small>
 </h3>
 <p class="highlighted-sum-caption">今日预期还款</p>
 </div>
@@ -112,7 +86,7 @@
 <span ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
 <span class="ng-binding" ng-bind-html="escapeHtml(a.name)">
 <div class="dropdown type" style="padding-top:5px;padding-left: 7px;">
-<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">名称</a>
+<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">呵呵</a>
 <ul class="dropdown-menu" aria-labelledby="dLabsel" role="menu">
 <i class="table-dropdown-arrow"></i>
 <i class="table-dropdown-arrow2"></i>
@@ -216,86 +190,13 @@
 <div>
 <div class="notes-table">
 <div class="data-table-wrapper ng-isolate-scope" params="myNotesParams" data="myNotesData" columns="myNotesColumns" init="myNotesInit(ele)">
+<!--这里-->
 <table class="table data-table table-hover table-striped ">
-<thead>
-<tr>
-<th class="ng-scope tc" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">
-<div class="dropdown type" style="padding-top:5px;padding-left: 7px;">
-<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">名称</a>
-<ul class="dropdown-menu" aria-labelledby="dLabsel" role="menu">
-<i class="table-dropdown-arrow"></i>
-<i class="table-dropdown-arrow2"></i>
-<li>
-<a data-loan-filter="" role="menuitem">全部</a>
-</li>
-<li>
-<a data-loan-filter="PERSONAL" role="menuitem">个人</a>
-</li>
-<li>
-<a data-loan-filter="BUSINESS" role="menuitem">商业</a>
-</li>
-</ul>
+
+
 </div>
 </span>
-<span ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
-</span>
-</th>
-<th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">信用等级</span>
-<span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
-</span>
-</th>
-<th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">借款利率</span>
-<span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
-</span>
-</th>
-<th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">投资金额</span>
-<span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
-</span>
-</th>
-<th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">下期还款日</span>
-<span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
-</span>
-</th>
-<th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">下期还款金额</span>
-<span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
-</span>
-</th>
-<th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
-<span ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">
-<div class="dropdown group" style="padding-top:5px;padding-left: 7px;">
-<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">状态</a>
-<ul class="dropdown-menu" aria-labelledby="dLabsel" role="menu">
-<i class="table-dropdown-arrow"></i>
-<i class="table-dropdown-arrow2"></i>
-<li>
-<a data-loan-filter="MyNotesNew" role="menuitem">全部</a>
-</li>
-<li>
-<a data-loan-filter="MyNotesCurrent" role="menuitem">正常</a>
-</li>
-<li>
-<a data-loan-filter="MyNotesGrace" role="menuitem">宽限中</a>
-</li>
-<li>
-<a data-loan-filter="MyNotesLate" role="menuitem">逾期</a>
-</li>
-<li>
-<a data-loan-filter="MyNotesDefaulted" role="menuitem">坏账</a>
-</li>
-</ul>
+
 </div>
 </span>
 <span ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
@@ -313,10 +214,42 @@
 </table>
 </div>
 </div>
-<div class="alert alert-warning clearfix" ng-show="!myNotesLoading && ( !totalRecords || totalRecords<=0)">
-无任何记录
-<a class="close sl-icon-cross" aria-hidden="true" data-dismiss="alert"></a>
-</div>
+<!--展示数据-->
+  <table class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+      <tr class="text-c">
+        <th width="60">用户</th>
+        <th width="90">借款金额</th>
+        <th width="100">借款时间</th>
+        <th width="100">还款时间</th>
+        <th width="60">借款人</th>
+        <th width="80">借款描述</th>
+        <th width="70">审核状态</th>
+      </tr>
+    </thead>
+    <tbody id="box">
+    @foreach($debt as $k => $v)
+      <tr class="text-c">
+        <td>{{$v->user_name}}</td>
+        <td>{{$v->debt_money}}</td>
+        <td>{{$v->debt_btime}}</td>
+        <td>{{$v->debt_stime}}</td>
+        <td>{{$v->from_name}}</td>
+        <td>{{$v->debt_desc}}</td>
+        <td>
+          @if($v->debt_status==0)
+          未审核
+          @elseif($v->debt_status==1)
+          通过
+          @else
+          未通过
+          @endif
+        </td>
+      </tr>
+     @endforeach
+    </tbody>
+  </table>
+ <span id="page">{{ $debt->links() }}</span>
 <div class="notes-pagination ng-hide" ng-show="totalRecords>0">
 <div class="sl-pagination pagination ng-isolate-scope" params="myNotesParams" total-records="totalRecords" page-size="myNotesParams.pageSize" page="myNotesParams.page">
 <ul>
@@ -971,6 +904,40 @@
      </div> 
     </div> 
    </div> 
+   <script>
+      $("#sum").click(function(){
+        var mon=$("#mon").text();
+        var uid=$()
+        $.ajax({
+          type:'get',
+            url:"{{url('member_bid_record')}}",
+            data:{mon:mon},
+            dataType:'json',
+            success:function(e){
+              $("#box").html("");
+              $.each(e,function(k,v){
+                var tr=$('<tr class="text-c"></tr>');
+                tr.append('<td>'+v.user_name+'</td>');
+                tr.append('<td>'+v.debt_money+'</td>');
+                tr.append('<td>'+v.debt_btime+'</td>');
+                tr.append('<td>'+v.debt_stime+'</td>');
+                tr.append('<td>'+v.from_name+'</td>');
+                tr.append('<td>'+v.debt_desc+'</td>');
+                if(v.debt_status==0){ 
+                  status='未审核';
+                }else if(v.debt_status==1){
+                  status='通过';
+                }else{
+                  status='未通过';
+                }
+                tr.append('<td>'+status+'</td>');
+                $("#box").append(tr);
+                $("#page").hide();
+              })
+            }
+        });
+      });
+   </script>
   @endsection
    <!-- Modal --> 
    <div class="modal fade wechat-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 

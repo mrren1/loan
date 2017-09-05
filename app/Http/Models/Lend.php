@@ -6,4 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 class Lend extends Model
 {
 	protected $table = 'lend';
+	public $timestamps = false;
 }
+

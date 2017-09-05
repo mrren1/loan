@@ -2,6 +2,8 @@
 namespace App\Http\Controllers\backend;
 use App\Member;
 use App\Http\Controllers\backend\BackendController;
+use App\Http\Models\debt;
+use App\Http\Models\lend;
 use Illuminate\Support\Facades\DB;
 class MemberController extends BackendController
 {
@@ -21,10 +23,9 @@ class MemberController extends BackendController
      public function admin_member_msg()
      {
          $member_msg = DB::table('message')->get();
-         // var_dump($member_msg);die;
          return view( 'backend/Member/admin_member_msg',[ "member_msg" => $member_msg ] );
      }
-     //一键审核 ---》》》 修改审核状态为  --未审核--
+     //会员一键审核 ---》》》 修改审核状态为  --未审核--
      public function admin_member_stop()
      {
         $id = $_POST['id'];
@@ -33,7 +34,7 @@ class MemberController extends BackendController
         $status = json_encode($status);
         return $status;
      }
-     //一键审核 ---》》》 修改审核状态为  --审核通过--
+     //会员一键审核 ---》》》 修改审核状态为  --审核通过--
        public function admin_member_start()
      {
         $id = $_POST['id'];
@@ -42,13 +43,13 @@ class MemberController extends BackendController
         $status = json_encode($status);
         return $status;
      }
-     //一键审核 ---》》》 修改审核状态为  --审核页--
+     //会员一键审核 ---》》》 修改审核状态为  --审核页--
      public function admin_mpm_status()
      {  
 
         return view( 'backend/Member/admin_mpm_status' );
      }
-     //一键审核 ---》》》 修改审核状态为  --填写审核值-- 不填写自动填充零 后期跟进更新方法 填写 多了 自动更截取 等 相关的兼容 可以写个方法封装起来直接传值调用最好
+     //会员一键审核 ---》》》 修改审核状态为  --填写审核值-- 不填写自动填充零 后期跟进更新方法 填写 多了 自动更截取 等 相关的兼容 可以写个方法封装起来直接传值调用最好
      public function admin_mpm_status_do()
      {  
         $id = $_GET[ 'id' ];
@@ -69,4 +70,23 @@ class MemberController extends BackendController
         $status = json_encode($status);
         return $status;
      }
+
+     //贷款一键审核 ---》》》 修改审核状态为  --未审核--
+     // public function admin_loan_list_stop()
+     // {
+     //    $id = $_POST['id'];
+     //    $status = 0;
+     //    $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
+     //    $status = json_encode($status);
+     //    return $status;
+     // }
+     //贷款一键审核 ---》》》 修改审核状态为  --审核通过--
+     // public function admin_loan_list_start()
+     // {
+     //    $id = $_POST['id'];
+     //    $status = 1;
+     //    $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
+     //    $status = json_encode($status);
+     //    return $status;
+     // }
  }
