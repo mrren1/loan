@@ -112,7 +112,7 @@
 <span ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
 <span class="ng-binding" ng-bind-html="escapeHtml(a.name)">
 <div class="dropdown type" style="padding-top:5px;padding-left: 7px;">
-<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">名称</a>
+<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">呵呵</a>
 <ul class="dropdown-menu" aria-labelledby="dLabsel" role="menu">
 <i class="table-dropdown-arrow"></i>
 <i class="table-dropdown-arrow2"></i>
@@ -216,14 +216,14 @@
 <div>
 <div class="notes-table">
 <div class="data-table-wrapper ng-isolate-scope" params="myNotesParams" data="myNotesData" columns="myNotesColumns" init="myNotesInit(ele)">
+<!--这里-->
 <table class="table data-table table-hover table-striped ">
 <thead>
 <tr>
 <th class="ng-scope tc" ng-repeat="a in columns" ng-class="a.headerCssClass">
 <span ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">
+<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">用户
 <div class="dropdown type" style="padding-top:5px;padding-left: 7px;">
-<a class="sortable header-arrow-down" href="#" data-toggle="dropdown">名称</a>
 <ul class="dropdown-menu" aria-labelledby="dLabsel" role="menu">
 <i class="table-dropdown-arrow"></i>
 <i class="table-dropdown-arrow2"></i>
@@ -244,31 +244,31 @@
 </th>
 <th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
 <span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">信用等级</span>
+<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">借款金额</span>
 <span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
 </span>
 </th>
 <th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
 <span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">借款利率</span>
+<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">借款时间</span>
 <span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
 </span>
 </th>
 <th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
 <span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">投资金额</span>
+<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">还款时间</span>
 <span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
 </span>
 </th>
 <th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
 <span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">下期还款日</span>
+<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">借款人</span>
 <span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
 </span>
 </th>
 <th class="ng-scope" ng-repeat="a in columns" ng-class="a.headerCssClass">
 <span class="sortable" ng-click="sort(a.sortBy ? a.sortBy : a.field)" ng-class="{'active':params.sortBy==a.sortBy,'sortable':a.sortable}">
-<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">下期还款金额</span>
+<span class="ng-binding" ng-bind-html="escapeHtml(a.name)">借款描述</span>
 <span class="sl-icon-pointer-down-dark" ng-class="{'sl-icon-pointer-down-dark':(a.sortable && ((params.sortBy!=a.sortBy && defaultDesc==true)||(params.sortBy==a.sortBy&&params.sortDir=='desc'))), 'sl-icon-pointer-up-dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.sortBy==a.sortBy&&params.sortDir == 'asc'))}"></span>
 </span>
 </th>
@@ -313,10 +313,40 @@
 </table>
 </div>
 </div>
-<div class="alert alert-warning clearfix" ng-show="!myNotesLoading && ( !totalRecords || totalRecords<=0)">
-无任何记录
-<a class="close sl-icon-cross" aria-hidden="true" data-dismiss="alert"></a>
-</div>
+<!--展示数据-->
+  <table class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+      <tr class="text-c">
+        <th width="80">用户</th>
+        <th width="90">借款金额</th>
+        <th width="70">借款时间</th>
+        <th width="90">还款时间</th>
+        <th width="60">借款人</th>
+        <th width="80">借款描述</th>
+        <th width="70">审核状态</th>
+      </tr>
+    </thead>
+    <tbody>
+    @foreach($debt as $k => $v)
+      <tr class="text-c">
+        <td><?=$user['user_name']?></td>
+        <td>{{$v->debt_money}}</td>
+        <td>{{$v->debt_btime}}</td>
+        <td>{{$v->debt_stime}}</td>
+        <td>{{$v->from_name}}</td>
+        <td>{{$v->debt_desc}}</td>
+        <td>
+          @if($v->debt_status==0)
+          未通过
+          @else
+          通过
+          @endif
+        </td>
+      </tr>
+     @endforeach
+    </tbody>
+  </table>
+  {{ $debt->links() }}
 <div class="notes-pagination ng-hide" ng-show="totalRecords>0">
 <div class="sl-pagination pagination ng-isolate-scope" params="myNotesParams" total-records="totalRecords" page-size="myNotesParams.pageSize" page="myNotesParams.page">
 <ul>
