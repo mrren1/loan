@@ -42,39 +42,13 @@
   <div class="col-xs-9 ng-scope" autoscroll="false" ui-view="" style="">
 <div class="group-buy content-wrapper ng-scope">
 <header class="plans-header plans-subsection" ng-show="showPlanList">
-<p class="plans-header-title">团团赚总览</p>
+<p class="plans-header-title">贷款列表总览</p>
 </header>
 <h2 class="text-center ng-hide" ng-show="pageLoading">
 <i class="spinner sl-icon-loading"></i>
 </h2>
 <div class="tab-content" ng-show="!pageLoading && showPlanList">
-<div class="plans-summary clearfix row">
-<div class="col-xs-2 summary-subsection">
-<img class="tuan-summary-img" src="images/plan-tuan.png">
-<p class="tuan-summary-title text-center">团团赚</p>
-</div>
-<div class="col-xs-2 text-center summary-subsection highlighted-cont">
-<h3 class="highlighted-sum ng-binding" ng-bind-html="allInterestReceived | slMoney">
-0
-<small>.00元</small>
-</h3>
-<p class="font-gray">累计利息收益</p>
-</div>
-<div class="col-xs-2 summary-subsection text-center highlighted-cont">
-<h4 class="default-sum ng-binding">
-0
-<small>元</small>
-</h4>
-<p class="font-gray">加入总金额</p>
-</div>
-<div class="col-xs-2 summary-subsection text-center highlighted-cont">
-<h4 class="default-sum ng-binding">
-0
-<small>笔</small>
-</h4>
-<p class="font-gray">持有标数量</p>
-</div>
-</div>
+
 <div class="bg-content">
 <div class="plan-invest-header row">
 <div class="col-xs-1 font-gray text-center">用户</div>
@@ -102,9 +76,11 @@
 <div class="col-xs-2 text-left text-words">
 <a class="go-invest" href="/market/plan?planId=157001">
 @if($v->lend_status==0)
-未通过
-@else
+未审核
+@elseif($v->lend_status==1)
 通过
+@else
+未通过
 @endif
 </a>
 </div>
