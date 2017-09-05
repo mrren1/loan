@@ -104,6 +104,8 @@
 			<dd>
 				<ul>
 					<li><a data-href="loan_list" data-title="贷款列表" href="javascript:;">贷款列表</a></li>
+					<li><a data-href="" data-title="发布贷款列表" href="javascript:;">发布贷款列表</a></li>
+					<li><a data-href="" data-title="申请借款列表" href="javascript:;">申请借款列表</a></li>
 			</ul>
 		</dd>
 	</dl>
