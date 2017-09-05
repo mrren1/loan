@@ -10,14 +10,14 @@ use App\Http\Models\purse;
 class OfferController extends BackendController
 {
 	/**
-    * @access public
-    * @param admin_offer_list()
-    * @return array();
-    * 申请借款列表
-    */
-    public function admin_offer_list()
-    {
-        $offerData = debt::orderBy('debt_id','debt_btime')->get()->toArray();
+      * @access public
+      * @param admin_offer_list()
+      * @return array();
+      * 申请借款列表
+      */
+     public function admin_offer_list()
+     {
+        $offerData = debt::get()->toArray();
         $offercount = debt::get()->count();
         return view('backend/Offer/admin_offer_list',['offerData'=>$offerData,'offercount'=>$offercount]);
     }

@@ -47,7 +47,7 @@
 <strong class="ng-binding"></strong>
 </p>
 </div>
-<form class="form-horizontal ng-pristine ng-invalid ng-invalid-required" method="post" action="Add_bank">
+<form class="" method="post" action="Add_bank">
 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 <div class="form-group">
 <label class="col-xs-3 col-xs-offset-1 control-label">持卡人</label>
@@ -73,7 +73,7 @@
 <select class="form-control" name="put_name">
 <option class="ng-binding ng-scope" ng-selected="$index == selected" value="" ng-repeat="option in options" selected="selected">请选择银行</option>
 @foreach($data as $son)
-<option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$son}}" ng-repeat="option in options" selected="selected">{{$son}}</option>
+<option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$son}}" ng-repeat="option in options">{{$son}}</option>
 @endforeach
 </select>
 </div>
@@ -82,6 +82,7 @@
 <div class="form-group">
 <div class="card-set-as-default col-xs-4 col-xs-offset-4">
 <div class="modal-footer">
+
 <input type="reset" class="btn btn-secondary" value="取消">
 <input type="submit" class="btn btn-secondary" value="确认">
 </div>

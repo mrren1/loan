@@ -44,11 +44,12 @@
 </div>
 </div>
 <div class="modal-body summary-section">
-<form class="loadMoneyForm ng-pristine ng-invalid ng-invalid-required" novalidate="" target="_blank" name="loadMoneyForm">
+<form class="loadMoneyForm ng-pristine ng-invalid ng-invalid-required" method="post" action="{{url('memberCharge')}}">
+<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 <div class="row addLightBorder ng-isolate-scope" sl-popover="investAmountError" data-original-title="" title="">
 <label class="col-xs-1 inputNumberText ng-binding">充值金额</label>
 <div class="col-xs-2 inputNumber">
-<input class="form-control textFrame ng-pristine ng-invalid ng-invalid-required" type="text" sl-less-than="1000000000000" sl-greater-than="0" sl-decimal-digits="2" sl-valid-number="" required="" ng-show="!investLoanId" placeholder="充值金额" ng-model="load.amount" name="transferAmt">
+<input class="form-control textFrame ng-pristine ng-invalid ng-invalid-required" type="text" sl-less-than="1000000000000" sl-greater-than="0" sl-decimal-digits="2" sl-valid-number="" required="" ng-show="!investLoanId" placeholder="充值金额" ng-model="load.amount" name="purse_sum">
 <div class="ng-scope" ng-class="ng-hide" name="transferAmt" sl-validation-errors="">
 <span class="hide" ng-transclude="">
 <span class="ng-scope" for="required" sl-error-message="">金额不能为空</span>
@@ -66,10 +67,10 @@
 <div class="col-xs-2 textAlign availableCash ng-scope" ng-if="!investLoanId">
 <div>
 <span class="ng-binding" ng-bind-html="summary.availableCash|slMoney">
-@if ($Purse['purse_sum'] == 0)
+@if ($Purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_sum']}}.00元</small> 
+  <small>{{$Purse['purse_balance']}}元</small> 
 @endif
 </span>
 </div>

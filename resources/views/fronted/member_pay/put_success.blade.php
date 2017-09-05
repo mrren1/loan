@@ -33,6 +33,32 @@
      </div> 
     </div> 
    </div> 
+<!---->
+<section class="summary-section asset-activity" ng-show="">
+<div id="" class="" aria-hidden="" aria-labelledby="" role="" tabindex="">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-body summary-section">
+<div class="modal-header">
+<center><h4 id="myModalLabels" class="modal-title">提现成功</h4></center>
+<p style="font-size:16px;"><a href="member_mention">跳转到网银提现</a>||<a href="member_index">个人账户</a></p>
+</div>
+<div style="margin-top:5px;margin-left:15px">
+<div>请在新开网银页面完成提现后选择：</div>
+<div>
+<b>提现成功</b>
+|<a href="member_pay">查看提现记录</a>
+</div>
+<div>
+<b>提现失败</b>
+| 建议你联系我们客服（400-921-9218）
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
 @endsection
 
