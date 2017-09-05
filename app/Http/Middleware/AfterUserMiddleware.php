@@ -34,8 +34,6 @@ class AfterUserMiddleware extends BackendController
         $admin_id = $request->session()->get('admin_id');
         // echo $admin;
         // echo "<br>";
-        
-        // echo $admin_id;
         //查询用户有哪些的角色
         $method_all = $this->jurisdiction($admin_id);
         echo $this->action_only;
@@ -81,6 +79,9 @@ class AfterUserMiddleware extends BackendController
     //根据角色ID进行查询出角色对应的权限ID
     private function role_node($role_all_id){
         $role_node = RoleNode::whereIn('role_id' , $role_all_id)->get()->toArray();
+        if(empty($role_node)){
+            $role_node = array();
+        }
         // print_r($role_node);
         $node_arr = array();
         foreach ($role_node as $key => $val) {
@@ -94,6 +95,9 @@ class AfterUserMiddleware extends BackendController
     //根据权限ID查找出所有的权限=用户的权限
     private function node($node_arr){
          $node = Node::whereIn('node_id' , $node_arr)->get()->toArray();
+         if(empty($node)){
+            $node = array();
+         }
         $method_all = array();
 
         // print_r($node);
