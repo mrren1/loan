@@ -126,7 +126,6 @@ Route::group(['middleware'=>['checkuser','dealuser']],function(){
 	    'as'=>'addpower',
 	]);
 });
-=======
 //权限管理
 Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
 Route::any('delrole','backend\RbacController@deleteRole'); //删除角色
