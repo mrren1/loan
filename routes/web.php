@@ -96,6 +96,37 @@ Route::any('admin_login/','backend\LoginController@index');
 //首页
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
+Route::group(['middleware'=>['checkuser','dealuser']],function(){
+
+	   
+	Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
+	Route::any('setpower','backend\RbacController@setPower');    //分配权限
+	Route::any('getpower','backend\RbacController@admin_get_power');    //设置权限
+	Route::any('role_add','backend\RbacController@admin_role_add');
+	Route::any('permission','backend\RbacController@admin_permission');   //角色列表
+	Route::any('permission_add','backend\RbacController@admin_permission_add');
+	Route::any('admin_add','backend\RbacController@admin_add');
+	Route::any('admin_power','backend\RbacController@admin_power');
+	Route::any('role_premission','backend\RbacController@role_premission');
+	Route::any('setrole','backend\RbacController@setrole');
+	//会员管理
+	Route::any('member_list','backend\MemberController@member_list');
+	Route::any('member_sign','backend\MemberController@member_sign');
+	Route::any('sign_add','backend\MemberController@sign_add');
+	//广告管理
+	Route::any('ad_list','backend\AdController@ad_list');
+	Route::any('ad_add','backend\AdController@ad_add');
+	//贷款管理
+	Route::any('loan_list','backend\LoanController@loan_list');
+	//资金管理
+	Route::any('purse_list','backend\PurseController@purse_list');
+	Route::post('addpower', 
+	[
+	    'uses'=>'backend\PurseController@admin_add_power',
+	    'as'=>'addpower',
+	]);
+});
+=======
 //权限管理
 Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
 Route::any('delrole','backend\RbacController@deleteRole'); //删除角色
@@ -117,6 +148,7 @@ Route::any('setrole','backend\RbacController@setrole');
 Route::any('member_list','backend\MemberController@member_list');
 Route::any('member_sign','backend\MemberController@member_sign');
 Route::any('sign_add','backend\MemberController@sign_add');
+Route::get('admin_out', 'backend\LoginController@quit');
 //广告管理
 Route::any('ad_list','backend\AdController@ad_list');
 Route::any('ad_add','backend\AdController@ad_add');

@@ -23,7 +23,6 @@ class MemberController extends BackendController
      public function admin_member_msg()
      {
          $member_msg = DB::table('message')->get();
-         // var_dump($member_msg);die;
          return view( 'backend/Member/admin_member_msg',[ "member_msg" => $member_msg ] );
      }
      //会员一键审核 ---》》》 修改审核状态为  --未审核--
