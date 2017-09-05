@@ -37,7 +37,7 @@
  <div id="withdrawMoneyWizard" class="model" aria-hidden="true" aria-labelledby="withdrawMoneyWizardLabel" role="dialog" sl-withdraw-money="">
 <div class="modal-dialog">
 <div class="modal-content">
-<form class="ng-pristine ng-invalid ng-invalid-required" method="post" action="putOur">
+<form class="ng-pristine ng-invalid ng-invalid-required" method="post" action="addPut">
 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 <div class="ng-isolate-scope" name="withdrawMoneyWizard" on-dismiss="dismissWizard()" wizard="">
 <div class="modal-header">
@@ -64,10 +64,10 @@
 <h6 class="available-to-invest">
 可提现金额：
 <span class="ng-binding" ng-bind-html="summary.availableWithdrawCash | slMoney">
-@if ($Purse['purse_sum'] == 0)
-    <small>0元</small>
+@if ($Purse['purse_balance'] == 0)
+    <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_sum']}}元</small> 
+  <small>{{$Purse['purse_balance']}}元</small> 
 @endif
 </span>
 </h6>
@@ -104,7 +104,7 @@
 <div class="form-group withdraw-amount-row">
 <label class="col-xs-3 col-xs-offset-1 control-label">提现金额</label>
 <div class="col-xs-5">
-<input id="amount" class="form-control ng-scope ng-pristine ng-invalid ng-invalid-required" type="text" sl-greater-than="0" value="{{$Purse['purse_sum']}}" tooltip-placement="right" tooltip-trigger="focus" placeholder="输入提现金额" tooltip="金额须大于0且小于可提现金额" ng-model="withdrawMoneyForm.amount" name="withdrawAmt">
+<input id="amount" class="form-control ng-scope ng-pristine ng-invalid ng-invalid-required" type="text" sl-greater-than="0" value="{{$Purse['purse_sum']}}" tooltip-placement="right" tooltip-trigger="focus" placeholder="输入提现金额" tooltip="金额须大于0且小于可提现金额" ng-model="withdrawMoneyForm.amount" name="purse_sum">
 </div>
 </div>
 <div class="warning-tip">
@@ -116,8 +116,12 @@
 <div class="modal-footer ng-scope">
 <!-- <a class="btn btn-link" ng-click="dismissWizard()" data-dismiss="modal" href="#">取消</a>
 <a class="btn btn-secondary" ng-click="confirmWithdraw()">下一步</a> -->
+@if ($Purse['purse_balance'] == 0)
+<a href="memberCharge" class="ng-binding ng-pristine ng-valid">充值</a>
+@else
 <input type="reset" class="btn btn-secondary" value="取消">
 <input type="submit" class="btn btn-secondary" value="下一步">
+@endif
 </div>
 </section>
 
