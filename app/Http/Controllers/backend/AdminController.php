@@ -7,6 +7,8 @@ class AdminController extends BackendController
 {
      public function index()
      {
+     	
+     	
      	 return view('backend/Admin/index');
      }
      //首页展示
