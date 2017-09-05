@@ -31,13 +31,12 @@ class AfterUserMiddleware extends BackendController
 
     public function handle( $request, Closure $next)
     {
+        //获取用户
         $admin_id = $request->session()->get('admin_id');
-        // echo $admin;
-        // echo "<br>";
+
         //查询用户有哪些的角色
         $method_all = $this->jurisdiction($admin_id);
-        echo $this->action_only;
-        print_r($method_all);
+        
         if(!in_array($this->action_only,$method_all)){
             //权限不够就跳到首页
         return redirect('welcome');
