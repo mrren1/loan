@@ -429,7 +429,7 @@
     <select num="0" class="sel" name="country">
       <option value="">请选择</option>
       @foreach ($address as $key => $val)
-        <option value="{{$val['address_id']}}" @if($message['country']==$val['address_id'])selected="selected"@endif>{{$val['address_name']}}</option>
+        <option value="{{$val['address_id']}}">{{$val['address_name']}}</option>
       @endforeach
     </select>
     <select class="sel" num="1" name="province">
@@ -587,27 +587,37 @@
 <tr>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_photo']}}" @if($message['message_photo']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_photo']}}" @if($message['message_photo']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['private_photo']}}" @if($message['private_photo']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['private_photo']}}" @if($message['private_photo']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_idcard']}}" @if($message['message_idcard']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_idcard']}}" @if($message['message_idcard']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_fangcard']}}" @if($message['message_fangcard']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_fangcard']}}" @if($message['message_fangcard']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 <td>
 
-<img src="{{ URL::asset('/') }}uploads/{{$message['message_jiacard']}}" @if($message['message_jiacard']==null)style="width:0px"@elsestyle="width:70px"@endif />
+<img src="{{ URL::asset('/') }}uploads/{{$message['message_jiacard']}}" @if($message['message_jiacard']==null)style="width:0px"@else
+style="width:80px;"
+@endif />
 
 </td>
 </tr>

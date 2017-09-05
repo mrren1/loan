@@ -27,18 +27,19 @@
 <article class="page-container">
 <form action="">
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员名称：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" id="node_name" name="node_name">
+			<input type="text" class="input-text" id="admin_name" name="admin_name">
 		</div>
 	</div>
 	<br>
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限描述：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员密码：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<textarea name="node_desc" id="node_desc" cols="40" rows="10"></textarea>
+			<input type="password" class="input-text" id="admin_pwd" name="admin_pwd">
 		</div>
 	</div>
+	<br>
 	<div class="row cl">
 		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 			<input class="btn btn-primary radius" id="link" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -118,18 +119,18 @@ $(function(){
 <script type="text/javascript">
 	$(function(){
 		$("#link").click(function(){
-			var node_name = $("#node_name").val();
-			var node_desc = $("#node_desc").val();
+			var admin_name = $("#admin_name").val();
+			var admin_pwd = $("#admin_pwd").val();
 			$.ajax({
-				type: 'post',
-				url: 'addpower',
-				data: {node_name:node_name,node_desc:node_desc},
+				type: 'get',
+				url: 'add_admin',
+				data: {admin_name:admin_name,admin_pwd:admin_pwd},
 				success: function(result){
 					if(result == 0){
-						alert('添加权限失败');
+						alert('添加管理员失败');
 						return false;
 					}else{
-						alert('添加权限成功');
+						alert('添加管理员成功');
 						return true;
 					}
 				}

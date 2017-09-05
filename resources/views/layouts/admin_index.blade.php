@@ -99,10 +99,11 @@
 		</dd>
 	</dl>
 		<dl id="menu-comments">
-			<dt><i class="Hui-iconfont">&#xe622;</i>贷款管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe622;</i> 贷款管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="loan_list" data-title="贷款列表" href="javascript:;">贷款列表</a></li>
+					<li><a data-href="admin_loan_list" data-title="发布贷款列表" href="javascript:;">发布贷款列表</a></li>
+					<li><a data-href="admin_offer_list" data-title="申请借款列表" href="javascript:;">申请借款列表</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -117,7 +118,7 @@
 		</dd>
 	</dl>
 		<dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i>权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe62d;</i> 权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="admin_power" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>

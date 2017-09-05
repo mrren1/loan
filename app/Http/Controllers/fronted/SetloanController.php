@@ -6,6 +6,8 @@ use App\Setloan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\fronted\Controller;
 use App\Http\Models\blowloan;
+use App\Http\Models\Platform;
+// use Illuminate\Support\Facades\DB;
 
 class SetloanController extends Controller
 {
@@ -16,18 +18,21 @@ class SetloanController extends Controller
 	public function index(Request $request)
 	{
 		if($_POST){
+			//添加贷款
 			$setloan = new Blowloan;
 			$setloan->user_id = $request->session()->get('user_id');
 			$setloan->lend_time = $request['lend_time'];
 			$setloan->lend_money = $request['lend_money'];
 			$setloan->lend_desc = $request['lend_desc'];
 			$setloan->lend_lack = $request['lend_lack'];
-			$usance = $request['lend_interest'];
-			$lend_interest = substr($usance,0,strpos($usance,'%'));
-			$setloan->lend_interest = ($lend_interest/100);
-			$info = $setloan->save();
+			$lend_interest = ($request['lend_interest']/100);
+			$setloan->lend_interest = $lend_interest;
+			$setloan->lend_type = $request['lend_type'];
+			$setloan->lend_person = $request['lend_person'];
+			$setloan->lend_phone = $request['lend_phone'];
+			$info = $setloan->save();	
 			if($info){
-				return redirect('prompt')->with(['message'=>'发布贷款成功','url' =>'index', 'jumpTime'=>3,'status'=>false]);
+				return redirect('prompt')->with(['message'=>'发布贷款成功,请耐心等待审核......','url' =>'member_tuan', 'jumpTime'=>3,'status'=>false]);
 			}
 		}else{
 			return view('fronted.Setloan.setloan');

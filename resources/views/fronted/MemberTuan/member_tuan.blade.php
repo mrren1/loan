@@ -77,135 +77,44 @@
 </div>
 <div class="bg-content">
 <div class="plan-invest-header row">
-<div class="col-xs-1 font-gray text-center">名称</div>
-<div class="col-xs-2 font-gray text-left interest-info">累计收益(元)</div>
-<div class="col-xs-2 font-gray text-left annual-rate">年化收益</div>
-<div class="col-xs-2 font-gray text-left">加入本金(元)</div>
-<div class="col-xs-2 font-gray text-left">购买笔数</div>
-<div class="col-xs-2 font-gray text-left">担保</div>
+<div class="col-xs-1 font-gray text-center">用户</div>
+<div class="col-xs-2 font-gray text-left interest-info">贷款金额(元)</div>
+<div class="col-xs-2 font-gray text-left annual-rate">截止时间</div>
+<div class="col-xs-2 font-gray text-left">贷款描述</div>
+<div class="col-xs-2 font-gray text-left">利息比率</div>
+<div class="col-xs-2 font-gray text-left">贷款状态</div>
 <div class="col-xs-1 font-gray text-left"></div>
 </div>
+@foreach($lend as $k => $v)
 <div class="plan-invest-info row ng-scope" ng-repeat="w in linkLoansArray">
 <div class="col-xs-1 text-left">
-<img class="sl-plan-pic" ng-src="images/liquidity.jpg" src="images/liquidity.jpg">
+<img class="sl-plan-pic" ng-src="images/liquidity.jpg" src="uploads/{{$user['user_photo']}}">
+{{$user['user_name']}}
 </div>
-<div class="col-xs-2 text-left text-words interest-num">当前未投资</div>
-<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">5.5%</div>
-<div class="col-xs-2 text-left text-words">
-<a class="go-invest" href="/market/plan?planId=157001">去投资</a>
-</div>
+<div class="col-xs-2 text-left text-words interest-num">{{$v->lend_money}}</div>
+<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">{{$v->lend_time}}</div>
 <div class="col-xs-2 text-left">
 <p class="value number">
-<span>0</span>
-笔进行中
+{{$v->lend_desc}}
 </p>
 </div>
-<div class="col-xs-2 text-left text-words ng-binding">本金保障</div>
+<div class="col-xs-2 text-left text-words ng-binding">{{$v->lend_interest*100}}%</div>
+<div class="col-xs-2 text-left text-words">
+<a class="go-invest" href="/market/plan?planId=157001">
+@if($v->lend_status==0)
+未通过
+@else
+通过
+@endif
+</a>
+</div>
 <div class="col-xs-1 text-left text-words">
 <a ng-click="viewDetail(w.loanId)" href=""> 查看 ></a>
 </div>
 </div>
-<div class="plan-invest-info row ng-scope" ng-repeat="w in linkLoansArray">
-<div class="col-xs-1 text-left">
-<img class="sl-plan-pic" ng-src="images/newer.jpg" src="images/newer.jpg">
+@endforeach
 </div>
-<div class="col-xs-2 text-left text-words interest-num">当前未投资</div>
-<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">7%</div>
-<div class="col-xs-2 text-left text-words">
-<a class="go-invest" href="/market/plan?planId=68201">去投资</a>
-</div>
-<div class="col-xs-2 text-left">
-<p class="value number">
-<span>0</span>
-笔进行中
-</p>
-</div>
-<div class="col-xs-2 text-left text-words ng-binding">本息有保证</div>
-<div class="col-xs-1 text-left text-words">
-<a ng-click="viewDetail(w.loanId)" href=""> 查看 ></a>
-</div>
-</div>
-<div class="plan-invest-info row ng-scope" ng-repeat="w in linkLoansArray">
-<div class="col-xs-1 text-left">
-<img class="sl-plan-pic" ng-src="images/steadiness.jpg" src="images/steadiness.jpg">
-</div>
-<div class="col-xs-2 text-left text-words interest-num">当前未投资</div>
-<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">9%</div>
-<div class="col-xs-2 text-left text-words">
-<a class="go-invest" href="/market/plan?planId=145201">去投资</a>
-</div>
-<div class="col-xs-2 text-left">
-<p class="value number">
-<span>0</span>
-笔进行中
-</p>
-</div>
-<div class="col-xs-2 text-left text-words ng-binding">本金保障</div>
-<div class="col-xs-1 text-left text-words">
-<a ng-click="viewDetail(w.loanId)" href=""> 查看 ></a>
-</div>
-</div>
-<div class="plan-invest-info row ng-scope" ng-repeat="w in linkLoansArray">
-<div class="col-xs-1 text-left">
-<img class="sl-plan-pic" ng-src="images/high.jpg" src="images/high.jpg">
-</div>
-<div class="col-xs-2 text-left text-words interest-num">当前未投资</div>
-<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">7-16%</div>
-<div class="col-xs-2 text-left text-words">
-<a class="go-invest" href="/market/plan?planId=82801">去投资</a>
-</div>
-<div class="col-xs-2 text-left">
-<p class="value number">
-<span>0</span>
-笔进行中
-</p>
-</div>
-<div class="col-xs-2 text-left text-words ng-binding">本金保障</div>
-<div class="col-xs-1 text-left text-words">
-<a ng-click="viewDetail(w.loanId)" href=""> 查看 ></a>
-</div>
-</div>
-<div class="plan-invest-info row ng-scope" ng-repeat="w in linkLoansArray">
-<div class="col-xs-1 text-left">
-<img class="sl-plan-pic" ng-src="images/vip.jpg" src="images/vip.jpg">
-</div>
-<div class="col-xs-2 text-left text-words interest-num">当前未投资</div>
-<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">11%</div>
-<div class="col-xs-2 text-left text-words">
-<a class="go-invest" href="/market/plan?planId=189601">去投资</a>
-</div>
-<div class="col-xs-2 text-left">
-<p class="value number">
-<span>0</span>
-笔进行中
-</p>
-</div>
-<div class="col-xs-2 text-left text-words ng-binding">本金保障</div>
-<div class="col-xs-1 text-left text-words">
-<a ng-click="viewDetail(w.loanId)" href=""> 查看 ></a>
-</div>
-</div>
-<div class="plan-invest-info row ng-scope" ng-repeat="w in linkLoansArray">
-<div class="col-xs-1 text-left">
-<img class="sl-plan-pic" ng-src="images/svip.jpg" src="images/svip.jpg">
-</div>
-<div class="col-xs-2 text-left text-words interest-num">当前未投资</div>
-<div class="col-xs-2 text-left text-num rate-red annual-rate ng-binding">12%</div>
-<div class="col-xs-2 text-left text-words">
-<a class="go-invest" href="/market/plan?planId=83001">去投资</a>
-</div>
-<div class="col-xs-2 text-left">
-<p class="value number">
-<span>0</span>
-笔进行中
-</p>
-</div>
-<div class="col-xs-2 text-left text-words ng-binding">本金保障</div>
-<div class="col-xs-1 text-left text-words">
-<a ng-click="viewDetail(w.loanId)" href=""> 查看 ></a>
-</div>
-</div>
-</div>
+{{ $lend->links() }}
 </div>
 <div class="plan-details-header ng-hide" ng-show="!pageLoading && !showPlanList && !showGradeDetail &&!publishedPageLoading">
 <a class="back-btn" ng-click="goBack()" href="">团团赚总览</a>
