@@ -14,7 +14,7 @@ class OfferController extends BackendController
       */
      public function admin_offer_list()
      {
-        $offerData = debt::orderBy('debt_id','debt_btime')->get()->toArray();
+        $offerData = debt::get()->toArray();
         $offercount = debt::get()->count();
         return view('backend/Offer/admin_offer_list',['offerData'=>$offerData,'offercount'=>$offercount]);
      }
