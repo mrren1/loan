@@ -81,13 +81,13 @@ Route::post('addPut','fronted\MemberPayController@addPut');
 Route::any('putSuccess','fronted\MemberPayController@putSuccess');
 Route::any('chargeSuccess','fronted\MemberPayController@chargeSuccess');
 Route::any('memberCharge','fronted\MemberPayController@memberCharge');
+Route::any('showLog','fronted\MemberPayController@showLog');
 Route::post('upload', 'fronted\MemberInfoController@upload');
 Route::post('fang_upload', 'fronted\MemberInfoController@fang_upload');
 Route::post('jia_upload', 'fronted\MemberInfoController@jia_upload');
 Route::post('img_upload', 'fronted\MemberInfoController@img_upload');
 Route::post('id_upload', 'fronted\MemberInfoController@id_upload');
 Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
-
 
 
 
