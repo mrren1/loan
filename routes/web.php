@@ -149,9 +149,7 @@ Route::post('addpower',
 
 //ajax计算利息
 Route::any('arithmetic','fronted\OfferController@arithmetic');
-<<<<<<< HEAD
 
-=======
 //添加借款申请
 Route::any('adddebt','fronted\OfferController@adddebt');
->>>>>>> 2a49b0767e52cc91a7b41c7e2373fc6e0e409931
+
