@@ -52,7 +52,7 @@
 <p class="loading text-center ng-hide" ng-show="loadingPlan">
 <i class="spinner sl-icon-loading"></i>
 </p>
-<div class="" ng-show="!loadingPlan">
+<div class="box" ng-show="!loadingPlan">
 
 
 

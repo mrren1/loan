@@ -25,6 +25,7 @@ class MemberInfoController extends Controller
 			{
 				//修改数据
 				$arr=$request->all();
+				$arr['message_age']=!empty($arr['message_age'])&&isset($arr['message_age'])?$arr['message_age']:null;
 				$tel=$arr['message_phone'];
 				$name=$arr['message_name'];
 				$email=$arr['message_email'];
@@ -95,9 +96,9 @@ class MemberInfoController extends Controller
 				$message=new Message;
 				$message->user_id=$user_id;
 				$message->message_name=$data['name'];
-				$message->message_age=$data['age'];
+				$message->message_age=isset($data['age'])&&!empty($data['age'])?$data['age']:null;
 				$message->message_sex=$data['sex'];
-				$message->message_phone=$data['phone'];
+				$message->message_phone=isset($data['phone'])?$data['phone']:null;
 				$message->message_email=$data['email'];
 				$message->message_job=$data['job'];
 				$message->message_revenue=$data['revenue'];
