@@ -12,7 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'upload'
+        'upload','fang_upload','jia_upload','img_upload','id_upload','user_upload'
     ];
     //  public function handle($request, Closure $next)
     // {

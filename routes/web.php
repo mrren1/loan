@@ -188,3 +188,6 @@ Route::any('adddebt','fronted\OfferController@adddebt');
 
 //借款的审核
 Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
+
+//大额贷款
+Route::any('large','frontend\LargeController@index');
