@@ -30,4 +30,6 @@ class AdminController extends BackendController
      	return view('backend/Admin/welcome',['data'=>$data]);
      }
 
+    
+
 }
