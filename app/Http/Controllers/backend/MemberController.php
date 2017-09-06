@@ -70,23 +70,4 @@ class MemberController extends BackendController
         $status = json_encode($status);
         return $status;
      }
-
-     //贷款一键审核 ---》》》 修改审核状态为  --未审核--
-     // public function admin_loan_list_stop()
-     // {
-     //    $id = $_POST['id'];
-     //    $status = 0;
-     //    $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
-     //    $status = json_encode($status);
-     //    return $status;
-     // }
-     //贷款一键审核 ---》》》 修改审核状态为  --审核通过--
-     // public function admin_loan_list_start()
-     // {
-     //    $id = $_POST['id'];
-     //    $status = 1;
-     //    $status =  DB::update("update lend set lend_status = $status where lend_id = $id" );
-     //    $status = json_encode($status);
-     //    return $status;
-     // }
  }

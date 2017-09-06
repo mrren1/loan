@@ -73,6 +73,11 @@ Route::post('debt',
     'uses'=>'fronted\OfferController@index',
     'as'=>'debt',
 ]);
+Route::post('repayment', 
+[
+    'uses'=>'fronted\MemberBidRecordController@repayment',
+    'as'=>'repayment',
+]);
 Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
