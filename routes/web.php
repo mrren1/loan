@@ -170,13 +170,20 @@ Route::any('admin_mpm_status','backend\memberController@admin_mpm_status'); //�
 Route::any('admin_mpm_status_do','backend\memberController@admin_mpm_status_do'); //新会员 照片 审核状态入库
 
 /*
-this is 贷款列表 
+this is 贷款管理 
  */
 Route::any('admin_loan_list','backend\SetloanController@admin_loan_list'); //贷款列表 
 Route::any('admin_status_pass','backend\SetloanController@admin_status_pass'); //修改贷款成功状态 
 Route::any('admin_offer_list','backend\OfferController@admin_offer_list'); //借款列表 
 Route::any('admin_loan_list_stop','backend\SetloanController@admin_loan_list_stop'); //后台哦    贷款列表  审核通过
 Route::any('admin_loan_list_start','backend\SetloanController@admin_loan_list_start'); //后台哦  贷款列表  审核为通过
+/*
+this is 用户及会员管理
+ */
+Route::any('admin_user_list','backend\memberController@admin_user_list');  //后台哦      用户列表
+Route::any('admin_user_stop','backend\memberController@admin_user_stop');  //后台哦      停用    加入黑名单
+Route::any('admin_user_start','backend\memberController@admin_user_start');//后台哦      停用    加入白名单
+Route::any('admin_user_show','backend\memberController@admin_user_show');  //后台哦      停用    加入白名单
 
 
 Route::post('addpower', 
@@ -193,3 +200,6 @@ Route::any('adddebt','fronted\OfferController@adddebt');
 
 //借款的审核
 Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
+
+//大额贷款
+Route::any('large','fronted\LargeController@index');
