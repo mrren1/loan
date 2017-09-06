@@ -105,7 +105,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member_list" data-title="会员列表" href="javascript:;">会员列表</a></li>
+					<li><a data-href="admin_user_list" data-title="用户列表" href="javascript:;">用户列表</a></li>
 					<li><a data-href="member_sign" data-title="积分管理" href="javascript:;">积分管理</a></li>
 					<li><a data-href="admin_member_msg" data-title="会员信息审核列表" href="javascript:;">会员信息审核列表</a></li>
 			</ul>

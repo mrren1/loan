@@ -4,13 +4,12 @@ use App\Member;
 use App\Http\Controllers\backend\BackendController;
 use App\Http\Models\debt;
 use App\Http\Models\lend;
+use App\Http\Models\User;
+use App\Http\Models\Message;
 use Illuminate\Support\Facades\DB;
 class MemberController extends BackendController
 {
-     public function member_list()
-     {
-     	 return view('backend/Member/member_list');
-     }
+
       public function member_sign()
      {
      	 return view('backend/Member/member_scoreoperation');
@@ -70,7 +69,43 @@ class MemberController extends BackendController
         $status = json_encode($status);
         return $status;
      }
+    //用户信息 展示
+     public function admin_user_list()
+     {  
 
+        $UserData = User::get()->toArray();
+        // var_dump($UserData);die;
+        return view('backend/User/admin_user_list',[ 'UserData'=>$UserData ]);  
+
+     }
+      // 用户 ---》》》 修改审核状态为  --黑名单--
+     public function admin_user_stop()
+     {
+        $id = $_GET['id'];
+        $status = 0;
+        $status =  DB::update( "update user set user_black = $status where user_id = $id" );
+        $status = json_encode($status);
+        return $status;
+     }
+     // 用户 ---》》》 修改审核状态为  --白名单--
+     public function admin_user_start()
+     {
+        $id = $_GET['id'];
+        $status = 1;
+        $status =  DB::update( "update user set user_black = $status where user_id = $id" );
+        $status = json_encode($status);
+        return $status;
+     }
+     // 用户 ---》》》 用户会员相关  -- 详细信息展示 --
+     public function admin_user_show()
+     {
+
+        $id = $_GET['id'];
+        $member_msg = Message::where("user_id",$id)->get();
+        // var_dump($member_msg);die;
+        return view('backend/User/admin_user_show',[ 'member_msg'=>$member_msg ]);  
+
+     }
      //贷款一键审核 ---》》》 修改审核状态为  --未审核--
      // public function admin_loan_list_stop()
      // {
