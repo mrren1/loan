@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Models\platform;
 use App\Http\Models\purse;
+use App\Http\Models\Message;
 class OfferController extends BackendController
 {
 	/**
@@ -31,30 +32,49 @@ class OfferController extends BackendController
         //接收数据
         $debt_status=$request['status'];
         $debt_id=$request['debt_id'];
+        if($debt_status==2){
+            $bb=Debt::where('debt_id',$debt_id)->update(array('debt_status'=>$debt_status));
+            if($bb){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
 
         //借款表数据
         $debtArr=debt::where('debt_id',$debt_id)->first()->toArray();
-        $money=$debtArr['debt_money'];
+        $money=$debtArr['debt_money']/1;
         //平台表数据
         $platformArr=platform::first()->toArray();
-        $used=$platformArr['used']+$money;
-        $balance=$platformArr['balance']-$money;
+        $used=$platformArr['used']/1+$money;
+
+        $balance=$platformArr['balance']/1-$money;
         //个人钱包表数据
         $purseArr=purse::where('user_id',$debtArr['user_id'])->first()->toArray();
+        $psum=$purseArr['purse_sum']/1+$money;
+        $pba=$purseArr['purse_balance']/1+$money;
+        //个人信息表更改
+        $userInfo=Message::where('user_id',$debtArr['user_id'])->first()->toArray();
+        $moneyLimit=$userInfo['message_limit']-$money;
+        if($moneyLimit/1<0){
+            return 2;
+        }
+        
         //开启事务
-        DB::transaction(function(){
-            
-        });
-
-        // $bloon=Debt::where('debt_id',$debt_id)
-        //     ->update([
-        //         'debt_status'=>$debt_status,
-        //     ]);
-        // if($bloon){
-        //     echo 1;
-        // }else{
-        //     echo 0;
-        // }
+        DB::beginTransaction();
+        try {
+            $bloon1=platform::where('platform_id',1)->update(array('used'=>$used,'balance'=>$balance));
+            $bloon2=purse::where('user_id',$debtArr['user_id'])->update(array('purse_sum'=>$psum,'purse_balance'=>$pba));
+            $bloon3=Message::where('user_id',$debtArr['user_id'])->update(array('message_limit'=>$moneyLimit));
+            $bloon4=Debt::where('debt_id',$debt_id)->update(array('debt_status'=>$debt_status));
+            if($bloon1&&$bloon2&&$bloon3&&$bloon4){
+                DB::commit();
+                return 1;
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            return 0;
+        }
     }
 
 
