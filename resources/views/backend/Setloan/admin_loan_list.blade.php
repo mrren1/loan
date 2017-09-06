@@ -76,10 +76,10 @@
 					@endif
 				</td>
 				<td class="td-manage">
-					@if ($val['lend_status'] == 1) 
-						<a class="manage" style="text-decoration:none" onClick="loan_list_stop(this,{{$val['lend_id']}},{{$val['user_id']}})" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>&nbsp;&nbsp;&nbsp; 
+					@if ($val['lend_status'] == 1)
+						<span style="color:blue">已审核</span> 
 					@elseif($val['lend_status'] == 2)
-						<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,{{$val['lend_id']}})" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
+						<span style="color:blue">已审核</span>
 					@else 
 						<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,{{$val['lend_id']}},{{$val['user_id']}})" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
 						<a class="manage" style="text-decoration:none" onClick="loan_list_stop(this,{{$val['lend_id']}})" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>&nbsp;&nbsp;&nbsp; 
@@ -145,7 +145,7 @@ function loan_list_stop(obj,id){
 					return false;
 				}else{
 					$(obj).parents("tr").find(".td-status").html('<span class="label radius" style="background:red">审核未通过</span>');
-					$(obj).remove();
+					$(obj).parents("tr").find(".td-manage").html('<span style="color:blue">已审核</span>');
 					layer.msg('审核未通过!！',{icon: 5,time:1000});
 					return true;
 				}
@@ -176,7 +176,7 @@ function admin_loan_list_start(obj,id,user_id){
 					return false;
 				}else{
 					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">审核通过</span>');
-					$(obj).remove();
+					$(obj).parents("tr").find(".td-manage").html('<span style="color:blue">已审核</span>');
 					layer.msg('审核通过！',{icon: 6,time:1000});
 					return true;
 				}
