@@ -49,6 +49,7 @@ class LoginController extends Controller
 	public function quit(Request $request)
 	{
 		$request->session()->forget('user_name');
+		$request->session()->forget('user_id');
 		return redirect('prompt')->with(['message'=>'退出成功','url' =>'index', 'jumpTime'=>3,'status'=>false]);
 	}
 

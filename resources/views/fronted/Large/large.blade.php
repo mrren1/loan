@@ -29,40 +29,40 @@
                         </div>  
                         <!-- end l -->
                         <div class="bor_det_oner fl">
-       <form method="post" action="">
-          <input type="hidden" value="{{ Session::token() }}" name="_token">
+       <form method="post" action="large">
+<!--  <input type="hidden" value="{{ Session::token() }}" name="_token"> -->
           <fieldset>
                <div class="mt15">
                    <label>期望金额</label>
-                   <input type="text" class="bor_inputbg01" name="lend_money" id="lend_money">
+                   <input type="text" class="bor_inputbg01" name="large_money" id="lend_money">
                    <span style="color:red" id="money"></span>
                </div>
                        <div class="mt15">
                    <label>还款时间</label>
-                   <input class="Wdate" type="text" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="lend_time">
+                   <input class="Wdate" type="text" onClick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" name="end_time">
                    <span style="color:red" id="time"></span>
                </div>
                <div class="mt15">
                    <label>联系电话</label>
-                   <input type="text" name="lend_phone" id="phone">
+                   <input type="text" name="large_phone" id="phone">
                    <span style="color:red" id="telephone"></span>
                </div>
                <div class="mt15">
                    <label>抵押货物</label> 
-                   <textarea name="lend_desc" placeholder="请填写抵押的货物以及货物描述" id="desc"></textarea>
+                   <textarea name="pawn_goods" placeholder="请填写抵押的货物以及货物描述" id="desc"></textarea>
                </div>
                 <div class="mt15">
                    <label>贷款描述</label> 
-                   <textarea name="lend_desc" placeholder="请描述您的贷款申请……" id="desc"></textarea>
+                   <textarea name="large_desc" placeholder="请描述您的贷款申请……" id="desc"></textarea>
                </div>
                <div class="mt15">
                <label>邮寄状态</label>
-                    <input type="radio" style="width:20px;" checked id="nopost" name="post">未邮寄
-                    <input type="radio" style="width:20px;" id="alreadpost" name="post">已经邮寄
+                    <input type="radio" style="width:20px;" value="0" checked id="nopost" name="post">未邮寄
+                    <input type="radio" style="width:20px;" value="1" id="alreadpost" name="post">已经邮寄
                </div>
                <div class="mt15" id="postInfo" style="display:none;">
                   <label>快递信息</label>
-                  <input type="text" id="postId" placeholder="快递名称：快递单号" name="post">
+                  <input type="text" id="postId" placeholder="快递名称：快递单号" name="post_num">
                </div>
                <div class="mt30">
                    <label></label>
