@@ -68,11 +68,11 @@
 					@endif
 				</td>
 				<td class="td-manage{{$val['debt_id']}}">
-				<?php if($val['debt_status']==0||$val['debt_status']==2){?>
+				<?php if($val['debt_status']==0){?>
 					<a class="manage" style="text-decoration:none" data-biao="1" data-id="{{$val['debt_id']}}" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;
-				<?php }?>
-				<?php if($val['debt_status']==1||$val['debt_status']==0){?>
 					<a class="manage" style="text-decoration:none" data-biao='2' data-id="{{$val['debt_id']}}" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp; 
+				<?php }else{?>
+					<font color="green">已处理</font>
 				<?php }?>
 				</td>
 			</tr>
@@ -112,7 +112,7 @@ $(function(){
 	//$('.manage').click(function(){
 		var status=$(this).data('biao');
 		var debt_id=$(this).data('id');
-		var obj=$(this);
+		var obj=$(this).parent();
 		var td=$('.td-status'+debt_id);
 		$.ajax({
 			type:'get',
@@ -120,16 +120,22 @@ $(function(){
 			//async:false,
 			data:{status:status,debt_id:debt_id},
 			success:function(result){
-				alert(result)
-				// if(result==1){
-				// 	if(status/1==1){
-				// 		td.html('<span class="label label-success radius">审核通过</span> ');
-				// 		obj.html('<a class="manage" style="text-decoration:none" data-biao="2" data-id="'+debt_id+'" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp;');
-				// 	}else if(status/1==2){
-				// 		td.html('<span class="label radius" style="background:red">审核未通过</span>');
-				// 		obj.html('<a class="manage" style="text-decoration:none" data-biao="1" data-id="'+debt_id+'" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;');
-				// 	}
-				// }
+				if(result==1){
+					if(status/1==1){
+						td.html('<span class="label label-success radius">审核通过</span> ');
+						obj.html('<font color="green">已处理</front>');
+					}else if(status/1==2){
+						td.html('<span class="label radius" style="background:red">审核未通过</span>');
+						obj.html('<font color="green">已处理</front>');
+					}
+					return false;
+				}else if(result==2){
+					alert('当前用户额度不够！');
+					return false;
+				}else if(result==0){
+					alert('审核失败！');
+					return false;
+				}
 			}
 		});
 	});
