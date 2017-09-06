@@ -59,6 +59,7 @@ class LoginController extends BackendController
      public function quit(Request $request)
      {
           $request->session()->forget('admin_name');
+          $request->session()->forget('admin_id');
           return redirect('prompt')->with(['message'=>'退出成功','url' =>'admin_index', 'jumpTime'=>3,'status'=>false]);
      }
 

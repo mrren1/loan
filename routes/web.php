@@ -98,6 +98,7 @@ Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
 
 //后台登陆
 Route::any('admin_login/','backend\LoginController@index');
+
 //首页
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
