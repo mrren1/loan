@@ -3,9 +3,10 @@
 namespace App\Http\models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-class Purse extends Model
+class Purselog extends Model
 {
-	protected $table = 'purse';
+	protected $table = 'purselog';
 	public $timestamps = false;
     
 }
+

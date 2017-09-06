@@ -67,17 +67,23 @@
 				<td>{{$val['lend_person']}}</td>
 				<td>{{$val['lend_phone']}}</td>
 				<td class="td-status">
-					@if ($val['lend_status'] == 1 ) 
+					@if ($val['lend_status'] == 1) 
 						<span class="label label-success radius">审核通过</span> 
-					@elseif($val['lend_status'] == 2 )
+					@elseif($val['lend_status'] == 2)
 						<span class="label radius" style="background:red">审核未通过</span> 
 					@else 
 						<span class="label label-defaunt radius">未审核</span> 
-					@endif</span>
+					@endif
 				</td>
 				<td class="td-manage">
-					<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,'')" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
-					<a class="manage" style="text-decoration:none" onClick="loan_list_stop(this,'')" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>&nbsp;&nbsp;&nbsp; 
+					@if ($val['lend_status'] == 1) 
+						<a class="manage" style="text-decoration:none" onClick="loan_list_stop(this,{{$val['lend_id']}},{{$val['user_id']}})" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>&nbsp;&nbsp;&nbsp; 
+					@elseif($val['lend_status'] == 2)
+						<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,{{$val['lend_id']}})" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
+					@else 
+						<a class="manage" style="text-decoration:none" onClick="admin_loan_list_start(this,{{$val['lend_id']}},{{$val['user_id']}})" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>&nbsp;&nbsp;&nbsp; 
+						<a class="manage" style="text-decoration:none" onClick="loan_list_stop(this,{{$val['lend_id']}})" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>&nbsp;&nbsp;&nbsp; 
+					@endif
 					<!-- <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a> -->
 				</td>
 			</tr>
@@ -130,14 +136,19 @@ function loan_list_stop(obj,id){
 	layer.confirm("确认要改为---<font color=red>审核未通过</font>---吗？",function(index){
 		$.ajax({
 			type: 'POST',
-			data:"id="+id,
+			data:"lend_id="+id,
 			url: 'admin_loan_list_stop',
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="admin_loan_list_start(this,'+id+')" href="javascript:;" title="点击改为审核通过"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">审核未通过</span>');
-				$(obj).remove();
-				layer.msg('审核未通过!！',{icon: 5,time:1000});
+				if(data == 0){
+					alert('修改状态失败');
+					return false;
+				}else{
+					$(obj).parents("tr").find(".td-status").html('<span class="label radius" style="background:red">审核未通过</span>');
+					$(obj).remove();
+					layer.msg('审核未通过!！',{icon: 5,time:1000});
+					return true;
+				}
 			},
 			error:function(data) {
 				// .msg
@@ -148,18 +159,27 @@ function loan_list_stop(obj,id){
 }
 
 /*贷款-通过审核*/
-function admin_loan_list_start(obj,id){
+function admin_loan_list_start(obj,id,user_id){
 	layer.confirm('确认要改为---<font color=red>审核通过</font>---吗？',function(index){
+		layer.confirm('正在审核中,请耐心等待......');
 		$.ajax({
 			type: 'POST',
-			data:"id="+id,
+			data: {lend_id:id,user_id:user_id},
 			url: 'admin_loan_list_start',
-			dataType: 'json',
+			//dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,'+id+')" href="javascript:;" title="点击改为审核未通过"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">审核通过</span>');
-				$(obj).remove();
-				layer.msg('审核通过！',{icon: 6,time:1000});
+				if(data == 0){
+					alert('修改状态失败');
+					return false;
+				}else if(data == 2){
+					alert('此账户余额不足');
+					return false;
+				}else{
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">审核通过</span>');
+					$(obj).remove();
+					layer.msg('审核通过！',{icon: 6,time:1000});
+					return true;
+				}
 			},
 			error:function(data) {
 				// .msg

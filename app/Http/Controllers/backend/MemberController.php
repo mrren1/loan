@@ -89,17 +89,4 @@ class MemberController extends BackendController
      //    $status = json_encode($status);
      //    return $status;
      // }
-
-     /**
-      * @access public
-      * @param admin_loan_list()
-      * @return array();
-      * 发布代款列表
-      */
-     public function admin_loan_list()
-     {
-        $setloanData = lend::get()->toArray();
-        $setloancount = lend::get()->count();
-        return view('backend/Member/admin_loan_list',['setloanData'=>$setloanData,'setloancount'=>$setloancount]);  
-     }
  }

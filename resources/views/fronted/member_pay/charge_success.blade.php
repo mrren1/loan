@@ -40,14 +40,14 @@
 <div class="modal-content">
 <div class="modal-body summary-section">
 <div class="modal-header">
-<button class="close sl-icon-cross" aria-hidden="true" data-dismiss="modal" type="button"></button>
-<a href="memberCharge"><h4 id="myModalLabels" class="modal-title">跳转到网银充值</h4></a>
+<center><h4 id="myModalLabels" class="modal-title">充值成功</h4></center>
+<p style="font-size:16px;"><a href="memberCharge">跳转到网银充值</a>||<a href="member_index">个人账户</a></p>
 </div>
-<div style="margin-top: 15px;margin-left:15px">
+<div style="margin-top:5px;margin-left:15px">
 <div>请在新开网银页面完成充值后选择：</div>
 <div>
 <b>充值成功</b>
-| 查看充值记录
+| <a href="member_pay">查看充值记录</a>
 </div>
 <div>
 <b>充值失败</b>

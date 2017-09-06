@@ -81,6 +81,7 @@ Route::post('addPut','fronted\MemberPayController@addPut');
 Route::any('putSuccess','fronted\MemberPayController@putSuccess');
 Route::any('chargeSuccess','fronted\MemberPayController@chargeSuccess');
 Route::any('memberCharge','fronted\MemberPayController@memberCharge');
+Route::any('showLog','fronted\MemberPayController@showLog');
 Route::post('upload', 'fronted\MemberInfoController@upload');
 Route::post('fang_upload', 'fronted\MemberInfoController@fang_upload');
 Route::post('jia_upload', 'fronted\MemberInfoController@jia_upload');
@@ -90,16 +91,14 @@ Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
 
 
 
-
 //后台登陆
 Route::any('admin_login/','backend\LoginController@index');
 
 //首页
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
-Route::group(['middleware'=>['checkuser','dealuser']],function(){
 
-	   
+Route::group(['middleware'=>['checkuser','dealuser']],function(){   
 	Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
 	Route::any('setpower','backend\RbacController@setPower');    //分配权限
 	Route::any('getpower','backend\RbacController@admin_get_power');    //设置权限
@@ -127,6 +126,7 @@ Route::group(['middleware'=>['checkuser','dealuser']],function(){
 	    'as'=>'addpower',
 	]);
 });
+
 //权限管理
 Route::any('powerlist','backend\RbacController@admin_power_list');   //权限列表
 Route::any('delrole','backend\RbacController@deleteRole'); //删除角色
@@ -168,10 +168,11 @@ Route::any('admin_mpm_status_do','backend\memberController@admin_mpm_status_do')
 /*
 this is 贷款列表 
  */
-Route::any('admin_loan_list','backend\memberController@admin_loan_list'); //贷款列表 
+Route::any('admin_loan_list','backend\SetloanController@admin_loan_list'); //贷款列表 
+Route::any('admin_status_pass','backend\SetloanController@admin_status_pass'); //修改贷款成功状态 
 Route::any('admin_offer_list','backend\OfferController@admin_offer_list'); //借款列表 
-Route::any('admin_loan_list_stop','backend\memberController@admin_loan_list_stop'); //后台哦    贷款列表  审核通过
-Route::any('admin_loan_list_start','backend\memberController@admin_loan_list_start'); //后台哦  贷款列表  审核为通过
+Route::any('admin_loan_list_stop','backend\SetloanController@admin_loan_list_stop'); //后台哦    贷款列表  审核通过
+Route::any('admin_loan_list_start','backend\SetloanController@admin_loan_list_start'); //后台哦  贷款列表  审核为通过
 
 
 Route::post('addpower', 
@@ -186,3 +187,5 @@ Route::any('arithmetic','fronted\OfferController@arithmetic');
 //添加借款申请
 Route::any('adddebt','fronted\OfferController@adddebt');
 
+//借款的审核
+Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
