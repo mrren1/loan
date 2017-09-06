@@ -7,11 +7,15 @@ use App\Http\Controllers\fronted\Controller;
 use App\Http\Models\Lend;
 use App\Http\Models\User;
 use App\Http\Models\Debt;
-
+use Illuminate\Http\Request;
 class MarketController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
+		if(!$request->session()->has('user_id')){
+			return redirect('prompt')->with(['message'=>'使用此功能请先登录！','url' =>'index', 'jumpTime'=>2,'status'=>false]);
+		}
+
 		$lend=Lend::limit(6)->get()->toArray();
 
 		$lendArr=$this->getLendInfo($lend);
