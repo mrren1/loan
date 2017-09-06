@@ -190,4 +190,4 @@ Route::any('adddebt','fronted\OfferController@adddebt');
 Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
 
 //大额贷款
-Route::any('large','frontend\LargeController@index');
+Route::any('large','fronted\LargeController@index');
