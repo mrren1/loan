@@ -78,7 +78,7 @@
           <li class="main-link-list"> <a class="main-link" href="large"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">大额贷款</span> </a> </li> 
           <li class="main-link-list"> <a class="main-link" href="setloan"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">发布代款</span> </a> </li>
           <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> <span> 400-921-9218</span> </li> 
-          <li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> 
+          <a href="chat"><li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> </a>
          </ul> 
         </div> 
         <!-- /.navbar-collapse --> 

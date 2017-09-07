@@ -79,6 +79,7 @@ Route::post('repayment',
     'as'=>'repayment',
 ]);
 Route::any('log','fronted\LoginController@log');
+Route::any('chat','fronted\ChatController@index');  //聊天室
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
 Route::post('Add_bank','fronted\MemberPayController@Add_bank');
