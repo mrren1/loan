@@ -49,14 +49,15 @@
 <div class="row addLightBorder ng-isolate-scope" sl-popover="investAmountError" data-original-title="" title="">
 <label class="col-xs-1 inputNumberText ng-binding">充值金额</label>
 <div class="col-xs-2 inputNumber">
-<input class="form-control textFrame ng-pristine ng-invalid ng-invalid-required" type="text" sl-less-than="1000000000000" sl-greater-than="0" sl-decimal-digits="2" sl-valid-number="" required="" ng-show="!investLoanId" placeholder="充值金额" ng-model="load.amount" name="purse_sum">
+<input class="form-control textFrame ng-pristine ng-invalid ng-invalid-required" type="text" sl-less-than="1000000000000" sl-greater-than="0" sl-decimal-digits="2" sl-valid-number="" required="" ng-show="!investLoanId" placeholder="充值金额" ng-model="load.amount" name="purse_sum" id="purse_sum">
+<span  id="sum" style="color:red"></span>
 <div class="ng-scope" ng-class="ng-hide" name="transferAmt" sl-validation-errors="">
 <span class="hide" ng-transclude="">
-<span class="ng-scope" for="required" sl-error-message="">金额不能为空</span>
-<span class="ng-scope" for="validNumber" sl-error-message="">金额须为合法的整数或者小数,不能包含字母等字符</span>
-<span class="ng-scope" for="decimalDigits" sl-error-message="">金额最大支持两位小数</span>
-<span class="ng-scope" for="greaterThan" sl-error-message="">金额须大于0</span>
-<span class="ng-scope" for="lessThan" sl-error-message="">金额须小于1万亿</span>
+<span class="ng-scope" for="required" sl-error-message=""></span>
+<!-- <span class="ng-scope2" for="validNumber" sl-error-message="">金额须为合法的整数或者小数,不能包含字母等字符</span>
+<span class="ng-scope3" for="decimalDigits" sl-error-message="">金额最大支持两位小数</span>
+<span class="ng-scope4" for="greaterThan" sl-error-message="">金额须大于0</span>
+<span class="ng-scope5" for="lessThan" sl-error-message="">金额须小于1万亿</span> -->
 </span>
 </div>
 <input type="hidden" value="NEW_SITE_CLIENT" name="PAYMENT_CLIENT_SOURCE">
@@ -166,6 +167,25 @@
 </div>
 </div>
 </div>
+<script>
+  $("#purse_sum").blur(function(){
+   if($.trim($('#purse_sum').val()).length == 0){
+     $("#sum").html("金额不能为空");
+     $('#purse_sum').focus();
+   }else{
+     var purse_sum=$('#purse_sum').val();
+     if(!isNaN(purse_sum)==false){
+     $("#sum").html("金额须为合法的整数或者小数");
+     $('#purse_sum').focus();
+    }else{
+      if(purse_sum == 0 || purse_sum>100000000){
+      $("#sum").html("金额须大于0并且小于1亿");
+      $('#purse_sum').focus();
+     }
+  }
+}
+});
+</script>
 @endsection
 
    <!-- Modal --> 
