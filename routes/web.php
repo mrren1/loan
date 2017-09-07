@@ -161,6 +161,8 @@ Route::any('ad_add','backend\AdController@ad_add');
 Route::any('loan_list','backend\LoanController@loan_list');
 //资金管理
 Route::any('purse_list','backend\PurseController@purse_list');
+//大额贷款申请列表
+Route::any('largeList','backend\LargeController@showList');
 /* 
 this is 会员审核相关
 */
