@@ -84,6 +84,7 @@
 				<ul>
 					<li><a data-href="admin_loan_list" data-title="发布贷款列表" href="javascript:;">发布贷款列表</a></li>
 					<li><a data-href="admin_offer_list" data-title="申请借款列表" href="javascript:;">申请借款列表</a></li>
+					<li><a data-href="largeList" data-title="大额贷款申请列表" href="javascript:;">大额贷款申请列表</a></li>
 			</ul>
 		</dd>
 	</dl>
