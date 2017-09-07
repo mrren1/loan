@@ -57,43 +57,55 @@
 				<td><input type="checkbox" value="1" name=""></td>
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{{ $member_msg->message_name  }}</u></td>
 				<td>
-				@if($member_msg->message_idcard!='')
+				@if( $member_msg->message_idcard =='' )
+					<font color=red> 未上传 </font>
+				@elseif( file_exists( "uploads/".$member_msg->message_idcard )  )
 					<img src="uploads/{{ $member_msg->message_idcard }}" height="90" alt="">
 				@else
-					未上传
+					<font color=blue> 图片不存在 </font>
 				@endif
 				</td>
 				<td>
-				@if($member_msg->message_photo!='')
+				@if($member_msg->message_photo =='')
+
+					<font color=red> 未上传 </font>
+				@elseif( file_exists( "uploads/".$member_msg->message_photo ) )
 					<img src="uploads/{{ $member_msg->message_photo }}" height="90" alt="">
 				@else
-					未上传
+					<font color=blue> 图片不存在 </font>
 				@endif
 				</td>
 				<td>
-				@if($member_msg->message_jiacard!='')
+
+				@if($member_msg->message_jiacard =='')
+					<font color=red> 未上传 </font>
+				@elseif( file_exists( "uploads/".$member_msg->message_jiacard ) )
 					<img src="uploads/{{ $member_msg->message_jiacard }}" height="90" alt="">
 				@else
-					未上传
+					<font color=blue> 图片不存在 </font>
 				@endif
 				</td>
 				<td>
-				@if($member_msg->message_fangcard!='')
+				@if($member_msg->message_fangcard =='')
+					<font color=red> 未上传 </font>
+				@elseif( file_exists( "uploads/".$member_msg->message_fangcard ) )
 					<img src="uploads/{{ $member_msg->message_fangcard }}" height="90" alt="">
 				@else
-					未上传
+					<font color=blue> 图片不存在 </font>
 				@endif
 				</td>
 				<td>
-				@if($member_msg->private_photo!='')
+				@if($member_msg->private_photo =='')
+					<font color=red> 未上传 </font>
+				@elseif( file_exists( "uploads/".$member_msg->message_photo ) )
 					<img src="uploads/{{ $member_msg->private_photo }}" height="90" alt="">
 				@else
-					未上传
+					<font color=blue> 图片不存在 </font>
 				@endif
 				</td>
 				<td>
 				<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a title="审核照片请按顺序填写照片的状态，1为通过，0为不通过" href="javascript:;" onclick="member_redact('编辑照片状态','admin_mpm_status?message_id={{ $member_msg->message_id }}','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 编辑照片状态</a></span></div></td>
-				<td class="td-status"><span class="label label-success radius">@if ( $member_msg->message_stars === '1,1,1,1,1' ) 审核通过 @elseif( strpos( $member_msg->message_stars,"0" ) !== false )<span class="label label-defaunt radius">审核未通过 </span> @else 未审核 @endif</span></td>
+				<td class="td-status">@if ( $member_msg->message_stars === '1,1,1,1,1' ) <span class="label label-success radius">审核通过 </span>@elseif( strpos( $member_msg->message_stars,"0" ) !== false )<span class="label label-defaunt radius">审核未通过 </span><span  > @else <font color=red> 未审核 </font></span>@endif</td>
 				<td class="td-manage">@if( $member_msg->message_stars == '1,1,1,1,1' )<a class="manage" style="text-decoration:none" onClick="member_stop(this,'{{ $member_msg->message_id }}')" href="javascript:;" title="点击改为审核未通过">@elseif( strpos( $member_msg->message_stars,"0" ) !== false )<a class="manage" style="text-decoration:none" onClick="member_start(this,'{{ $member_msg->message_id }}')" href="javascript:;" title="点击改为审核通过">@else<a class="manage" style="text-decoration:none" onClick="member_start(this,'{{ $member_msg->message_id }}')" href="javascript:;" title="点击改为审核通过">@endif<i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 		 @endforeach
@@ -121,7 +133,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  // {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
 		]
 	});
 	
@@ -133,7 +145,7 @@ function member_add(title,url,w,h){
 /*用户-照片审核编辑*/
 function member_redact(title,url,w,h){
 	layer_show(title,url,w,h);
-	setTimeout(reload,1000*20);// 设定 20秒后 执行 刷新当前页面
+	setTimeout(reload,1000*18);// 设定  n 秒后 执行 刷新当前页面
 }
 function reload(){
 	window.location.reload();//刷新当前页面

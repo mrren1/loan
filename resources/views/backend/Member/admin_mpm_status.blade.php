@@ -24,18 +24,83 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title> 照片审核 </title>
+<div class="page-container">
+	</div>
+	
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">	
+				<th width="100">用户名</th>
+				<th width="40">用户照片</th>
+				<th width="40">身份证照片</th>
+				<th width="40">驾驶证</th>
+				<th width="40">房产证</th>
+				<th width="40">私人照片</th>
+			</tr>
+		</thead>
+		<tbody>
+		<div class="container">
+
+<?php //var_dump($member_msg);die; ?>
+		@foreach ($member_msg as $member_msg)
+			<tr class="text-c">
+				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{{ $member_msg->message_name  }}</u></td>
+				<td>
+				@if($member_msg->message_idcard!='')
+					<img src="uploads/{{ $member_msg->message_idcard }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->message_photo!='')
+					<img src="uploads/{{ $member_msg->message_photo }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->message_jiacard!='')
+					<img src="uploads/{{ $member_msg->message_jiacard }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->message_fangcard!='')
+					<img src="uploads/{{ $member_msg->message_fangcard }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				<td>
+				@if($member_msg->private_photo!='')
+					<img src="uploads/{{ $member_msg->private_photo }}" height="90" alt="">
+				@else
+					未上传
+				@endif
+				</td>
+				
+			</tr>
+		 @endforeach
+		 <tr>
+		 	<td>照片审核状态：</td>
+		 	<td><input type="text" class="input-text" placeholder="1通过 || 0未通过" class="mpm_status" id="mpm_status"   value="" ></td>
+		 	<td><input type="text" class="input-text" placeholder="1通过 || 0未通过" class="mpm_status" id="mpm_status1"  value="" ></td>
+		 	<td><input type="text" class="input-text" placeholder="1通过 || 0未通过" class="mpm_status" id="mpm_status2"  value="" ></td>
+		 	<td><input type="text" class="input-text" placeholder="1通过 || 0未通过" class="mpm_status" id="mpm_status3"  value="" ></td>
+		 	<td><input type="text" class="input-text" placeholder="1通过 || 0未通过" class="mpm_status" id="mpm_status4"  value="" ></td>
+		 </tr>
+		</div>
+
+		</tbody>	
+	</table>
+	</div>
+</div>
+
 </head>
 <body>
 <article class="page-container">
-	<!-- <form action="admin_mpm_status_do" method="post" class="form form-horizontal" id="form-member-add"> -->
-
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>照片审核状态：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="请按照片顺序填写，1为通过审核，0为未通过审核！！！用英文逗号隔开。例子：1,1,1,1,1," class="mpm_status" id="mpm_status">
-			</div>
-		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<a href="javascript:;" ><input class="btn btn-primary radius" type="button"  onclick="admin_mpm_status_do(this,{{$_GET['message_id']}})" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"></a>
@@ -102,17 +167,21 @@ var a = "<font color=red>提示:30秒之内不点击提交按钮或打开审核�
 /*填写用户照片--审核状态-- 1pass ,0 out*/
 function admin_mpm_status_do(obj,id){
 	var mpm_status = document.getElementById("mpm_status").value;
+	var mpm_status1 = document.getElementById("mpm_status1").value;
+	var mpm_status2 = document.getElementById("mpm_status2").value;
+	var mpm_status3 = document.getElementById("mpm_status3").value;
+	var mpm_status4 = document.getElementById("mpm_status4").value;
 	
 	console.log(mpm_status)
 	layer.confirm("确认要修改---<font color=red>审核状态</font>---吗？",function(index){
 		$.ajax({
 			type: 'GET',
-			data:"id="+id+"&mpm_status="+mpm_status,
+			data:"id="+id+"&mpm_status="+mpm_status+"&mpm_status1="+mpm_status1+"&mpm_status2="+mpm_status2+"&mpm_status3="+mpm_status3+"&mpm_status4="+mpm_status4,
 			url: 'admin_mpm_status_do',
 			dataType: 'json',
 			success: function(data){
 
-				layer.msg('修改完成！！！',{icon: 6,time:1000});
+				layer.msg('修改完成！！！',{icon: 3,time:1000});
 				
 			},
 			error:function(data) {
