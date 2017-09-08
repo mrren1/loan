@@ -76,7 +76,7 @@
           已邮寄
           @endif
         </td>
-        <td>
+        <td class="dd{{$v->large_id}}">
           @if($v->status==0)
           待评估
           @elseif($v->status==1)
@@ -85,8 +85,14 @@
           交易完成
           @endif
         </td>
-        <td class="td-manage">
-       
+        <td class="td-manage{{$v->large_id}}">
+          @if($v->status==0)
+            待评估
+          @elseif($v->status==1)
+            <a href="javascript:" class="sure" data-id="{{$v->large_id}}"><font color="red">确认交易</font></a>
+          @elseif($v->status==2)
+            <font color="green">交易完成</font>
+          @endif
         </td>
       </tr>
       @endforeach
@@ -156,6 +162,30 @@
      </div> 
     </div> 
    </div> 
+  <script type="text/javascript">
+      $('.sure').click(function(){
+        if(!confirm('您确认完成交易？')){
+          return false;
+        }
+        //获取数据
+        var large_id=$(this).data('id');
+        //ajax完成本次大额贷款的交易
+        $.ajax({
+          type:'get',
+          url:'sureLarge',
+          data:{large_id:large_id},
+          success:function(result){
+            if(result==1){
+              $('.td-manage'+large_id).html('<font color="green">交易完成</font>');
+              $('.dd'+large_id).html('交易完成');
+            }else{
+              alert('确认失败！')
+              return false;
+            }
+          }
+        });
+      });
+  </script>
   @endsection
    <!-- Modal --> 
    <div class="modal fade wechat-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
@@ -195,4 +225,8 @@
       $(function(){
           $(".change5").addClass('active');            
       })
+
+      $('.sure').click(function(){
+        alert(1)
+      });
   </script>
