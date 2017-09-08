@@ -51,6 +51,7 @@
             <li class="divider"></li> 
             <li class="nav-header">资讯中心</li>
             <li class="change9"> <a href='member_invite'><span class="sl-icon-branch"></span>友情邀请</a> </li> 
+            <li class="change6"> <a href='friend_list'><span class=""></span>好友</a> </li> 
            </ul> 
           </section> 
          </nav> 

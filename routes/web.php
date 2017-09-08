@@ -53,7 +53,8 @@ Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::any('debt', 'fronted\OfferController@index');
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
-
+//好友列表
+Route::any('friend_list','fronted\FriendController@friend_list');
 
 //注册用户
 
@@ -93,7 +94,8 @@ Route::post('jia_upload', 'fronted\MemberInfoController@jia_upload');
 Route::post('img_upload', 'fronted\MemberInfoController@img_upload');
 Route::post('id_upload', 'fronted\MemberInfoController@id_upload');
 Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
-
+//平台表展示
+Route::any('platform_list','backend\PlatformController@platform_list');
 
 
 //后台登陆
