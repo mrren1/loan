@@ -13,12 +13,13 @@ use App\Http\Models\Advert;
 
 class AdController extends BackendController
 {
-
      public function ad_list()
      {
-          return view('backend/Ad/ad_list'); 
+          $ad_arr=Advert::orderBy('lend_money','desc')->get()->toArray();
+          
+          return view('backend/Ad/ad_list',array('ad_arr'=>$ad_arr)); 
      }
-      public function ad_add(Request $request)
+     public function ad_add(Request $request)
      {
      	if($request->isMethod('POST'))
      	{

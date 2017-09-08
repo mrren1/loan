@@ -45,26 +45,24 @@ class MemberController extends BackendController
      //会员一键审核 ---》》》 修改审核状态为  --审核页--
      public function admin_mpm_status()
      {  
+        $id = $_GET['message_id'];
+        $member_msg = Message::where("message_id",$id)->get();
+        // var_dump($member_msg);die;
+        return view('backend/Member/admin_mpm_status',[ 'member_msg'=>$member_msg ]);  
 
-        return view( 'backend/Member/admin_mpm_status' );
      }
      //会员一键审核 ---》》》 修改审核状态为  --填写审核值-- 不填写自动填充零 后期跟进更新方法 填写 多了 自动更截取 等 相关的兼容 可以写个方法封装起来直接传值调用最好
      public function admin_mpm_status_do()
      {  
         $id = $_GET[ 'id' ];
 
-        $mpm_status = "'" . $_GET[ "mpm_status" ];
-        $mpm_status_num = substr_count($mpm_status,'0')+substr_count($mpm_status,'1');
-        if ( $mpm_status_num < 5 ) {
-            $mpm_status_num = 5 - $mpm_status_num;
-            for ($i=0; $i < $mpm_status_num; $i++) { 
-            $mpm_status .= ",0" ;
-                
-            }
-        }
-        $mpm_status .= "'";
-
-        $sql ="update message set message_stars = $mpm_status where message_id = $id";
+        $mpm_status  = $_GET[ "mpm_status" ];
+        $mpm_status1 = $_GET[ "mpm_status1" ];
+        $mpm_status2 = $_GET[ "mpm_status2" ];
+        $mpm_status3 = $_GET[ "mpm_status3" ];
+        $mpm_status4 = $_GET[ "mpm_status4" ];
+        $mpm_status_end = "'" . $mpm_status . "," . $mpm_status1 . "," . $mpm_status2 . "," . $mpm_status3 . "," . $mpm_status4 . "'";
+        $sql ="update message set message_stars = $mpm_status_end where message_id = $id";
         $status =  DB::update( $sql );
         $status = json_encode($status);
         return $status;
