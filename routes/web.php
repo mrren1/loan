@@ -79,6 +79,12 @@ Route::post('repayment',
     'uses'=>'fronted\MemberBidRecordController@repayment',
     'as'=>'repayment',
 ]);
+//ajax延迟加载
+Route::post('marketList', 
+[
+    'uses'=>'fronted\MarketController@getMarketList',
+    'as'=>'marketList',
+]);
 Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
@@ -96,7 +102,6 @@ Route::post('id_upload', 'fronted\MemberInfoController@id_upload');
 Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
 //平台表展示
 Route::any('platform_list','backend\PlatformController@platform_list');
-
 
 //后台登陆
 Route::any('admin_login/','backend\LoginController@index');
