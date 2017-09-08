@@ -113,6 +113,8 @@
 			<dd>
 				<ul>
 					<li><a data-href="purse_list" data-title="资金列表" href="javascript:;">资金列表</a></li>
+					<li><a data-href="platform_list" data-title="平台表" href="javascript:;">平台</a></li>
+
 			</ul>
 		</dd>
 	</dl>
