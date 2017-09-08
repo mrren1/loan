@@ -104,7 +104,8 @@
 <div class="form-group withdraw-amount-row">
 <label class="col-xs-3 col-xs-offset-1 control-label">提现金额</label>
 <div class="col-xs-5">
-<input id="amount" class="form-control ng-scope ng-pristine ng-invalid ng-invalid-required" type="text" sl-greater-than="0" value="{{$Purse['purse_sum']}}" tooltip-placement="right" tooltip-trigger="focus" placeholder="输入提现金额" tooltip="金额须大于0且小于可提现金额" ng-model="withdrawMoneyForm.amount" name="purse_sum">
+<input id="purse_sum" class="form-control ng-scope ng-pristine ng-invalid ng-invalid-required" type="text" sl-greater-than="0" value="{{$Purse['purse_sum']}}" tooltip-placement="right" tooltip-trigger="focus" placeholder="输入提现金额" tooltip="金额须大于0且小于可提现金额" ng-model="withdrawMoneyForm.amount" name="purse_sum" >
+<span id="sum" style="color:red"></span>
 </div>
 </div>
 <div class="warning-tip">
@@ -143,6 +144,20 @@
 </div>
 </div>
 </div> 
+<script>
+  $("#purse_sum").blur(function(){
+   if($.trim($('#purse_sum').val()).length == 0){
+     $("#sum").html("请输入提现金额");
+     $('#purse_sum').focus();
+   }else{
+     var purse_sum=$('#purse_sum').val();
+     if(!isNaN(purse_sum)==false){
+     $("#sum").html("请输入数字金额");
+     $('#purse_sum').focus();
+    }
+  }
+});
+</script>
 @endsection
 
    <!-- Modal --> 

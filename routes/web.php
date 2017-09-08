@@ -187,7 +187,7 @@ Route::any('admin_user_list','backend\memberController@admin_user_list');  //后
 Route::any('admin_user_stop','backend\memberController@admin_user_stop');  //后台哦      停用    加入黑名单
 Route::any('admin_user_start','backend\memberController@admin_user_start');//后台哦      停用    加入白名单
 Route::any('admin_user_show','backend\memberController@admin_user_show');  //后台哦      停用    加入白名单
-
+// {{$_GET['message_id']}}
 
 Route::post('addpower', 
 [
@@ -206,3 +206,8 @@ Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
 
 //大额贷款
 Route::any('large','fronted\LargeController@index');
+//后台大额贷款
+Route::any('showUserInfo','backend\LargeController@showUserInfo');
+Route::any('showLargeInfo','backend\LargeController@showLargeInfo');
+Route::any('passcheck','backend\LargeController@passcheck');
+Route::any('changelimit','backend\LargeController@changelimit');
