@@ -206,3 +206,8 @@ Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
 
 //大额贷款
 Route::any('large','fronted\LargeController@index');
+//后台大额贷款
+Route::any('showUserInfo','backend\LargeController@showUserInfo');
+Route::any('showLargeInfo','backend\LargeController@showLargeInfo');
+Route::any('passcheck','backend\LargeController@passcheck');
+Route::any('changelimit','backend\LargeController@changelimit');

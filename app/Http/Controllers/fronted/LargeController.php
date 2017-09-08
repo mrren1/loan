@@ -24,6 +24,7 @@ class LargeController extends Controller
 			if($request['post']==1){
 				$largeArr['post_time']=time();
 				$largeArr['post_num']=$request['post_num'];
+				$largeArr['post_status']=1;
 			}
 			$bloon=Large::insert($largeArr);
 			if($bloon){
