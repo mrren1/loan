@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class MarketController extends Controller
 {
 	//每次放入条数
-	private $num = 6;
+	private $num = 3;
 
 	public function index(Request $request)
 	{
