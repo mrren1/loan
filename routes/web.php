@@ -218,3 +218,4 @@ Route::any('showUserInfo','backend\LargeController@showUserInfo');
 Route::any('showLargeInfo','backend\LargeController@showLargeInfo');
 Route::any('passcheck','backend\LargeController@passcheck');
 Route::any('changelimit','backend\LargeController@changelimit');
+Route::any('sureLarge','fronted\MemberBidAutoController@sureLarge');
