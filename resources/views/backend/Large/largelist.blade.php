@@ -39,42 +39,62 @@
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th>申请人</th>
 				<th>申请金额</th>
-				<th>借款时间</th>
+				<th>申请时间</th>
 				<th>还款时间</th>
-				<th>还款时间</th>
+				<th>联系电话</th>
 				<th>邮寄状态</th>
-				<th>审核状态</th>
-				<th width="150">操作</th>
+				<th>平台状态</th>
+				<th>查看</th>
+				<th>评估信息</th>
+				<th width="150">状态</th>
 			</tr>
 		</thead>
 		<tbody>
 		<div class="container">
+		@foreach($largeArr as $large)
 			<tr class="text-c">
 				<td><input type="checkbox" value="1" name=""></td>
-				<td>1</td>
-				<td>3</td>
-				<td>2</td>
-				<td>4</td>
-				<td>5</td>
-				<td>6</td>
-				<td class="td-status">
-					
-					<span class="label label-success radius">审核通过</span>  
-					
-					<span class="label radius" style="background:red">审核未通过</span>
-					
-					<span class="label label-defaunt radius">未审核</span> 
-					
+				<td title="点击申请人详细信息"><a href="javascript:" onclick="member_add('查看用户信息','showUserInfo?user_id={{$large['user_id']}}','','510')">{{$large['user_name']}}</a></td>
+				<td>{{$large['large_money']}}</td>
+				<td>{{date('Y-m-d',$large['begin_time'])}}</td>
+				<td>{{date('Y-m-d',$large['end_time'])}}</td>
+				<td>{{$large['large_phone']}}</td>
+				<td>
+					@if($large['post_status']==0)
+					未邮寄
+					@else
+					<a href="javascript:" class="postNum" onclick="" title="{{$large['post_num']}}">已邮寄</a>
+					@endif		
 				</td>
-				<td class="td-manage">
-				
-					<a class="manage" style="text-decoration:none" data-biao="1" data-id="" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;
-					<a class="manage" style="text-decoration:none" data-biao='2' data-id="" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp; 
-				
-					<font color="green">已处理</font>
-				
+				<td>
+					@if($large['large_status']==0)
+					<span class="norec">平台未收货</span>
+					<input type="text" class="recinput" style="width:100px;display:none;" data-id="{{$large['large_id']}}" placeholder="评估价格">
+					@elseif($large['large_status']==1)
+					平台已评估
+					@endif
+				</td>
+				<td>
+					<a href="javascript:" onclick="member_add('添加积分','showLargeInfo?large_id={{$large['large_id']}}','','510')">查看详情</a>
+				</td>
+				<td class="td{{$large['large_id']}}">
+					@if($large['large_status']==1)
+					评估价格：{{$large['large_limit']}}
+					@else
+					未评估
+					@endif
+				</td>
+				<td class="td-manage endtd{{$large['large_id']}}">
+					@if($large['status']==2)
+					<span class="label label-success radius">交易完成</span>  
+					@elseif($large['status']==1)
+					<span class="label radius" style="background:red">待申请人确认</span>
+					@elseif($large['status']==0)
+					<span class="label label-defaunt radius">待评估</span> 
+					@endif
 				</td>
 			</tr>
+		@endforeach
 		</div>
 		</tbody>	
 	</table>
@@ -101,6 +121,43 @@ $(function(){
 		]
 	});
 	
+});
+/*用户-添加*/
+function member_add(title,url,w,h){
+  layer_show(title,url,w,h);
+}
+$('.postNum').click(function(){
+	alert($(this).attr('title'))
+});
+$('.norec').click(function(){
+	$(this).hide();
+	$(this).next().show().focus();
+});
+$('.recinput').blur(function(){
+	var large_id=$(this).data('id');
+	var limit=$(this).val();
+	if(limit==''){
+		alert('请填写数据！');
+		$(this).hide().prev().show();
+		return false;
+	}
+	var obj=$(this);
+	$.ajax({
+		type:'get',
+		url:'changelimit',
+		data:{large_id:large_id,limit:limit},
+		success:function(result){
+			if(result==1){
+				obj.val('').hide();
+				obj.parent().html('平台已评估').show();
+				$('.td'+large_id).html('评估价格：'+limit);
+				$('.endtd'+large_id).html('<span class="label radius" style="background:red">待申请人确认</span>');
+			}else{
+				alert('评估填写失败！')
+			}
+			
+		}
+	});
 });
 </script> 
 </body>

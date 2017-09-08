@@ -55,7 +55,7 @@
 				<td><u style="cursor:pointer" class="text-primary" onclick="user_show('{{ $val['user_name'] }}','admin_user_show?id={{ $val['user_id'] }}','{{ $val['user_id'] }}','600','600')">
 				{{ $val["user_name"]  }}</u></td>
 				<td>@if( $val['user_photo'] == null ) <font color=red>未上传</font> @elseif( file_exists( "uploads/".$val['user_photo'] ) ) <img src="uploads/{{ $val['user_photo'] }}" width="100" height="100" alt="">@else <font color=blue>图片不存在</font> @endif</td>
-				<td>{{date( "Y-m-d H:i:s" , $val['last_time'] )}}</td>
+					<td>{{date( "Y-m-d H:i:s" , $val['last_time'] )}}</td>
 				<td class="td-status">@if ( $val['user_black'] == 1 ) <span class="label label-success radius">白名单 </span> @else <span class="label label-defaunt radius"> 黑名单 </span> @endif</td>
 				<td class="td-manage">@if( $val['user_black'] == 1 )<a class="manage" style="text-decoration:none" onClick="user_stop(this,'{{ $val['user_id']  }}')" href="javascript:;" title="点击加入黑名单">@else<a class="manage" style="text-decoration:none" onClick="user_start(this,'{{ $val['user_id'] }}')" href="javascript:;" title="点击加入白名单">@endif<i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="user_edit('编辑','user-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a><a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="user_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>

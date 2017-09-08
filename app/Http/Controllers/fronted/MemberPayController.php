@@ -39,9 +39,9 @@ class MemberPayController extends Controller
         $data = $request->all();
         if(!empty($Purse)){
           $Purse=$Purse->toArray();
-          if(!is_numeric($data['purse_sum']) || strlen($data['purse_sum']<3))
+          if(!is_numeric($data['purse_sum']) || strlen($data['purse_sum']<1))
           {
-            return redirect('prompt')->with(['message'=>'请充值整形数字金额！','url' =>'memberCharge', 'jumpTime'=>3,'status'=>false]);
+            return redirect('prompt')->with(['message'=>'金额须为合法的整数或者小数','url' =>'memberCharge', 'jumpTime'=>3,'status'=>false]);
           }
           $purse_sum = $Purse['purse_sum']+$data['purse_sum'];//钱包总金额
           $purse_balance =$Purse['purse_balance']+$data['purse_sum'];//余额
@@ -81,16 +81,13 @@ class MemberPayController extends Controller
 	 */
 	public function member_mention(Request $request)
 	{
-	  $data=
-	  [
+	  $data=[
 		'ICBC'=>'中国工商银行','ABC' =>'中国农业银行','BOC' =>'中国银行','CCB' =>'中国建设银行',
 		'BC' =>'交通银行','CB' =>'中信银行','CEB' =>'中国光大银行','HB' =>'华夏银行',
 		'CMB'=>'中国民生银行','SDB'=>'深圳发展银行','MB' =>'招商银行','IB' =>'兴业银行',
     'SPDB'=>'上海浦东发展银行','BOB'=>'北京银行','CCMB'=>'城市商业银行','RCC'=>'农村信用合作社',
 		'SB' =>'盛京银行','BOT'=>'天津银行','BON'=>'宁波银行','CHB'=>'重庆银行','BONA'=>'南京银行',
-		'BOJ'=>'江苏银行','SPB'=>'深圳平安银行','PSBC'=>'中国邮政储蓄银行',
-    ];
-
+		'BOJ'=>'江苏银行','SPB'=>'深圳平安银行','PSBC'=>'中国邮政储蓄银行',];
 	    $user_id=$request->session()->get('user_id');
       $Purse = Purse::where('user_id',$user_id)->first();
       if(!empty($Purse)){
@@ -117,9 +114,13 @@ class MemberPayController extends Controller
        $user_id=$request->session()->get('user_id');
        $put = new Put();
        $input = $request->all();
+       //验证
        if(empty($input['card_name']) || empty($input['put_num']) || empty($input['put_name']))
        {
        	 return redirect('prompt')->with(['message'=>'请完善信息！','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
+       }
+       if (!preg_match("/^[\x7f-\xff]+$/",$input['card_name'])){
+          return redirect('prompt')->with(['message'=>'请填写真实的名字！','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
        }
        if(!is_numeric($input['put_num']) || strlen($input['put_num'])<19)
        {
