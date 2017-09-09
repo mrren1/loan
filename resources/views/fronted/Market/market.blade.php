@@ -2,6 +2,14 @@
 
 @section('title', '我要投资')
 
+<style>
+    .floor_num{
+      width:830px;
+      height:520px;
+      /*border:2px solid #ccc;*/
+    }
+</style>
+
 <div class="wrapper "> 
    @section('content')
    <div class="modal fade" id="deleteCartItem" tabindex="-1" role="dialog" aria-hidden="true"> 
