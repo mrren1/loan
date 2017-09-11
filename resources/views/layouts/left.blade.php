@@ -50,8 +50,8 @@
             <li class="change8" ng-class="{active:isTabActive('bank-cards')}"> <a href='member_bank'><span class="sl-icon-credit-card"></span>银行卡管理</a> </li> 
             <li class="divider"></li> 
             <li class="nav-header">资讯中心</li>
-            <li class="change9"> <a href='member_invite'><span class="sl-icon-branch"></span>友情邀请</a> </li> 
-            <li class="change6"> <a href='friend_list'><span class=""></span>好友</a> </li> 
+            <li class="change9"> <a href='mynews'><span class="sl-icon-branch"></span>我的消息</a> </li> 
+            <li class="change10"> <a href='friend_list'><span class="sl-icon-branch"></span>我的好友</a> </li> 
            </ul> 
           </section> 
          </nav> 

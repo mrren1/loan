@@ -24,19 +24,36 @@ class LoginController extends Controller
 	public function login(Request $request)
 	{
         if($request->isMethod('POST')){
-        	$userInfo=user::where("user_name",$request['username'])
-        	->first();
+        	$userInfo=user::where("user_name",$request['username'])->first();
         	if(empty($userInfo)){
-        		return redirect('prompt')->with(['message'=>'用户名错误！','url' =>'register', 'jumpTime'=>2,'status'=>false]);   	
+        		$result = [
+        			'message'=>'用户名错误！',
+        			'url' =>'register', 
+        			'jumpTime'=>2,
+        			'status'=>false
+        		]; 	
         	}else{
         		$userInfo=$userInfo->toArray();
         		if($request['pwd']==decrypt($userInfo['user_pwd'])){
         			$request->session()->put('user_id',$userInfo['user_id']);
         			$request->session()->put('user_name',$userInfo['user_name']);
-        			return redirect('prompt')->with(['message'=>'登陆成功！正在跳转……','url' =>'index', 'jumpTime'=>2,'status'=>false]);
+        			$result = [
+        				'message'=>'登陆成功！正在跳转……',
+        				'url' =>'index',
+        				'jumpTime'=>2,
+        				'status'=>false
+        			];
 	        	}else{
-	        		return redirect('prompt')->with(['message'=>'密码错误！','url' =>'login', 'jumpTime'=>2,'status'=>false]);
+	        		$result = [
+	        			'message'=>'密码错误！',
+	        			'url' =>'login',
+	        			'jumpTime'=>2,
+	        			'status'=>false
+	        		];
+	        		
 	        	}
+
+	        	return redirect('prompt')->with($result);
         	}
         }else{
         	return view('fronted.Login.login');
@@ -119,13 +136,9 @@ class LoginController extends Controller
 	public function register_only(Request $request,$username='')
 	{
 		$post = $request->get('name');
-		$userInfo=user::where("user_name",$post)
-        	->first();
-     	if($userInfo){
-     		echo 1;
-     	}else{
-     		echo 0;
-     	}
+		$userInfo=user::where("user_name",$post)->first();
+
+		return $userInfo ? 1 : 0;
 
 	}
 

@@ -94,7 +94,7 @@
  <script src="jquery.min.js"></script>
  <script type="text/javascript">
     $(function(){
-      var status = 1;
+      var status = 0;
       //判断金额
       $("#lend_money").blur(function(){
           var money = $(this).val();
@@ -212,7 +212,16 @@
 
       //submit判断提交
       $("form").submit(function(){
-        if(status == 1){
+          //获取所有值
+          var lend_money = $("#lend_money").val();
+          var Wdate = $(".Wdate").val();
+          var setloan_type = $("#setloan_type").val();
+          var person = $("#person").val();
+          var phone = $("#phone").val();
+          var desc = $("#desc").val();
+          var lack = $("#lack").val();
+          var interest = $("#interest").val();
+        if(status == 1 || lend_money == '' || Wdate == '' || Wdate == '' || setloan_type == '' || person == '' || phone == '' || desc == '' || lack == '' || interest == ''){
           alert("请完善信息");
           return false;
         }else{

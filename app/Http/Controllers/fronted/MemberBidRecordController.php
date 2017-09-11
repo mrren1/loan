@@ -19,6 +19,9 @@ class MemberBidRecordController extends Controller
 
 	public function index(Request $request)
 	{
+		if(isset($request['new_id'])){
+			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
+		}
 		$user_id=$request->session()->get('user_id');
 		$month=date('n');
 		$day=date('Y-m-d');
@@ -55,7 +58,13 @@ class MemberBidRecordController extends Controller
 		if($request->ajax()){
 			return $data;
 		}
-		return view('fronted.MemberBidRecord.member_bid_record',['debt'=>$debt,'user'=>$user,'month_sum'=>$month_sum,'day_sum'=>$day_sum,'count'=>$count]);
+		return view('fronted.MemberBidRecord.member_bid_record',[
+			'debt'=>$debt,
+			'user'=>$user,
+			'month_sum'=>$month_sum,
+			'day_sum'=>$day_sum,
+			'count'=>$count
+		]);
 	}
 
 	/**
