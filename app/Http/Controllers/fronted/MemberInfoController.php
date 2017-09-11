@@ -127,17 +127,10 @@ class MemberInfoController extends Controller
 		else
 		{
 			//查询message
-			if(!isset($user_id))
-			{
-				return redirect('prompt')->with(['message'=>'没有登录，请先登录','url' =>'login', 'jumpTime'=>3,'status'=>false]);
-			}
 			$message=Message::where("user_id",$user_id)->first();
-			//print_r($message);die;
-			if(!empty($message))
-			{
+			if(!empty($message)){
 				$message=$message->toArray();
 			}
-			//print_r($message);die;
 			if(!empty($message['country'])){
 				$country=Address::where('address_id',$message['country'])->first()->toArray();
 			}else{
