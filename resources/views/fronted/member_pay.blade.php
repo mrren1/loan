@@ -71,18 +71,18 @@
 <div class="textTop">
 <div class="col-xs-6 cashText">可用余额</div>
 <div class="col-xs-6 cashNumber ng-binding" ng-bind-html="summary.availableCash|slMoney">
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_balance']}}元</small> 
+  <small>{{$purse['purse_balance']}}元</small> 
 @endif
 </div>
 <div class="col-xs-6 cashText">可提现金额</div>
 <div class="col-xs-6 cashNumber ng-binding" ng-bind-html="summary.availableWithdrawCash |slMoney">
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_balance']}}元</small> 
+  <small>{{$purse['purse_balance']}}元</small> 
 @endif
 </div>
 </div>
@@ -163,12 +163,12 @@
 </span>
 </th>
 </tr>
-@foreach($Purselog as $log)
+@foreach($purseLog as $log)
 <tr align="center">
 <td>{{$log['purselog_id']}}</td>
 <td>{{$log['purselog_desc']}}</td>
 <td>{{$log['purselog_num']}}</td>
-<td>{{$Purse['purse_balance']}}</td>
+<td>{{$purse['purse_balance']}}</td>
 <td>通过</td>
 <td>{{date('Y-m-d H:i:s',$log['purselog_time'])}}</td>
 </tr>

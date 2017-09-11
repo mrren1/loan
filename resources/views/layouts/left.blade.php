@@ -42,7 +42,7 @@
             <li class="nav-header">我的投资</li> 
             <li class="change3"><a href='member_tuan'><span class="sl-icon-agreement"></span>我的贷款</a> </li> 
             <li class="change4" ng-class="{active:isTabActive('invest-history')}"> <a href='member_bid_record'><span class="sl-icon-details-more"></span>我的借款</a> </li> 
-            <li class="change5" ng-class="{active:isTabActive('auto-invest')}"> <a href='member_bid_auto'><span class="sl-icon-dart"></span>自动投标</a> </li> 
+            <li class="change5" ng-class="{active:isTabActive('auto-invest')}"> <a href='member_bid_auto'><span class="sl-icon-dart"></span>我的大额贷款</a> </li> 
             <li class="change6" ng-class="{active:isTabActive('trade-history')}"> <a href='member_trade'><span class="sl-icon-tutorial"></span>交易记录</a> </li> 
             <li class="divider"></li> 
             <li class="nav-header">账户管理</li> 
@@ -50,7 +50,8 @@
             <li class="change8" ng-class="{active:isTabActive('bank-cards')}"> <a href='member_bank'><span class="sl-icon-credit-card"></span>银行卡管理</a> </li> 
             <li class="divider"></li> 
             <li class="nav-header">资讯中心</li>
-            <li class="change9"> <a href='member_invite'><span class="sl-icon-branch"></span>友情邀请</a> </li> 
+            <li class="change9"> <a href='mynews'><span class="sl-icon-branch"></span>我的消息</a> </li> 
+            <li class="change10"> <a href='friend_list'><span class="sl-icon-branch"></span>我的好友</a> </li> 
            </ul> 
           </section> 
          </nav> 

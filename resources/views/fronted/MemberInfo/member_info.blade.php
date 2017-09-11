@@ -9,6 +9,10 @@
       display:block;
       display: inline;
     }
+    #photo1,#img1,#idcard1,#fangcard1,#jiacard1{
+      display:block;
+      display: inline;
+    }
   </style>
    <div class="modal fade" id="deleteCartItem" tabindex="-1" role="dialog" aria-hidden="true"> 
     <div class="modal-dialog" ng-controller="CartCtrl"> 
@@ -407,7 +411,7 @@
 <span class="bind-gray ng-scope" ng-if="!basicProfile.profile.idCard">
 <span style="display:none" id="hide">
     <select num="0" class="sel" name="country1">
-      <option value="">请选择</option>
+      <option value="0">请选择</option>
       @foreach ($address as $key => $val)
         <option value="{{$val['address_id']}}">{{$val['address_name']}}</option>
       @endforeach
@@ -427,7 +431,7 @@
     <input type="hidden" id="city" value="{{$message['city']}}">
     <input type="hidden" id="area" value="{{$message['area']}}">
     <select num="0" class="sel" name="country">
-      <option value="">请选择</option>
+      <option value="0">请选择</option>
       @foreach ($address as $key => $val)
         <option value="{{$val['address_id']}}">{{$val['address_name']}}</option>
       @endforeach
@@ -547,35 +551,35 @@
 <div style="display:none" id="hide">
 <div class="row">
 <div class="col-xs-3 info-value text-center">上传个人照片</div>
-<input id="photo" type="file"><span id="img1"></span>
+<input id="photo1" type="file"><span id="img11"></span>
 <input type="hidden" name="photo" value="" id="message_photo">
 </div>
 <div class="row">
 <div class="col-xs-3 info-value text-center">上传隐私照片</div>
-<input id="img" type="file">
+<input id="img1" type="file">
 <input type="hidden" name="img" value="" id="private_photo">
-<span id="img2"></span>
+<span id="img22"></span>
 </span>
 </div>
 <div class="row">
 <div class="col-xs-3 info-value text-center">上传身份证</div>
-<input id="idcard" type="file">
+<input id="idcard1" type="file">
 <input type="hidden" name="idcard" value="" id="message_idcard">
-<span id="img3"></span>
+<span id="img33"></span>
 </span>
 </div>
 <div class="row">
 <div class="col-xs-3 info-value text-center">上传房产证</div>
-<input id="fangcard" type="file">
+<input id="fangcard1" type="file">
 <input type="hidden" name="fangcard" value="" id="message_fangcard">
-<span id="img4"></span>
+<span id="img44"></span>
 </span>
 </div>
 <div class="row">
 <div class="col-xs-3 info-value text-center">上传驾驶证</div>
-<input id="jiacard" type="file">
+<input id="jiacard1" type="file">
 <input type="hidden" name="jiacard" value="" id="message_jiacard">
-<span id="img5"></span>
+<span id="img55"></span>
 </span>
 </div>
 </div>
@@ -822,7 +826,7 @@ style="width:80px;"
      });
     });
      //文件上传个人照片
-     $("#photo").change(function(){
+     $("#photo,#photo1").change(function(){
       var form = new FormData();
       var file = $(this);
       form.append('message_photo',file[0].files[0]);
@@ -839,7 +843,7 @@ style="width:80px;"
             return false;
           }else{
             $("#message_photo").val(result);
-            $("#img1").html("<img src='uploads/"+result+"' style='width:40px'>");
+            $("#img1,#img11").html("<img src='uploads/"+result+"' style='width:40px'>");
             //$("#img1").attr('src','uploads/'+result);
             return true;
           }
@@ -847,7 +851,7 @@ style="width:80px;"
      });
     });
      //上传隐私照片
-     $("#img").change(function(){
+     $("#img,#img1").change(function(){
       var form = new FormData();
       var file = $(this);
       form.append('private_photo',file[0].files[0]);
@@ -867,14 +871,14 @@ style="width:80px;"
             return false;
           }else{
             $("#private_photo").val(result);
-            $("#img2").html("<img src='uploads/"+result+"' style='width:40px'>");
+            $("#img2,#img22").html("<img src='uploads/"+result+"' style='width:40px'>");
             return true;
           }
         }
      });
     });
       //文件上传身份证
-     $("#idcard").change(function(){
+     $("#idcard,#idcard1").change(function(){
       var form = new FormData();
       var file = $(this);
       form.append('message_idcard',file[0].files[0]);
@@ -894,14 +898,14 @@ style="width:80px;"
             return false;
           }else{
             $("#message_idcard").val(result);
-            $("#img3").html("<img src='uploads/"+result+"' style='width:40px'>");
+            $("#img3,#img33").html("<img src='uploads/"+result+"' style='width:40px'>");
             return true;
           }
         }
      });
     });
       //文件上传房产证
-     $("#fangcard").change(function(){
+     $("#fangcard,#fangcard1").change(function(){
       var form = new FormData();
       var file = $(this);
       form.append('message_fangcard',file[0].files[0]);
@@ -921,14 +925,14 @@ style="width:80px;"
             return false;
           }else{
             $("#message_fangcard").val(result);
-            $("#img4").html("<img src='uploads/"+result+"' style='width:40px'>");
+            $("#img4,img55").html("<img src='uploads/"+result+"' style='width:40px'>");
             return true;
           }
         }
      });
     });
       //文件上传驾驶证
-     $("#jiacard").change(function(){
+     $("#jiacard,#jiacard1").change(function(){
       var form = new FormData();
       var file = $(this);
       form.append('message_jiacard',file[0].files[0]);
@@ -948,7 +952,7 @@ style="width:80px;"
             return false;
           }else{
             $("#message_jiacard").val(result);
-            $("#img5").html("<img src='uploads/"+result+"' style='width:40px'>");
+            $("#img5,#img55").html("<img src='uploads/"+result+"' style='width:40px'>");
             return true;
           }
         }

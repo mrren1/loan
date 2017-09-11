@@ -6,19 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="admin/lib/html5shiv.js"></script>
-<script type="text/javascript" src="admin/lib/respond.min.js"></script>
-<![endif]-->
+
 <link rel="stylesheet" type="text/css" href="admin/static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="admin/static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="admin/static/h-ui.admin/css/style.css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
+
 <title>广告管理</title>
 </head>
 <body>
@@ -38,30 +32,23 @@
       <tr class="text-c">
         <th width="25"><input type="checkbox" name="" value=""></th>
         <th width="80">ID</th>
-        <th width="100">用户名</th>
-        <th width="40">性别</th>
-        <th width="90">手机</th>
-        <th width="150">邮箱</th>
-        <th width="">地址</th>
-        <th width="130">加入时间</th>
-        <th width="70">状态</th>
+        <th width="100">名称</th>
+        <th width="">内容</th>
+        <th width="70">money</th>
         <th width="100">操作</th>
       </tr>
     </thead>
     <tbody>
+    @foreach($ad_arr as $val)
     <tr class="text-c">
         <td><input type="checkbox" value="1" name=""></td>
-        <td>1</td>
-        <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">张三</u></td>
-        <td>男</td>
-        <td>13000000000</td>
-        <td>admin@mail.com</td>
-        <td class="text-l">北京市 海淀区</td>
-        <td>2014-6-11 11:11:42</td>
-        <td class="td-status"><span class="label label-success radius">已启用</span></td>
+        <td>{{$val['ad_id']}}</td>
+        <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">{{$val['ad_name']}}</u></td>
+        <td class="text-l">{{$val['ad_desc']}}</td>
+        <td class="td-status"><span class="label label-success radius">{{$val['lend_money']}}</span></td>
         <td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
       </tr>
-      
+    @endforeach  
     </tbody>
   </table>
   </div>
@@ -84,7 +71,7 @@ $(function(){
     "bStateSave": true,//状态保存
     "aoColumnDefs": [
       //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-      {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+      // {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
     ]
   });
   

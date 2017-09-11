@@ -61,6 +61,8 @@ Route::any('User_sign_in', 'fronted\User_sign_inController@User_sign_in');
 Route::any('fronted_integral', 'fronted\User_sign_inController@fronted_integral');
 
 
+//好友列表
+Route::any('friend_list','fronted\FriendController@friend_list');
 
 //注册用户
 
@@ -80,6 +82,17 @@ Route::post('debt',
     'uses'=>'fronted\OfferController@index',
     'as'=>'debt',
 ]);
+Route::post('repayment', 
+[
+    'uses'=>'fronted\MemberBidRecordController@repayment',
+    'as'=>'repayment',
+]);
+//ajax延迟加载
+Route::post('marketList', 
+[
+    'uses'=>'fronted\MarketController@getMarketList',
+    'as'=>'marketList',
+]);
 Route::any('log','fronted\LoginController@log');
 Route::any('login','fronted\LoginController@login');
 Route::get('getCreateverify', 'fronted\LoginController@getCreateverify');
@@ -95,11 +108,12 @@ Route::post('jia_upload', 'fronted\MemberInfoController@jia_upload');
 Route::post('img_upload', 'fronted\MemberInfoController@img_upload');
 Route::post('id_upload', 'fronted\MemberInfoController@id_upload');
 Route::post('user_upload', 'fronted\MemberInfoController@user_upload');
-
-
+//平台表展示
+Route::any('platform_list','backend\PlatformController@platform_list');
 
 //后台登陆
 Route::any('admin_login/','backend\LoginController@index');
+
 //首页
 Route::get('admin_index/','backend\AdminController@index');
 Route::get('welcome','backend\AdminController@welcome');
@@ -162,6 +176,8 @@ Route::any('ad_add','backend\AdController@ad_add');
 Route::any('loan_list','backend\LoanController@loan_list');
 //资金管理
 Route::any('purse_list','backend\PurseController@purse_list');
+//大额贷款申请列表
+Route::any('largeList','backend\LargeController@showList');
 /* 
 this is 会员审核相关
 */
@@ -202,3 +218,13 @@ Route::any('adddebt','fronted\OfferController@adddebt');
 
 //借款的审核
 Route::any('changeDebtStatus','backend\OfferController@changeDebtStatus');
+
+//大额贷款
+Route::any('large','fronted\LargeController@index');
+//后台大额贷款
+Route::any('showUserInfo','backend\LargeController@showUserInfo');
+Route::any('showLargeInfo','backend\LargeController@showLargeInfo');
+Route::any('passcheck','backend\LargeController@passcheck');
+Route::any('changelimit','backend\LargeController@changelimit');
+Route::any('sureLarge','fronted\MemberBidAutoController@sureLarge');
+Route::any('mynews','fronted\NewsController@show');
