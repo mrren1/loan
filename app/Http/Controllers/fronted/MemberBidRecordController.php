@@ -19,6 +19,9 @@ class MemberBidRecordController extends Controller
 
 	public function index(Request $request)
 	{
+		if(isset($request['new_id'])){
+			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
+		}
 		$user_id=$request->session()->get('user_id');
 		$month=date('n');
 		$day=date('Y-m-d');
