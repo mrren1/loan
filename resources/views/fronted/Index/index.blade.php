@@ -68,13 +68,13 @@
        <div class="tab-content"> 
         <div class="tab-pane active" id="register"> 
          <sl-create-account-form redirect-url="url" referral-name=""></sl-create-account-form> 
-         <!--<div class="text-center weiboLogin" ng-if="!disableTpLogin">--> 
-         <!--<p class="social third-party-login-platform">--> 
-         <!--你还可以使用合作平台登录--> 
-         <!--<a href="#" title="用新浪微博登录" ng-click="weiboLogin()" ><span class="sl-icon-weibo weibo-sina"></span></a>--> 
-         <!--<a href="#" title="用腾讯QQ登录" ng-click="qqLogin()"><span  class="sl-icon-qq tencent-qq"></span></a>--> 
-         <!--</p>--> 
-         <!--</div>--> 
+         <div class="text-center weiboLogin" ng-if="!disableTpLogin"> 
+         <p class="social third-party-login-platform"> 
+         <!-- 你还可以使用合作平台登录  -->
+         <a href="#" title="用新浪微博登录" ng-click="weiboLogin()" ><span class="sl-icon-weibo weibo-sina"></span></a> 
+         <a href="#" title="用腾讯QQ登录" ng-click="qqLogin()"><span  class="sl-icon-qq tencent-qq"></span></a> 
+         </p> 
+         </div> 
         </div> 
         <div class="tab-pane" id="logining"> 
          <div class="col-xs-12 login-content-form"> 

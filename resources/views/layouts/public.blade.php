@@ -6,6 +6,10 @@
         <link href="css/components.css?ver=142682356" rel="stylesheet" /> 
         <link href="css/main.css?ver=142682356" rel="stylesheet" /> 
         <link href="css/new-home.css?ver=142682356" rel="stylesheet" /> 
+        <link rel="stylesheet" href="css/qiandao_style.css">
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/qiandao_js.js"></script>
+        
         <style type="text/css">
           @media (min-width: 992px) {
             @font-face {
@@ -51,6 +55,7 @@
         @if($newscount!=0)
         <li><a href="mynews">未读消息（<font color="red">{{$newscount}}</font>）条！</a></li>
         @endif
+        <li><a href="User_sign_in" >签到</a></li> 
          <li><a href="out">退出</a></li> 
       </ul>
 
