@@ -21,16 +21,13 @@ class MemberBidAutoController extends Controller
 		//获取挡墙登录id
 		$user_id=$request->session()->get('user_id');
 		$user=User::where(['user_id'=>$user_id])->first();
-		//print_r($user);die;
 		//查询信息
 		$arr=Large::where(['user_id'=>$user_id])->paginate(6);
 		foreach($arr as $k => $v){
 			$arr[$k]->user_name=$user->user_name;
 		}
-		//print_r($arr);die;
 		return view('fronted.MemberBidAuto.member_bid_auto',['arr'=>$arr]);
 	}
-
 
 	/**
 	 * 用户确认大额贷款
@@ -46,7 +43,6 @@ class MemberBidAutoController extends Controller
 		$large_money=$largeArr['large_money'];
 		$Platform=Platform::where('platform_id',1)->first();
 		$purse=Purse::where('user_id',$user_id)->first();
-		//var_dump($Platform);die;
 		//开启事务
 		DB::beginTransaction();
 		try {

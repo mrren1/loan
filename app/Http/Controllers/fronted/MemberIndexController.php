@@ -19,8 +19,7 @@ class MemberIndexController extends Controller
       {
         $Purse=$Purse->toArray();
       }//获取用户钱包数据
-
-		return view('fronted.member_index',['Purse'=>$Purse]);
+	  return view('fronted.member_index',['Purse'=>$Purse]);
 	}
 
 }

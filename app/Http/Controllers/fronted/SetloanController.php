@@ -17,7 +17,7 @@ class SetloanController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		if($_POST){
+		if($request->isMethod('POST')){
 			//添加贷款
 			$setloan = new Blowloan;
 			$setloan->user_id = $request->session()->get('user_id');

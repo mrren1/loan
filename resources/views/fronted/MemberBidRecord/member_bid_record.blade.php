@@ -989,7 +989,6 @@
   <script type="text/javascript">
       $(function(){
           $(".repayment").click(function(){
-            alert('正在审核中,请耐心等待......');
             var obj = $(this);
             //获取借款id
             var debt_id = obj.attr('data-user');
