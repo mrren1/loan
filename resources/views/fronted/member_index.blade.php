@@ -162,10 +162,10 @@
 <div class="sum-number inside-column">
 <h3 class="highlighted-sum">
 <abbr class="ng-binding ng-scope" ng-bind-html="summary.interestReceived|slMoney" tooltip-placement="right" tooltip="=已收利息+已收罚息" title="">
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_balance']}}元</small> 
+  <small>{{$purse['purse_balance']}}元</small> 
 @endif
 </abbr>
 </h3>
@@ -183,10 +183,10 @@
 </div>
 <div class="sum-number" ng-show="gotSummary">
 <h3 class="highlighted-sum ng-binding" ng-bind-html="summary.availableCash|slMoney">
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_balance']}}元</small> 
+  <small>{{$purse['purse_balance']}}元</small> 
 @endif
 </h3>
 <p class="highlighted-sum-caption">可用余额</p>
