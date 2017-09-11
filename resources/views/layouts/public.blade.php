@@ -62,6 +62,7 @@
         @if($newscount!=0)
         <li><a href="mynews">未读消息（<font color="red">{{$newscount}}</font>）条！</a></li>
         @endif
+        <li><a href="User_sign_in" >签到</a></li> 
          <li><a href="out">退出</a></li> 
 >>>>>>> 57e863cd5b96d343fe03dfbf37486cbf8e7e2fb4
       </ul>
