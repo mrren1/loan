@@ -225,6 +225,7 @@
         <th width="60">借款人</th>
         <th width="80">借款描述</th>
         <th width="70">审核状态</th>
+        <th>操作</th>
       </tr>
     </thead>
     <tbody id="box">
@@ -243,6 +244,13 @@
           通过
           @else
           未通过
+          @endif
+        </td>
+        <td class="td-manage">
+          @if($v->debt_addition == 0)
+          <a href="javascript:;" data-user="{{$v->debt_id}}" class="repayment">还款</a>
+          @else
+          <span style="color:blue">已还款</span>
           @endif
         </td>
       </tr>
@@ -976,5 +984,35 @@
   <script type="text/javascript">
       $(function(){
           $(".change4").addClass('active');            
+      })
+  </script>
+  <script type="text/javascript">
+      $(function(){
+          $(".repayment").click(function(){
+            alert('正在审核中,请耐心等待......');
+            var obj = $(this);
+            //获取借款id
+            var debt_id = obj.attr('data-user');
+            var obj = $(this);
+            //发送ajax
+            $.ajax({
+                type: "post",
+                url: "{{route('repayment')}}",
+                data: {debt_id:debt_id,_token:"{{Session::token()}}"},
+                success: function(result){
+                    if(result == 0){
+                        alert('还款失败,请重新操作');
+                        return false;
+                    }else if(result == 2){
+                        alert('您的余额不足,请查看余额');
+                        return false;
+                    }else{
+                        alert('审核已通过');
+                        obj.parents("tr").find(".td-manage").html('<span style="color:blue">已还款</span>');
+                        return true;
+                    }
+                }
+            });
+          });
       })
   </script>

@@ -19,10 +19,17 @@
                     <ul class="bor_onel_ul">
                     </ul>
                     <ul class="bor_onel_ul">
-                      
-                       
+                      <h2>个人贷款</h2>
+                       <h4><font color="red">注意事项</font></h4>
+                       <p>个人贷款，又称零售贷款业务，经过几十年的发展，已成为一项重要的贷款业务。
+                       个人贷款是指银行或其他金融机构向符合贷款条件的自然人发放的用于个人消费、生产经营等用途的本、外币贷款。
+                       贷款人发放个人抵押贷款时，借款人必须提供担保。
+                       借款人到期不能偿还贷款本息的，贷款人有权依法处理其抵押物或质物，或由保证人承担偿还本息的连带责任。
+                        
+                       </p>
+                       <h4><font color="red">请先阅读注意事项</font></h4>
                     </ul>
-                        </div>  
+                        </div> 
                         <!-- end l -->
                         <div class="bor_det_oner fl">
                                <form method="post" action="{{ route('setloan') }}">
@@ -48,7 +55,7 @@
                                            </select>
                                        </div>
                                        <div class="mt15">
-                                           <label>联系人</label>
+                                           <label>*联系人</label>
                                            <input type="text" name="lend_person" id="person">
                                            <span style="color:red" id="man"></span>
                                        </div>
@@ -72,7 +79,7 @@
                                        </div>
                                        <div class="mt30">
                                            <label></label>
-                                           <button type="submit" class="bor_btn" style="border:none;">提交材料</button>
+                                           <button type="submit" class="bor_btn" style="border:none;">*提交材料</button>
                                        </div>
                                   </fieldset>
                                </form>
@@ -87,7 +94,7 @@
  <script src="jquery.min.js"></script>
  <script type="text/javascript">
     $(function(){
-      var status = 1;
+      var status = 0;
       //判断金额
       $("#lend_money").blur(function(){
           var money = $(this).val();
@@ -205,7 +212,16 @@
 
       //submit判断提交
       $("form").submit(function(){
-        if(status == 1){
+          //获取所有值
+          var lend_money = $("#lend_money").val();
+          var Wdate = $(".Wdate").val();
+          var setloan_type = $("#setloan_type").val();
+          var person = $("#person").val();
+          var phone = $("#phone").val();
+          var desc = $("#desc").val();
+          var lack = $("#lack").val();
+          var interest = $("#interest").val();
+        if(status == 1 || lend_money == '' || Wdate == '' || Wdate == '' || setloan_type == '' || person == '' || phone == '' || desc == '' || lack == '' || interest == ''){
           alert("请完善信息");
           return false;
         }else{

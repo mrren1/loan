@@ -3,7 +3,7 @@
 namespace App\Http\models;
 use Illuminate\Database\Eloquent\Model;
 
-class Demo extends Model
+class Card extends Model
 {
-	protected $table = 'demo';
+	protected $table = 'card';
 }

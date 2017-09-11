@@ -13,15 +13,14 @@ use App\Http\Models\Advert;
 
 class AdController extends BackendController
 {
-
-     public function ad_list()
-     {
-          return view('backend/Ad/ad_list'); 
-     }
-      public function ad_add(Request $request)
-     {
-     	if($request->isMethod('POST'))
-     	{
+    public function ad_list()
+    {
+        $adArr=Advert::orderBy('lend_money','desc')->get()->toArray();  
+        return view('backend/Ad/ad_list',array('ad_arr'=>$adArr)); 
+    }
+    public function ad_add(Request $request)
+    {
+     	if($request->isMethod('POST')){
      		$data=$request->all();
      		$ad = new Advert();
      		$ad->lend_id=$data['lend_id'];
@@ -29,21 +28,25 @@ class AdController extends BackendController
      		$ad->ad_desc=$data['ad_desc'];
      		$ad->lend_money=$data['lend_money'];
      		$res = $ad->save();
-     		if($res)
-     		{
-     			return redirect('prompt')->with(['message'=>'添加成功','url' =>'ad_list', 'jumpTime'=>3,'status'=>false]);
+     		if($res){
+                $result = ['message'=>'添加成功',
+                    'url' =>'ad_list',
+                    'jumpTime'=>3,
+                    'status'=>false
+                ];
+     			return redirect('prompt')->with($result);
+     		}else{
+                $result=[
+                    'message'=>'添加失败',
+                    'url' =>'ad_list', 
+                    'jumpTime'=>3,
+                    'status'=>false
+                ];
+     			return redirect('prompt')->with($result);
      		}
-     		else
-     		{
-     			return redirect('prompt')->with(['message'=>'添加失败','url' =>'ad_list', 'jumpTime'=>3,'status'=>false]);
-     		}
-     	}
-     	else
-     	{
-			$lend_arr = DB::table('lend')->join('user','lend.user_id','=','user.user_id')->select('user_name','lend_id')->get()->toArray();
-     	 	return view('backend/Ad/ad_add',['lend_arr'=>$lend_arr]);
-     	}
-    	 
-    	 
-     }
+     	}else{
+			$lendArr = DB::table('lend')->join('user','lend.user_id','=','user.user_id')->select('user_name','lend_id')->get()->toArray();
+     	 	return view('backend/Ad/ad_add',['lend_arr'=>$lendArr]);
+     	} 
+    }
 }

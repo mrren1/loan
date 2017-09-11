@@ -44,6 +44,7 @@
 				<li class="dropDown dropDown_hover">
 					<a class="dropDown_A">用户名：<span style="color:red;">&nbsp;{{Session::get('admin_name')}}&nbsp;&nbsp;&nbsp;</span><i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
+				<!-- 	<li><a href="admin_means">个人资料</a></li> -->
 						<li><a href="admin_login">切换账户</a></li>
 						<li><a href="admin_out">退出</a></li>
 				</ul>
@@ -68,22 +69,7 @@
 @section('sidebar')
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
-	<!-- 	<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
-			</ul>
-		</dd>
-	</dl> -->
-	<!-- 	<dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
-			</ul>
-		</dd>
-	</dl> -->
+	
 		<dl id="menu-product">
 			<dt><i class="Hui-iconfont">&#xe620;</i> 广告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -98,6 +84,7 @@
 				<ul>
 					<li><a data-href="admin_loan_list" data-title="发布贷款列表" href="javascript:;">发布贷款列表</a></li>
 					<li><a data-href="admin_offer_list" data-title="申请借款列表" href="javascript:;">申请借款列表</a></li>
+					<li><a data-href="largeList" data-title="大额贷款申请列表" href="javascript:;">大额贷款申请列表</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -126,6 +113,8 @@
 			<dd>
 				<ul>
 					<li><a data-href="purse_list" data-title="资金列表" href="javascript:;">资金列表</a></li>
+					<li><a data-href="platform_list" data-title="平台表" href="javascript:;">平台</a></li>
+
 			</ul>
 		</dd>
 	</dl>
@@ -160,7 +149,11 @@ function myselfinfo(){
 		maxmin: true,
 		shade:0.4,
 		title: '查看信息',
-		content: '<div>管理员信息</div>'
+		content: '<div><table>
+			<tr>
+			<td>
+			<td><td></tr>
+		</table></div>'
 	});
 }
 
