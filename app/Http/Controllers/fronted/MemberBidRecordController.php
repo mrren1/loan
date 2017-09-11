@@ -5,6 +5,7 @@ namespace App\Http\Controllers\fronted;
 use App\MemberBidRecord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\fronted\Controller;
+use Carbon\Carbon;
 use App\Http\Models\Debt;
 use App\Http\Models\User;
 use App\Http\Models\Lend;
@@ -23,8 +24,15 @@ class MemberBidRecordController extends Controller
 			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
 		}
 		$user_id=$request->session()->get('user_id');
-		$month=date('n');
-		$day=date('Y-m-d');
+		if($request->has($user_id)){
+			return redirect('prompt')->with(['message'=>'未登录，请先登录','url' =>'login', 'jumpTime'=>2,'status'=>false]);
+		}
+		//获取当前时间
+		$now = Carbon::now();
+		//取出当前月份
+		$month=$now->month;
+		//获取年-月-日
+		$day=$now->toDateString(); 
 		$mon=$request->get('mon');
 		$user=User::where(['user_id'=>$user_id])->first()->toArray();
 		$debt=Debt::where(['user_id'=>$user_id])->paginate(4);
@@ -39,19 +47,15 @@ class MemberBidRecordController extends Controller
 			if($day==date('Y-m-d',strtotime($v->debt_stime))){
 				$day_sum+=$v->debt_money;
 			}
-			$res1[]=Lend::select('user_id')->where('lend_id','=',$v->from_id)->first();
-			$arr1[]=User::select('user_name')->where('user_id','=',$res1[$k]->user_id)->first();
-			$v->from_name=$arr1[$k]->user_name;
-			$v->user_name=$user['user_name'];
 			if($mon==date('m',strtotime($v['debt_stime']))){
 				$data[]=$v;
-			}		
+			}	
+			$v->from_name=$this->getName($v->from_id);
+			$v->user_name=$user['user_name'];	
 		}
 		foreach($debt as $k => $v)
 		{	
-			$res[]=Lend::select('user_id')->where('lend_id','=',$v->from_id)->first();
-			$arr[]=User::select('user_name')->where('user_id','=',$res[$k]->user_id)->first();
-			$v->from_name=$arr[$k]->user_name;
+			$v->from_name=$this->getName($v->from_id);
 			$v->user_name=$user['user_name'];
 		}
 		$count = Debt::where(['user_id'=>$user_id])->count();
@@ -65,6 +69,15 @@ class MemberBidRecordController extends Controller
 			'day_sum'=>$day_sum,
 			'count'=>$count
 		]);
+	}
+	/**
+	 * 获取借款人姓名
+	 */
+	public function getName($from_id)
+	{
+		$uid=Lend::where('lend_id','=',$from_id)->value('user_id');
+		$arr=User::select('user_name')->where('user_id','=',$uid)->first();
+		return $arr->user_name;
 	}
 
 	/**
