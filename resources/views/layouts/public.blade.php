@@ -50,13 +50,6 @@
       </ul> 
       @if(Session::has('user_name'))
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-<<<<<<< HEAD
-       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">
-       <span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
-       <li><a href="User_sign_in" >签到</a></li> 
-       <li><a href="out">退出</a></li> 
-
-=======
        <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">欢迎您：<span style="color:pink">{{ Session::get('user_name') }}！</span></a> 
         </li>
         @if($newscount!=0)
@@ -64,7 +57,6 @@
         @endif
         <li><a href="User_sign_in" >签到</a></li> 
          <li><a href="out">退出</a></li> 
->>>>>>> 57e863cd5b96d343fe03dfbf37486cbf8e7e2fb4
       </ul>
 
       @else
