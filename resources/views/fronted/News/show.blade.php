@@ -49,56 +49,36 @@
   <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
       <tr class="text-c">
-        <th width="60">用户</th>
-        <th width="50">借款金额</th>
-        <th width="40">评估额度</th>
-        <th width="80">借款时间</th>
-        <th width="80">还款时间</th>
-        <th width="70">联系电话</th>
-        <th width="70">邮寄状态</th>
-        <th width="70">审核状态</th>
+        <th width="">消息ID</th>
+        <th width="">消息时间</th>
+        <th width="">标题</th>
+        <th width="">内容</th>
+        <th width="">状态</th>
         <th>操作</th>
       </tr>
     </thead>
     <tbody id="box">
-      @foreach($arr as $k => $v)
+    @foreach($news as $new)
       <tr class="text-c">
-        <td>{{$v->user_name}}</td>
-        <td>{{$v->large_money}}</td>
-        <td>{{$v->large_limit}}</td>
-        <td><?=date('Y-m-d',$v->begin_time)?></td>
-        <td><?=date('Y-m-d',$v->end_time)?></td>
-        <td>{{$v->large_phone}}</td>
+        <td>{{$new->new_id}}</td>
+        <td>{{$new->new_time}}</td>
+        <td>{{$new->new_title}}</td>
+        <td><?=$new->new_content?><a href="{{$new->new_url}}?new_id={{$new->new_id}}">去确认</a></td>
         <td>
-          @if($v->post_status==0)
-          未邮寄
+          @if($new->is_read==1)
+          已处理
           @else
-          已邮寄
+          未处理
           @endif
         </td>
-        <td class="dd{{$v->large_id}}">
-          @if($v->status==0)
-          待评估
-          @elseif($v->status==1)
-          待买家确认
-          @else
-          交易完成
-          @endif
-        </td>
-        <td class="td-manage{{$v->large_id}}">
-          @if($v->status==0)
-            待评估
-          @elseif($v->status==1)
-            <a href="javascript:" class="sure" data-id="{{$v->large_id}}"><font color="red">确认交易</font></a>
-          @elseif($v->status==2)
-            <font color="green">交易完成</font>
-          @endif
+        <td class="td-manage">
+        <a href="">删除</a>
         </td>
       </tr>
       @endforeach
     </tbody>
   </table>
-{{ $arr->links() }}
+{{$news->links()}}
 </section>
 <div id="auto-invest-switch" class="modal fade" aria-hidden="true" role="dialog" tabindex="-1">
 <div class="modal-dialog">
@@ -162,30 +142,6 @@
      </div> 
     </div> 
    </div> 
-  <script type="text/javascript">
-      $('.sure').click(function(){
-        if(!confirm('您确认完成交易？')){
-          return false;
-        }
-        //获取数据
-        var large_id=$(this).data('id');
-        //ajax完成本次大额贷款的交易
-        $.ajax({
-          type:'get',
-          url:'sureLarge',
-          data:{large_id:large_id},
-          success:function(result){
-            if(result==1){
-              $('.td-manage'+large_id).html('<font color="green">交易完成</font>');
-              $('.dd'+large_id).html('交易完成');
-            }else{
-              alert('确认失败！')
-              return false;
-            }
-          }
-        });
-      });
-  </script>
   @endsection
    <!-- Modal --> 
    <div class="modal fade wechat-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
@@ -223,10 +179,6 @@
   <script src="js/jquery.js" type="text/javascript"></script>
   <script type="text/javascript">
       $(function(){
-          $(".change5").addClass('active');            
+          $(".change9").addClass('active');            
       })
-
-      $('.sure').click(function(){
-        alert(1)
-      });
   </script>

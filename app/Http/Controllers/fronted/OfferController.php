@@ -11,6 +11,11 @@ use App\Http\Models\Lend;
 
 class OfferController extends Controller
 {
+	/**
+	 * 贷款首页
+	 * @param  Request $request
+	 * @return view
+	 */
 	public function index(Request $request)
 	{
 		//获取贷款人额度

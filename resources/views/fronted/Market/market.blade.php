@@ -2,6 +2,14 @@
 
 @section('title', '我要投资')
 
+<style>
+    .floor_num{
+      width:830px;
+      height:520px;
+      /*border:2px solid #ccc;*/
+    }
+</style>
+
 <div class="wrapper "> 
    @section('content')
    <div class="modal fade" id="deleteCartItem" tabindex="-1" role="dialog" aria-hidden="true"> 
@@ -1145,7 +1153,6 @@ A
                 return false;
             }
         });
-
         $(".floor_num").on("click",".link",function(){
             var lend_id = $(this).attr('data-id');
             window.location.href="debt?lend_id="+lend_id;

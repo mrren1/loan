@@ -68,10 +68,10 @@
 <div class="col-xs-2 textAlign availableCash ng-scope" ng-if="!investLoanId">
 <div>
 <span class="ng-binding" ng-bind-html="summary.availableCash|slMoney">
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_balance']}}元</small> 
+  <small>{{$purse['purse_balance']}}元</small> 
 @endif
 </span>
 </div>
@@ -145,7 +145,8 @@
 </center>
 <div class="row" style="margin-left:500px;">
 <div class="col-xs-10 buttonRecharge">
-<input type="submit" value="充值" class="btn btn-secondary">
+<input type="submit" value="充值" class="btn btn-secondary" id="submit">
+<span id="sub" style="color:red"></span>
 </div>
 </div>
 <center>
@@ -184,6 +185,13 @@
      }
   }
 }
+});
+
+$("#submit").click(function(){
+   if($.trim($('#purse_sum').val()).length == 0){
+      $("#submit").html("请填写信息");
+      $('#sub').attr('disabled',"true");
+   }
 });
 </script>
 @endsection
