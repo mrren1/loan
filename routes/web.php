@@ -53,7 +53,6 @@ Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::any('debt', 'fronted\OfferController@index');
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
-
 /*
 用户签到
  */

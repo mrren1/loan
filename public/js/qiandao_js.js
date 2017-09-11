@@ -76,10 +76,8 @@ $(function() {
             }) 
         //签到
         $qiandaoBnt.on("click", function() {
-
                     /**/
                     var data1 = qiandaoUmsg();
-                        
                     $.ajax({
                         data:"uname="+data1['username']+"&integral="+data1['integral']+"&nowday="+data1['nowday']+"&Continuous_sign_in_arr_length="+data1['Continuous_sign_in_arr_length'],
                         url:"fronted_integral",
@@ -92,18 +90,14 @@ $(function() {
                         //检测到已签到 提示
                         if ( msg == 3 ) {alert("已经签到了哟,记得明天再来哦！！"); return false;}
                         if ( msg ) {
-                            $(".succession").val( data1['Continuous_sign_in_arr_length'] );
-                            $(".qiandao-jiangli-num").val( data1['intrgral'] );  
-                            $(this).addClass('qiandao');
+                            $(".succession").html( data1['Continuous_sign_in_arr_length'] );
+                            $(".qiandao-jiangli-num").html( data1['intrgral'] );     
                             qiandaoFun();
-                            // alert(data['Continuous_sign_in_arr_length'])
-                            // return false;
+                            $(this).addClass('qiandao');
                         };
                     }
                     });
                     /**/
-
-                
         });
         //点击获取当前用户的连续签到时间 今日积分  连续签到日期
         function qiandaoUmsg(){
