@@ -6,6 +6,10 @@
         <link href="css/components.css?ver=142682356" rel="stylesheet" /> 
         <link href="css/main.css?ver=142682356" rel="stylesheet" /> 
         <link href="css/new-home.css?ver=142682356" rel="stylesheet" /> 
+        <link rel="stylesheet" href="css/qiandao_style.css">
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/qiandao_js.js"></script>
+        
         <style type="text/css">
           @media (min-width: 992px) {
             @font-face {
@@ -51,8 +55,11 @@
       </ul> 
       @if(Session::has('user_name'))
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
-         <li><a href="out">退出</a></li> 
+       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">
+       <span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
+       <li><a href="User_sign_in" >签到</a></li> 
+       <li><a href="out">退出</a></li> 
+
       </ul>
       @else
       <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
