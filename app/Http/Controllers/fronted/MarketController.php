@@ -18,10 +18,6 @@ class MarketController extends Controller
 		if(!$request->session()->has('user_id')){
 			return redirect('prompt')->with(['message'=>'使用此功能请先登录！','url' =>'index', 'jumpTime'=>2,'status'=>false]);
 		}
-
-		// $lend=Lend::limit(3)->get()->toArray();
-		// $lendArr=$this->getLendInfo($lend);
-		
 		//查询数组的长度
 		$lend=Lend::select('lend_id')->count();
 		//计算层数
