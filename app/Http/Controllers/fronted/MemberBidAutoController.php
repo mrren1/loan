@@ -15,6 +15,9 @@ class MemberBidAutoController extends Controller
 {
 	public function index(Request $request)
 	{
+		if(isset($request['new_id'])){
+			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
+		}
 		//获取挡墙登录id
 		$user_id=$request->session()->get('user_id');
 		$user=User::where(['user_id'=>$user_id])->first();

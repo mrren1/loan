@@ -39,21 +39,21 @@
       <ul class="nav navbar-nav site-nav-sns "> 
        <li> <a href="#" class="icon-sns qq"> 
          <div class="social-content"> 
-          <p class="social-title">点融网官方QQ群</p> 
+          <p class="social-title">速贷网官方QQ群</p> 
           <p>141444867</p> 
          </div> </a> </li> 
-       <li> <a href="http://weibo.com/dianrongwang" target="_blank" class="icon-sns weibo" rel="nofollow"></a> </li> 
-       <li> <a href="#" class="icon-sns wechat"> 
-         <div class="social-content"> 
-          <p class="social-title">扫描关注微信公众号</p> 
-          <p><img src="images/qr-code.jpg" /></p> 
-         </div> </a> </li> 
+       
       </ul> 
       @if(Session::has('user_name'))
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
+       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">欢迎您：<span style="color:pink">{{ Session::get('user_name') }}！</span></a> 
+        </li>
+        @if($newscount!=0)
+        <li><a href="mynews">未读消息（<font color="red">{{$newscount}}</font>）条！</a></li>
+        @endif
          <li><a href="out">退出</a></li> 
       </ul>
+
       @else
       <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
        <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
