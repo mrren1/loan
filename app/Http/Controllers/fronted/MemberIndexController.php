@@ -14,13 +14,13 @@ class MemberIndexController extends Controller
 	public function index(Request $request)
 	{
 	  $user_id=$request->session()->get('user_id');
-	  $Purse = Purse::where('user_id',$user_id)->first();
-      if(!empty($Purse))
+	  $purse = Purse::where('user_id',$user_id)->first();
+      if(!empty($purse))
       {
-        $Purse=$Purse->toArray();
+        $purse=$purse->toArray();
       }//获取用户钱包数据
 
-		return view('fronted.member_index',['Purse'=>$Purse]);
+		return view('fronted.member_index',['purse'=>$purse]);
 	}
 
 }

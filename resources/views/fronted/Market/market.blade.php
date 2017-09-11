@@ -1153,7 +1153,6 @@ A
                 return false;
             }
         });
-
         $(".floor_num").on("click",".link",function(){
             var lend_id = $(this).attr('data-id');
             window.location.href="debt?lend_id="+lend_id;
