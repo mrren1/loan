@@ -58,7 +58,13 @@ class MemberBidRecordController extends Controller
 		if($request->ajax()){
 			return $data;
 		}
-		return view('fronted.MemberBidRecord.member_bid_record',['debt'=>$debt,'user'=>$user,'month_sum'=>$month_sum,'day_sum'=>$day_sum,'count'=>$count]);
+		return view('fronted.MemberBidRecord.member_bid_record',[
+			'debt'=>$debt,
+			'user'=>$user,
+			'month_sum'=>$month_sum,
+			'day_sum'=>$day_sum,
+			'count'=>$count
+		]);
 	}
 
 	/**
