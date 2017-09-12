@@ -69,7 +69,7 @@
 				<td>
 					@if($large['large_status']==0)
 					<span class="norec">平台未收货</span>
-					<input type="text" class="recinput" style="width:100px;display:none;" data-id="{{$large['large_id']}}" placeholder="评估价格">
+					<input type="text" class="recinput" style="width:100px;display:none;" data-uid="{{$large['user_id']}}" data-id="{{$large['large_id']}}" placeholder="评估价格">
 					@elseif($large['large_status']==1)
 					平台已评估
 					@endif
@@ -136,6 +136,7 @@ $('.norec').click(function(){
 $('.recinput').blur(function(){
 	var large_id=$(this).data('id');
 	var limit=$(this).val();
+	var user_id=$(this).data('uid');
 	if(limit==''){
 		alert('请填写数据！');
 		$(this).hide().prev().show();
@@ -145,7 +146,7 @@ $('.recinput').blur(function(){
 	$.ajax({
 		type:'get',
 		url:'changelimit',
-		data:{large_id:large_id,limit:limit},
+		data:{large_id:large_id,limit:limit,user_id:user_id},
 		success:function(result){
 			if(result==1){
 				obj.val('').hide();

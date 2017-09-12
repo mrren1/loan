@@ -51,6 +51,8 @@ Route::get('out', 'fronted\LoginController@quit');
 Route::get('setloan', 'fronted\SetloanController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::any('debt', 'fronted\OfferController@index');
+Route::any('search', 'fronted\SearchController@index');
+
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
 /*

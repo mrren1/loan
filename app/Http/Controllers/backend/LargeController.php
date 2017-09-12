@@ -40,10 +40,11 @@ class LargeController extends BackendController
      */
     public function changelimit(Request $request)
     {
+        $user_id=$request['user_id'];
     	$large_id=$request['large_id'];
     	$large_limit=$request['limit'];
     	$bloon=Large::where('large_id',$large_id)->update(['large_limit'=>$large_limit,'large_status'=>1,'status'=>1]);
-    	DB::table('news')->insert(array('new_title'=>'确认收款','new_content'=>'您的大额贷款申请平台已经估价完成，请您确认。','new_time'=>date('Y-m-d H:i:s'),'new_url'=>'member_bid_auto'));
+    	DB::table('news')->insert(array('new_title'=>'确认收款','new_content'=>'您的大额贷款申请平台已经估价完成，请您确认。','new_time'=>date('Y-m-d H:i:s'),'new_url'=>'member_bid_auto','user_id'=>$user_id));
         if($bloon){
     		return 1;
     	}else{

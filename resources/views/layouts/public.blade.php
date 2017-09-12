@@ -1,3 +1,13 @@
+<?php 
+use Illuminate\Support\Facades\Session;
+$user_id=Session::get('user_id');
+$news=DB::table('news')->where(['is_read'=>0,'user_id'=>$user_id])->get();
+$newsNum=0;
+if($news!=''){
+    $news=$news->toArray();
+    $newscount=count($news);
+}
+?>
 <html>
     <head>
         <title>@yield('title')</title>
@@ -82,7 +92,8 @@
           <li class="main-link-list"> <a class="main-link" href="large"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">大额贷款</span> </a> </li> 
           <li class="main-link-list"> <a class="main-link" href="setloan"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">发布代款</span> </a> </li>
           <li class="main-link-list"> <a class="main-link" href="about"> <span class="sl-icon-bold-linkman"></span> <span class="main-link-text">关于我们</span> </a> </li> 
-          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> <span> 400-921-9218</span> </li> 
+          <li class="main-link-list"> <a class="main-link" href="search"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">搜索</span> </a> </li> 
+          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> </li> 
           <li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> 
          </ul> 
         </div> 
