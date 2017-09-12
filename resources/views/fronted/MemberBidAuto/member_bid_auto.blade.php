@@ -93,16 +93,17 @@
             <a href="javascript:" class="sure" data-id="{{$v->large_id}}"><font color="red">确认交易</font></a>
           @elseif($v->status==2)
             <font color="green">交易完成</font>
+          @elseif($v->status==3)
+            <font color="green">已还款</font>
           @endif
         </td>
-        <td>
-          <span class="ends{{$v->large_id}}">
-          @if($v->status==2)
-          <a href="javascript:" style="color:red;">还款</a>
+        <td class="ends{{$v->large_id}}">
+          @if($v->status==3)
           <font color="green">已还款</font>
+          @elseif($v->status==2)
+          <a href="javascript:" class="giveMoney" data-id="{{$v->large_id}}" style="color:red;">还款</a>
           @else
           <font color="brown">待确认</font>
-          </span>
           @endif
         </td>
       </tr>
@@ -188,10 +189,32 @@
           success:function(result){
             if(result==1){
               $('.td-manage'+large_id).html('<font color="green">交易完成</font>');
-              $('.ends'+large_id).html('<a href="javascript:" style="color:red;">还款</a>');
+              $('.ends'+large_id).html('<a href="javascript:" style="color:red;" class="giveMoney" data-id="'+large_id+'">还款</a>');
               $('.dd'+large_id).html('交易完成');
             }else{
               alert('确认失败！')
+              return false;
+            }
+          }
+        });
+      });
+
+      //大额还款
+      $(document).delegate('.giveMoney','click',function(){
+        var large_id=$(this).data('id');
+        $.ajax({
+          type:'get',
+          url:'giveMoney',
+          data:{large_id:large_id},
+          success:function(result){
+            if(result == 0){
+              alert('余额不足不能还款！');
+              return false;
+            }else if(result == 1){
+              $('.ends'+large_id).html('<font color="green">已还款</font>');
+              $('.td-manage'+large_id).html('<font color="green">已还款</font>');
+            }else{
+              alert('错误！！');
               return false;
             }
           }
