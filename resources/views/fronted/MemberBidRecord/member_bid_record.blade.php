@@ -1006,7 +1006,7 @@
                         alert('您的余额不足,请查看余额');
                         return false;
                     }else{
-                        alert('审核已通过');
+                        alert('还款成功');
                         obj.parents("tr").find(".td-manage").html('<span style="color:blue">已还款</span>');
                         return true;
                     }
