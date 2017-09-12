@@ -16,7 +16,7 @@ class MarketController extends Controller
 	public function index(Request $request)
 	{
 		if(!$request->session()->has('user_id')){
-			return redirect('prompt')->with(['message'=>'使用此功能请先登录！','url' =>'index', 'jumpTime'=>2,'status'=>false]);
+			return redirect('prompt')->with(['message'=>'使用此功能请先登录！','url' =>'login', 'jumpTime'=>1,'status'=>false]);
 		}
 		//查询数组的长度
 		$lend=Lend::select('lend_id')->count();
