@@ -37,12 +37,7 @@ class LoginController extends Controller
         		if($request['pwd']==decrypt($userInfo['user_pwd'])){
         			$request->session()->put('user_id',$userInfo['user_id']);
         			$request->session()->put('user_name',$userInfo['user_name']);
-        			$result = [
-        				'message'=>'登陆成功！正在跳转……',
-        				'url' =>'index',
-        				'jumpTime'=>2,
-        				'status'=>false
-        			];
+        			return redirect('index');
 	        	}else{
 	        		$result = [
 	        			'message'=>'密码错误！',
@@ -76,7 +71,7 @@ class LoginController extends Controller
 	 */
 	public function register(Request $request)
 	{
-		if($_POST)
+		if($request->isMethod('POST'))
 	    {
 	        $rules = ['captcha' => 'required|captcha'];
 	        $validator = Validator::make(Input::all(), $rules);
@@ -84,22 +79,11 @@ class LoginController extends Controller
 	        {
 	        	return redirect('prompt')->with(['message'=>'验证码错误','url' =>'register', 'jumpTime'=>3,'status'=>false]);
 	        }
-
-
 	        $this->validate($request, [
 		        'user_name' => ["regex:/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]{2,8}$/u",'required'],
 		        'user_pwd' => ['regex:/^[_a-zA-Z0-9]{6,18}$/u','required'],
 		    ]);
-		    // echo 1;
-		    // die;
-		    // $preg_user_name = '/^[\u4e00-\u9fa5_a-zA-Z0-9]{2,8}$';
-		    // $preg_user_pwd = '/^[_a-zA-Z0-9]{6,16}$';
-		    
-		    // if(preg_match("/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]{2,8}$/u" , $request['user_name'])){
-		    // 	echo 1;
-		    // }
-		    
-
+		  
 			$user = new User;
 			$user->user_name = $request['user_name'];
 			$user->user_pwd = encrypt($request['user_pwd']);

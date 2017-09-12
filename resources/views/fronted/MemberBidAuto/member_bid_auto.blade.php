@@ -49,15 +49,16 @@
   <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
       <tr class="text-c">
-        <th width="60">用户</th>
-        <th width="50">借款金额</th>
-        <th width="40">评估额度</th>
-        <th width="80">借款时间</th>
-        <th width="80">还款时间</th>
-        <th width="70">联系电话</th>
-        <th width="70">邮寄状态</th>
-        <th width="70">审核状态</th>
+        <th width="">用户</th>
+        <th width="">借款金额</th>
+        <th width="">评估额度</th>
+        <th width="">借款时间</th>
+        <th width="">还款时间</th>
+        <th width="">联系电话</th>
+        <th width="">邮寄状态</th>
+        <th width="">审核状态</th>
         <th>操作</th>
+        <th>还款状态</th>
       </tr>
     </thead>
     <tbody id="box">
@@ -92,6 +93,17 @@
             <a href="javascript:" class="sure" data-id="{{$v->large_id}}"><font color="red">确认交易</font></a>
           @elseif($v->status==2)
             <font color="green">交易完成</font>
+          @elseif($v->status==3)
+            <font color="green">已还款</font>
+          @endif
+        </td>
+        <td class="ends{{$v->large_id}}">
+          @if($v->status==3)
+          <font color="green">已还款</font>
+          @elseif($v->status==2)
+          <a href="javascript:" class="giveMoney" data-id="{{$v->large_id}}" style="color:red;">还款</a>
+          @else
+          <font color="brown">待确认</font>
           @endif
         </td>
       </tr>
@@ -177,9 +189,32 @@
           success:function(result){
             if(result==1){
               $('.td-manage'+large_id).html('<font color="green">交易完成</font>');
+              $('.ends'+large_id).html('<a href="javascript:" style="color:red;" class="giveMoney" data-id="'+large_id+'">还款</a>');
               $('.dd'+large_id).html('交易完成');
             }else{
               alert('确认失败！')
+              return false;
+            }
+          }
+        });
+      });
+
+      //大额还款
+      $(document).delegate('.giveMoney','click',function(){
+        var large_id=$(this).data('id');
+        $.ajax({
+          type:'get',
+          url:'giveMoney',
+          data:{large_id:large_id},
+          success:function(result){
+            if(result == 0){
+              alert('余额不足不能还款！');
+              return false;
+            }else if(result == 1){
+              $('.ends'+large_id).html('<font color="green">已还款</font>');
+              $('.td-manage'+large_id).html('<font color="green">已还款</font>');
+            }else{
+              alert('错误！！');
               return false;
             }
           }

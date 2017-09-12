@@ -18,9 +18,9 @@ class MemberIndexController extends Controller
       if(!empty($purse))
       {
         $purse=$purse->toArray();
-      }//获取用户钱包数据
-
-		return view('fronted.member_index',['purse'=>$purse]);
+      }
+      //获取用户钱包数据
+	  return view('fronted.member_index',['purse'=>$purse]);
 	}
 
 }

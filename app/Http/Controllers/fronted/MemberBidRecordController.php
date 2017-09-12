@@ -5,6 +5,7 @@ namespace App\Http\Controllers\fronted;
 use App\MemberBidRecord;
 use Illuminate\Http\Request;
 use App\Http\Controllers\fronted\Controller;
+use Carbon\Carbon;
 use App\Http\Models\Debt;
 use App\Http\Models\User;
 use App\Http\Models\Lend;
@@ -16,6 +17,10 @@ class MemberBidRecordController extends Controller
 {
 	//还款状态
 	private $status = 1;
+	//最低利息
+	private $usance = 0.2;
+	//平台最低利息
+	private $form_usance = 0.01;
 
 	public function index(Request $request)
 	{
@@ -23,8 +28,15 @@ class MemberBidRecordController extends Controller
 			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
 		}
 		$user_id=$request->session()->get('user_id');
-		$month=date('n');
-		$day=date('Y-m-d');
+		if($request->has($user_id)){
+			return redirect('prompt')->with(['message'=>'未登录，请先登录','url' =>'login', 'jumpTime'=>2,'status'=>false]);
+		}
+		//获取当前时间
+		$now = Carbon::now();
+		//取出当前月份
+		$month=$now->month;
+		//获取年-月-日
+		$day=$now->toDateString(); 
 		$mon=$request->get('mon');
 		$user=User::where(['user_id'=>$user_id])->first()->toArray();
 		$debt=Debt::where(['user_id'=>$user_id])->paginate(4);
@@ -39,19 +51,15 @@ class MemberBidRecordController extends Controller
 			if($day==date('Y-m-d',strtotime($v->debt_stime))){
 				$day_sum+=$v->debt_money;
 			}
-			$res1[]=Lend::select('user_id')->where('lend_id','=',$v->from_id)->first();
-			$arr1[]=User::select('user_name')->where('user_id','=',$res1[$k]->user_id)->first();
-			$v->from_name=$arr1[$k]->user_name;
-			$v->user_name=$user['user_name'];
 			if($mon==date('m',strtotime($v['debt_stime']))){
 				$data[]=$v;
-			}		
+			}	
+			$v->from_name=$this->getName($v->from_id);
+			$v->user_name=$user['user_name'];	
 		}
 		foreach($debt as $k => $v)
 		{	
-			$res[]=Lend::select('user_id')->where('lend_id','=',$v->from_id)->first();
-			$arr[]=User::select('user_name')->where('user_id','=',$res[$k]->user_id)->first();
-			$v->from_name=$arr[$k]->user_name;
+			$v->from_name=$this->getName($v->from_id);
 			$v->user_name=$user['user_name'];
 		}
 		$count = Debt::where(['user_id'=>$user_id])->count();
@@ -65,6 +73,15 @@ class MemberBidRecordController extends Controller
 			'day_sum'=>$day_sum,
 			'count'=>$count
 		]);
+	}
+	/**
+	 * 获取借款人姓名
+	 */
+	public function getName($from_id)
+	{
+		$uid=Lend::where('lend_id','=',$from_id)->value('user_id');
+		$arr=User::select('user_name')->where('user_id','=',$uid)->first();
+		return $arr->user_name;
 	}
 
 	/**
@@ -86,19 +103,15 @@ class MemberBidRecordController extends Controller
 			$strtotime = time()-strtotime($debtData['debt_btime']);
 			//借款时间
 			$day = floor($strtotime/86400);
-			if($day == 0){
-				//还款总金额
-				$sum_money = $debtData['debt_money'];
-				//平台金额
-				$form_money = 0;
-			}else{
-				//借款利息
-				$interest = floor($day/365*$lendData['lend_interest']*$debtData['debt_money']); 
-				//还款总金额
-				$sum_money = $debtData['debt_money']+$interest;
-				//平台金额
-				$form_money = $interest*20;
+			//借款利息
+			$interest = round($day/365*$lendData['lend_interest']*$debtData['debt_money'],2); 
+			if($interest == 0){
+				$interest = $this->usance;
 			}
+			//还款总金额
+			$sum_money = $debtData['debt_money']+$interest;
+			//平台金额
+			$form_money = round($interest/20,2);
 		}else{
 			$strtotime = strtotime($debtData['debt_stime'])-strtotime($debtData['debt_btime']);
 			$overrun = time()-strtotime($debtData['debt_stime']);
@@ -106,23 +119,20 @@ class MemberBidRecordController extends Controller
 			$day = floor($strtotime/86400);
 			//超出时间
 			$overday = ceil($overrun/86400);
-			if($day == 0){
-				//超出部分总金额
-				$over_money = floor($overday/365*($lendData['lend_interest']*2)*$debtData['debt_money']);
-				//还款总金额
-				$sum_money = $debtData['debt_money']+$over_money;
-				//平台金额
-				$form_money = $over_money*20;
-			}else{
-				//借款利息
-				$interest = floor($day/365*$lendData['lend_interest']*$debtData['debt_money']); 
-				//超出金额
-				$over_money = floor($overday/365*($lendData['lend_interest']*2)*$debtData['debt_money']);
-				//还款总金额
-				$sum_money = $debtData['debt_money']+$interest+$over_money;
-				//平台金额
-				$form_money = ($interest+$over_money)*20;
+			//借款利息
+			$interest = round($day/365*$lendData['lend_interest']*$debtData['debt_money'],2); 
+			if($interest == 0){
+				$interest = $this->usance;
 			}
+			//超出金额
+			$over_money = round($overday/365*($lendData['lend_interest']*2)*$debtData['debt_money'],2);
+			//还款总金额
+			$sum_money = $debtData['debt_money']+$interest+$over_money;
+			//平台金额
+			$form_money = round(($interest+$over_money)/20);
+		}
+		if($form_money == 0){
+			$form_money = $this->form_usance;
 		}
 		//借款用户id
 		$debt_user_id = $debtData['user_id'];
@@ -138,27 +148,29 @@ class MemberBidRecordController extends Controller
 		if($debtpurseData['purse_sum'] < $form_money){
 			return 2;die;
 		}
+		//借款人总金额
+		$purse_sum = $debtpurseData['purse_sum']-$sum_money;
+		//借款人使用金额
+		$purse_used = $debtpurseData['purse_used']+$sum_money;
+		//借款人余额
+		$purse_balance = $debtpurseData['purse_balance']-$sum_money;
+		//return $purse_sum.'|'.$purse_used.'|'.$purse_balance;die;
+		//贷款人总金额
+	    $set_sum = $setloanpurseData['purse_sum']+$sum_money;
+	    //贷款人余额
+		$set_balance = $setloanpurseData['purse_balance']+$sum_money;
+		//return $set_sum.'|'.$set_balance;die;
+		//平台总金额
+	    $money = $formData['money']+$form_money;
+	    //平台余额
+	    $balance = $formData['balance']+$form_money;
 		//开启事务
 		DB::beginTransaction();
 		try {  
-			//借款人总金额
-			$purse_sum = $debtpurseData['purse_sum']-$sum_money;
-			//借款人使用金额
-			$purse_used = $debtpurseData['purse_used']+$sum_money;
-			//借款人余额
-			$purse_balance = $purse_sum-$purse_used;
 			//修改借款人钱包数据
 	       	$offer_bloon = purse::where('user_id',$debt_user_id)->update(['purse_sum'=>$purse_sum,'purse_used'=>$purse_used,'purse_balance'=>$purse_balance]);
-	       	//贷款人总金额
-	       	$set_sum = $setloanpurseData['purse_sum']+$sum_money;
-	       	//贷款人余额
-			$set_balance = $setloanpurseData['purse_balance']+$sum_money;
 	       	//修改贷款人钱包数据
 	       	$setloan_bloon = purse::where('user_id',$setloan_user_id)->update(['purse_sum'=>$set_sum,'purse_balance'=>$set_balance]);
-	       	//平台总金额
-	       	$money = $formData['money']+$form_money;
-	       	//平台余额
-	       	$balance = $formData['balance']+$form_money;
 	       	//修改平台数据
 	       	$form_bloon = platform::where('platform_id',$formData['platform_id'])->update(['money'=>$money,'balance'=>$balance]);
 	       	//修改状态

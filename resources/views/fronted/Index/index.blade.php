@@ -22,6 +22,7 @@
       </div> 
 
      <div class="col-xs-4 register-tab login-shown"> 
+      @if(Session::get('user_name')!='')
        <div class="login-header">
         欢迎回来
        </div> 
@@ -55,7 +56,33 @@
         <div> 
          <a class="btn btn-primary account-info" href="member_info">我的账户</a>
         </div> 
-       </div> 
+       </div>
+      @else
+      <div class="login-header">
+        登陆后可用全部功能  
+      </div> 
+       <div class="login-content text-center"> 
+        <div class="user-info">
+         
+         <span></span>
+        </div> 
+        <div class="wel-info">
+         
+        </div>  
+         <div class="number-cash">
+            您还未登录！
+          </div>
+        
+        <div style="margin-top:40px;"> 
+            <p><font size="5">本网站致力于小额速贷，在您急需要钱的时候向您伸出援手，
+          同时您只需要支付一点点的小利息，速度全网最快，没有繁琐的步骤，
+          免去烦人的验证。加入我们，体验精彩，你值得拥有！</font></p>
+        </div> 
+        <div> 
+         
+        </div> 
+       </div>
+      @endif
       </div>
 
       <div class="col-xs-4 register-tab" ng-show="!session.loggedIn" ng-cloak=""> 

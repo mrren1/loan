@@ -1,3 +1,13 @@
+<?php 
+use Illuminate\Support\Facades\Session;
+$user_id=Session::get('user_id');
+$news=DB::table('news')->where(['is_read'=>0,'user_id'=>$user_id])->get();
+$newsNum=0;
+if($news!=''){
+    $news=$news->toArray();
+    $newscount=count($news);
+}
+?>
 <html>
     <head>
         <title>@yield('title')</title>
@@ -52,6 +62,7 @@
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">
        <span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
        <li><a href="User_sign_in" >签到</a></li> 
@@ -60,6 +71,8 @@
 =======
 =======
 >>>>>>> 152d09dd72224770ad993c66d579d549fd9fc34f
+=======
+>>>>>>> 9feee7c83f893381c50dd8d6e78266f18e2c8791
        <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">欢迎您：<span style="color:pink">{{ Session::get('user_name') }}！</span></a> 
         </li>
         @if($newscount!=0)
@@ -68,9 +81,12 @@
         <li><a href="User_sign_in" >签到</a></li> 
          <li><a href="out">退出</a></li> 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 57e863cd5b96d343fe03dfbf37486cbf8e7e2fb4
 =======
 >>>>>>> 152d09dd72224770ad993c66d579d549fd9fc34f
+=======
+>>>>>>> 9feee7c83f893381c50dd8d6e78266f18e2c8791
       </ul>
 
       @else
@@ -96,7 +112,8 @@
           <li class="main-link-list"> <a class="main-link" href="large"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">大额贷款</span> </a> </li> 
           <li class="main-link-list"> <a class="main-link" href="setloan"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">发布代款</span> </a> </li>
           <li class="main-link-list"> <a class="main-link" href="about"> <span class="sl-icon-bold-linkman"></span> <span class="main-link-text">关于我们</span> </a> </li> 
-          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> <span> 400-921-9218</span> </li> 
+          <li class="main-link-list"> <a class="main-link" href="search"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">搜索</span> </a> </li> 
+          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> </li> 
           <li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> 
          </ul> 
         </div> 

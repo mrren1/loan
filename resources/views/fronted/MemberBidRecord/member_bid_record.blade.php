@@ -989,7 +989,6 @@
   <script type="text/javascript">
       $(function(){
           $(".repayment").click(function(){
-            alert('正在审核中,请耐心等待......');
             var obj = $(this);
             //获取借款id
             var debt_id = obj.attr('data-user');
@@ -1007,7 +1006,7 @@
                         alert('您的余额不足,请查看余额');
                         return false;
                     }else{
-                        alert('审核已通过');
+                        alert('还款成功');
                         obj.parents("tr").find(".td-manage").html('<span style="color:blue">已还款</span>');
                         return true;
                     }
