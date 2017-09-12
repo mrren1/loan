@@ -37,12 +37,7 @@ class LoginController extends Controller
         		if($request['pwd']==decrypt($userInfo['user_pwd'])){
         			$request->session()->put('user_id',$userInfo['user_id']);
         			$request->session()->put('user_name',$userInfo['user_name']);
-        			$result = [
-        				'message'=>'登陆成功！正在跳转……',
-        				'url' =>'index',
-        				'jumpTime'=>2,
-        				'status'=>false
-        			];
+        			return redirect('index');
 	        	}else{
 	        		$result = [
 	        			'message'=>'密码错误！',
