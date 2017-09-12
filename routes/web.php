@@ -55,10 +55,6 @@ Route::any('search', 'fronted\SearchController@index');
 
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
-<<<<<<< HEAD
-
-=======
->>>>>>> 9feee7c83f893381c50dd8d6e78266f18e2c8791
 /*
 用户签到
  */
