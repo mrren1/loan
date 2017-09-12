@@ -86,11 +86,13 @@
 				</td>
 				<td class="td-manage endtd{{$large['large_id']}}">
 					@if($large['status']==2)
-					<span class="label label-success radius">交易完成</span>  
+					<span class="label label-success radius">交易完成(未还)</span>
 					@elseif($large['status']==1)
 					<span class="label radius" style="background:red">待申请人确认</span>
 					@elseif($large['status']==0)
-					<span class="label label-defaunt radius">待评估</span> 
+					<span class="label label-defaunt radius">待评估</span>
+					 @elseif($large['status']==3)
+					<span class="label label-success radius">已还款</span> 
 					@endif
 				</td>
 			</tr>
