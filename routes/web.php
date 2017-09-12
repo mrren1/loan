@@ -229,3 +229,4 @@ Route::any('passcheck','backend\LargeController@passcheck');
 Route::any('changelimit','backend\LargeController@changelimit');
 Route::any('sureLarge','fronted\MemberBidAutoController@sureLarge');
 Route::any('mynews','fronted\NewsController@show');
+Route::any('giveMoney','fronted\MemberBidAutoController@giveMoney');
