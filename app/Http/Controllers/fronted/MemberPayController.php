@@ -36,6 +36,11 @@ class MemberPayController extends Controller
   public function memberCharge(Request $request)
   {
     $user_id=$user_id=$request->session()->get('user_id');
+    $data = Card::get()->toArray();
+    $arr= Put::where('user_id',$user_id)->first();
+    if(empty($arr)){
+       return view('fronted.member_pay.put_pay',['data'=>$data]);
+    }
     $purse=Purse::where('user_id',$user_id)->first();
     if($request->isMethod('POST')){
         $data = $request->all();
@@ -66,7 +71,7 @@ class MemberPayController extends Controller
       }
     }else{
          return view('fronted.member_pay.member_charge',['purse'=>$purse]);
-  }     
+     }     
 }
   /**
    * 充值成功
@@ -92,14 +97,14 @@ class MemberPayController extends Controller
      if(!empty($arr)){
         $arr = $arr->toArray();
      }
-       if(isset($arr)){
+     if(isset($arr)){
        	//提现页面
-         return view('fronted.member_pay.put_our',['arr'=>$arr,'purse'=>$purse,'data'=>$data]);
-       }else{
+        return view('fronted.member_pay.put_our',['arr'=>$arr,'purse'=>$purse,'data'=>$data]);
+     }else{
        	//添加
-         return view('fronted.member_pay.put_pay',['data'=>$data]);
-       } 
-	}
+        return view('fronted.member_pay.put_pay',['data'=>$data]);
+      } 
+	 }
     /**
      * 添加个人银行信息
      */
@@ -126,7 +131,7 @@ class MemberPayController extends Controller
        $put->user_id = $user_id;
        $success=$put->save();
        if($success){
-         return redirect('prompt')->with(['message'=>'正在跳转到提现页面','url' =>'member_mention', 'jumpTime'=>2,'status'=>false]);
+         return redirect('prompt')->with(['message'=>'正在跳转到个人账户','url' =>'member_pay', 'jumpTime'=>2,'status'=>false]);
        }else{
          return redirect('prompt')->with(['message'=>'添加失败','url' =>'member_mention', 'jumpTime'=>3,'status'=>false]);
        }
