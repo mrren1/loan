@@ -51,19 +51,26 @@
       @if(Session::has('user_name'))
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
 <<<<<<< HEAD
+<<<<<<< HEAD
        <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">
        <span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
        <li><a href="User_sign_in" >签到</a></li> 
        <li><a href="out">退出</a></li> 
 
 =======
+=======
+>>>>>>> 152d09dd72224770ad993c66d579d549fd9fc34f
        <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">欢迎您：<span style="color:pink">{{ Session::get('user_name') }}！</span></a> 
         </li>
         @if($newscount!=0)
         <li><a href="mynews">未读消息（<font color="red">{{$newscount}}</font>）条！</a></li>
         @endif
+        <li><a href="User_sign_in" >签到</a></li> 
          <li><a href="out">退出</a></li> 
+<<<<<<< HEAD
 >>>>>>> 57e863cd5b96d343fe03dfbf37486cbf8e7e2fb4
+=======
+>>>>>>> 152d09dd72224770ad993c66d579d549fd9fc34f
       </ul>
 
       @else
