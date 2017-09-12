@@ -18,8 +18,13 @@ class OfferController extends Controller
 	 */
 	public function index(Request $request)
 	{
+		if(!$request->session()->has('user_id')){
+			return redirect('login');
+		}
+
 		//获取贷款人额度
 		$user_id = $request->session()->get('user_id');
+
 		$userInfo = Message::where('user_id',$user_id)
 		->first()
 		->toArray();
@@ -29,6 +34,9 @@ class OfferController extends Controller
 		->first();
 		if($lendInfo!=''){
 			$lendInfo=$lendInfo->toArray();
+		}
+		if($lendInfo['user_id']==$user_id){
+			return redirect('market')->with(['message'=>'不能借贷自己发布的贷款！','url' =>'market', 'jumpTime'=>1,'status'=>false]);
 		}
 		$lendNum=Debt::where('from_id',$lend_id)->count();
 
