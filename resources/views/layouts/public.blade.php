@@ -1,3 +1,13 @@
+<?php 
+use Illuminate\Support\Facades\Session;
+$user_id=Session::get('user_id');
+$news=DB::table('news')->where(['is_read'=>0,'user_id'=>$user_id])->get();
+$newsNum=0;
+if($news!=''){
+    $news=$news->toArray();
+    $newscount=count($news);
+}
+?>
 <html>
     <head>
         <title>@yield('title')</title>
