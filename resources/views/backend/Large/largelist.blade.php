@@ -69,7 +69,7 @@
 				<td>
 					@if($large['large_status']==0)
 					<span class="norec">平台未收货</span>
-					<input type="text" class="recinput" style="width:100px;display:none;" data-id="{{$large['large_id']}}" placeholder="评估价格">
+					<input type="text" class="recinput" style="width:100px;display:none;" data-uid="{{$large['user_id']}}" data-id="{{$large['large_id']}}" placeholder="评估价格">
 					@elseif($large['large_status']==1)
 					平台已评估
 					@endif
@@ -86,11 +86,13 @@
 				</td>
 				<td class="td-manage endtd{{$large['large_id']}}">
 					@if($large['status']==2)
-					<span class="label label-success radius">交易完成</span>  
+					<span class="label label-success radius">交易完成(未还)</span>
 					@elseif($large['status']==1)
 					<span class="label radius" style="background:red">待申请人确认</span>
 					@elseif($large['status']==0)
-					<span class="label label-defaunt radius">待评估</span> 
+					<span class="label label-defaunt radius">待评估</span>
+					 @elseif($large['status']==3)
+					<span class="label label-success radius">已还款</span> 
 					@endif
 				</td>
 			</tr>
@@ -136,6 +138,7 @@ $('.norec').click(function(){
 $('.recinput').blur(function(){
 	var large_id=$(this).data('id');
 	var limit=$(this).val();
+	var user_id=$(this).data('uid');
 	if(limit==''){
 		alert('请填写数据！');
 		$(this).hide().prev().show();
@@ -145,7 +148,7 @@ $('.recinput').blur(function(){
 	$.ajax({
 		type:'get',
 		url:'changelimit',
-		data:{large_id:large_id,limit:limit},
+		data:{large_id:large_id,limit:limit,user_id:user_id},
 		success:function(result){
 			if(result==1){
 				obj.val('').hide();

@@ -16,18 +16,14 @@ class RbacController extends BackendController
       */
      public function admin_role_add(Request $request)
      {
-         if($request->isMethod('POST'))
-         {
+        if($request->isMethod('POST')){
            $role =new Role;
            $role ->role_name=$request['role_name'];
            $role ->role_desc=$request['role_desc'];
            $info =$role->save();
-         }
-         else
-         {
+        }else{
            return view('backend/Rbac/admin_role_add');
-         }
-     	  
+        } 
      }
 
      /**
@@ -37,8 +33,8 @@ class RbacController extends BackendController
       */
      public function admin_permission()
      {
-        $roleData = role::get();
-        $role_num = role::get()->count();
+        $roleData = Role::get();
+        $role_num = Role::get()->count();
         if(isset($roleData)){
           $roleData = $roleData->toArray();
         }else{
@@ -55,30 +51,9 @@ class RbacController extends BackendController
      public function admin_permission_add(Request $request)
      {
         $role_id = $request['role_id'];
-        $roleNodeData = rolenode::where('role_id',$role_id)->get()->toArray();
-        foreach($roleNodeData as $key => $val){
-          $nodeId[] = $val['node_id'];
-        }
-        $powerData = node::get()->toArray();
-        if(!empty($nodeId)){
-          foreach($powerData as $key => $val){
-            if(in_array($val['node_id'],$nodeId)){
-              $nodeData['has'][$key]['node_id'] = $val['node_id'];
-              $nodeData['has'][$key]['node_name'] = $val['node_name'];
-            }else{
-              $nodeData['no'][$key]['node_id'] = $val['node_id'];
-              $nodeData['no'][$key]['node_name'] = $val['node_name'];
-            }
-          }
-          if(!isset($nodeData['no'])){
-              $nodeData['no'] = [];
-          }
-        }else{
-          $nodeData = [
-            'has' => [],
-            'no' => $powerData,
-          ]; 
-        }  
+        $node_id = RoleNode::where('role_id',$role_id)->pluck('node_id')->toArray();
+        $nodeData['has'] = Node::whereIn('node_id',$node_id)->select('node_id','node_name')->get()->toArray();
+        $nodeData['no'] = Node::whereNotIn('node_id',$node_id)->select('node_id','node_name')->get()->toArray();
         return view('backend/Rbac/admin_permission_add',['nodeData'=>$nodeData,'role_id'=>$role_id]);
      }
         /**
@@ -90,13 +65,9 @@ class RbacController extends BackendController
      {
         $admin_id = $request['admin_id'];
         $adminroleData = adminrole::where('admin_id',$admin_id)->get()->toArray();
-        // echo "<pre>";
-        // var_dump($adminroleData);die;
         foreach($adminroleData as $key => $val){
           $roleId[] = $val['role_id'];
         }
-
-      
         $powerData = role::get()->toArray();
         if(!empty($roleId)){
           foreach($powerData as $key => $val){
@@ -126,12 +97,12 @@ class RbacController extends BackendController
       */
      public function setrole(Request $request)
      {
-          $adminRole = new adminrole;
+          $adminRole = new Adminrole;
           $admin_id = $request['admin_id'];
           $has = $request['has'];
           $no = $request['no'];
           if(empty($has) && !empty($no)){
-              $bloon = adminrole::where('admin_id',$admin_id)->delete();
+              $bloon = Adminrole::where('admin_id',$admin_id)->delete();
               $noData = explode(',',$no);
               foreach($noData as $key => $val){
                   $data[$key]['admin_id'] = $admin_id; 
@@ -170,7 +141,6 @@ class RbacController extends BackendController
                   return 0;
               }
           }else{
-              echo 1;
               $bloon = adminrole::where('admin_id',$admin_id)->delete();
               if(!$bloon){
                   return 0;
@@ -210,83 +180,76 @@ class RbacController extends BackendController
       */
       public function setPower(Request $request)
       {    
-          $rolenode = new rolenode;
+          $rolenode = new Rolenode;
           $role_id = $request['role_id'];
           $has = $request['has'];
           $no = $request['no'];
           if(empty($has) && !empty($no)){
-              $bloon = rolenode::where('role_id',$role_id)->delete();
+              $bloon = $this->delete($role_id);
               $noData = explode(',',$no);
-              foreach($noData as $key => $val){
-                  $data[$key]['role_id'] = $role_id; 
-                  $data[$key]['node_id'] = $val; 
-              }
+              $data = $this->process($noData,$role_id);
               $info = DB::table('role_node')->insert($data);
-              if(!$info){
+              if(!$info || $bloon){
                   return 0;
               }
           }else if(!empty($has) && !empty($no)){
-              $bloon = rolenode::where('role_id',$role_id)->delete();
+              $bloon = $this->delete($role_id);
               $hasData = explode(',',$has);
-              foreach($hasData as $k => $v){
-                  $tmp[$k]['role_id'] = $role_id; 
-                  $tmp[$k]['node_id'] = $v; 
-              }
+              $tmp = $this->process($hasData,$role_id);
               $result = DB::table('role_node')->insert($tmp);
               $noData = explode(',',$no);
-              foreach($noData as $key => $val){
-                  $data[$key]['role_id'] = $role_id; 
-                  $data[$key]['node_id'] = $val; 
-              }
+              $data = $this->process($noData,$role_id);
               $info = DB::table('role_node')->insert($data);
               if(!$bloon || !$result || !$info){
                   return 0;
               }
           }else if(!empty($has) && empty($no)){
-              $bloon = rolenode::where('role_id',$role_id)->delete();
+              $bloon = $this->delete($role_id);
               $hasData = explode(',',$has);
-              foreach($hasData as $k => $v){
-                  $tmp[$k]['role_id'] = $role_id; 
-                  $tmp[$k]['node_id'] = $v; 
-              }
+              $tmp = $this->process($hasData,$role_id);
               $result = DB::table('role_node')->insert($tmp);
               if(!$bloon || !$result){
                   return 0;
               }
           }else{
-              echo 1;
-              $bloon = rolenode::where('role_id',$role_id)->delete();
+              $bloon = $this->delete($role_id);
               if(!$bloon){
                   return 0;
               }
           }
           //返回数据
-          $roleNodeData = rolenode::where('role_id',$role_id)->get()->toArray();
-          foreach($roleNodeData as $key => $val){
-            $nodeId[] = $val['node_id'];
-          }
-          $powerData = node::get()->toArray();
-          if(!empty($nodeId)){
-            foreach($powerData as $key => $val){
-              if(in_array($val['node_id'],$nodeId)){
-                $nodeData['has'][$key]['node_id'] = $val['node_id'];
-                $nodeData['has'][$key]['node_name'] = $val['node_name'];
-              }else{
-                $nodeData['no'][$key]['node_id'] = $val['node_id'];
-                $nodeData['no'][$key]['node_name'] = $val['node_name'];
-              }
-            }
-            if(!isset($nodeData['no'])){
-                $nodeData['no'] = [];
-            }
-          }else{
-            $nodeData = [
-              'has' => [],
-              'no' => $powerData,
-            ]; 
-          }
+          $node_id = RoleNode::where('role_id',$role_id)->pluck('node_id')->toArray();
+          $nodeData['has'] = Node::whereIn('node_id',$node_id)->select('node_id','node_name')->get()->toArray();
+          $nodeData['no'] = Node::whereNotIn('node_id',$node_id)->select('node_id','node_name')->get()->toArray();
           return json_encode($nodeData);
       }
+
+      /**
+       * 处理数组
+       * @access public
+       * @param process();
+       * @return array();
+       */
+      public function process($data,$role_id)
+      {
+          foreach($data as $key => $val){
+              $arr[$key]['role_id'] = $role_id; 
+              $arr[$key]['node_id'] = $val; 
+          }
+          return $arr;
+      }
+
+      /**
+       * 删除数据
+       * @access public
+       * @param delete();
+       * @return true or false;
+       */
+      public function delete($role_id)
+      {
+          $bloon = RoleNode::where('role_id',$role_id)->delete();
+          return $bloon;
+      } 
 
       /**
       * @access public
@@ -295,8 +258,8 @@ class RbacController extends BackendController
       */
      public function admin_power_list()
      {
-        $nodeData = node::get();
-        $node_num = node::get()->count();
+        $nodeData = Node::get();
+        $node_num = Node::get()->count();
         if(isset($nodeData)){
           $nodeData = $nodeData->toArray();
         }else{
@@ -322,7 +285,7 @@ class RbacController extends BackendController
       */
      public function admin_add_power(Request $request)
      {
-        $node = new node;
+        $node = new Node;
         $node->node_name = $request['node_name'];
         $node->node_desc = $request['node_desc'];
         $info = $node->save();
@@ -340,8 +303,8 @@ class RbacController extends BackendController
       */
       public function admin_power()
      {
-        $adminData = admin::get();
-        $admin_num = admin::get()->count();
+        $adminData = Admin::get();
+        $admin_num = Admin::get()->count();
        	return view('backend/Rbac/admin_power',['adminData'=>$adminData,'admin_num'=>$admin_num]);
      }
 
@@ -382,8 +345,8 @@ class RbacController extends BackendController
      public function deleteAdmin(Request $request)
      {
         $admin_id = $request['admin_id'];
-        Adminrole::where('admin_id',$admin_id)->delete();
-        $bloon = admin::where('admin_id',$admin_id)->delete();
+        AdminRole::where('admin_id',$admin_id)->delete();
+        $bloon = Admin::where('admin_id',$admin_id)->delete();
         if($bloon){
           return 1;
         }else{
@@ -399,9 +362,9 @@ class RbacController extends BackendController
      public function deleteRole(Request $request)
      {
         $role_id = $request['role_id'];
-        Adminrole::where('role_id',$role_id)->delete();
-        rolenode::where('role_id',$role_id)->delete();
-        $bloon = role::where('role_id',$role_id)->delete();
+        AdminRole::where('role_id',$role_id)->delete();
+        RoleNode::where('role_id',$role_id)->delete();
+        $bloon = Role::where('role_id',$role_id)->delete();
         if($bloon){
           return 1;
         }else{
@@ -417,7 +380,7 @@ class RbacController extends BackendController
      public function deleteNode(Request $request)
      {
         $node_id = $request['node_id'];
-        $bloon = node::where('node_id',$node_id)->delete();
+        $bloon = Node::where('node_id',$node_id)->delete();
         if($bloon){
           return 1;
         }else{

@@ -1,0 +1,79 @@
+*{margin:0;padding:0}
+li{list-style:none}
+img{vertical-align:top}
+/* 以上可合并 */
+.clear{clear:both}
+.clear:after{clear:both;display:table;content:''}
+.signIn-sprits{background-image:url(../images/signIn_sprits.png);background-repeat:no-repeat}
+.signIn-tran{-webkit-transition:all .3s ease-out;-moz-transition:all .3s ease-out;-o-transition:all .3s ease-out;transition:all .3s ease-out;-ms-transition:all .3s ease-out}
+.signIn-radius{-webkit-border-radius:5px;-moz-border-radius:5px;-o-border-radius:5px;-ms-border-radius:5px}
+.signIn-warp{height:1306px;background:url(../images/signIn_warp_bg.jpg) no-repeat top center}
+.qiandap-box{margin:0 auto;width:70pc;height:1306px;background-color:#4d56a3}
+.signIn-con{margin:0 auto;width:1035px;height:684px;background-image:url(../images/signIn_con.jpg)}
+.signIn-left{float:left;padding:20px 42px 0 39px;width:603px}
+.signIn-right{float:right;padding:0 20px;width:290px}
+.current-date{float:left;padding-top:5px;padding-left:55px;color:#b25d06;font-size:18px}
+.signIn-history{float:right;width:92px;height:36px;border-radius:4px;background-color:#b25d06;color:#fff;text-align:center;font-size:1pc;line-height:36px;cursor:pointer}
+.signIn-history:hover{background-color:#9c4f01}
+.signIn-top{padding-top:70px;height:13pc}
+.just-signIn{margin:0 auto 20px;width:212px;height:67px;cursor:pointer}
+.just-signIn.actived,.just-signIn:active{background-position:0 -68px}
+.signIn-notic{color:#b25d06;text-align:center;font-size:18px}
+.signIn-rule-list{margin-bottom:35px;color:#8d8ebb;font-size:1pc;line-height:26px}
+.signIn-rule-list h4{font-weight:bolder;font-size:1pc}
+.signIn-main{overflow:hidden;width:603px}
+.signIn-list{margin-top:76px;margin-right:-10px}
+.signIn-list li{position:relative;float:left;margin:0 1px 1px 0;width:85px;height:85px;background-image:url(../images/signIn_day.png);background-position:0 0}
+.signIn-list li.date1{background-position:-430px 0}
+.signIn-list li.date2{background-position:-516px 0}
+.signIn-list li.date3{background-position:0 -86px}
+.signIn-list li.date4{background-position:-86px -86px}
+.signIn-list li.date5{background-position:-172px -86px}
+.signIn-list li.date6{background-position:-258px -86px}
+.signIn-list li.date7{background-position:-344px -86px}
+.signIn-list li.date8{background-position:-430px -86px}
+.signIn-list li.date9{background-position:-516px -86px}
+.signIn-list li.date10{background-position:0 -172px}
+.signIn-list li.date11{background-position:-86px -172px}
+.signIn-list li.date12{background-position:-172px -172px}
+.signIn-list li.date13{background-position:-258px -172px}
+.signIn-list li.date14{background-position:-344px -172px}
+.signIn-list li.date15{background-position:-430px -172px}
+.signIn-list li.date16{background-position:-516px -172px}
+.signIn-list li.date17{background-position:0 -258px}
+.signIn-list li.date18{background-position:-86px -258px}
+.signIn-list li.date19{background-position:-172px -258px}
+.signIn-list li.date20{background-position:-258px -258px}
+.signIn-list li.date21{background-position:-344px -258px}
+.signIn-list li.date22{background-position:-430px -258px}
+.signIn-list li.date23{background-position:-516px -258px}
+.signIn-list li.date24{background-position:0 -344px}
+.signIn-list li.date25{background-position:-86px -344px}
+.signIn-list li.date26{background-position:-172px -344px}
+.signIn-list li.date27{background-position:-258px -344px}
+.signIn-list li.date28{background-position:-344px -344px}
+.signIn-list li.date29{background-position:-430px -344px}
+.signIn-list li.date30{background-position:-516px -344px}
+.signIn-list li.date31{background-position:0 -430px}
+.signIn-list li .signIn-icon{position:absolute;top:0;left:0;z-index:2;display:none;width:85px;height:85px;background:url(../images/signIn_icon.png) no-repeat center center}
+.signIn-list li.signIn .signIn-icon{display:block}
+.signIn-layer{position:fixed;top:0;bottom:0;left:0;z-index:888;display:none;width:100%}
+.signIn-layer-bg{width:100%;height:100%;background-color:#000;opacity:.55;filter:alpha(opacity=55)}
+.signIn-layer-con{position:absolute;top:50%;left:50%;z-index:999;padding-top:30px;border:3px #33b23f solid;border-radius:5px;background-color:#fff}
+.signIn-history-layer .signIn-layer-con{margin:-257px 0 0 -293px;width:586px;height:484px}
+.close-signIn-layer{position:absolute;top:13px;right:13px;width:1pc;height:1pc;background-position:-228px -51px}
+.signIn-history-inf{margin-top:25px;color:#666;text-align:center;font-size:14px}
+.signIn-history-inf li{float:left;width:25%}
+.signIn-history-inf li h4{color:#33b23f;font-size:40px;line-height:50px}
+.signIn-history-table{overflow:hidden;margin:20px;-webkit-border-radius:5px 5px 0 0;-moz-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;-o-border-radius:5px 5px 0 0;-ms-border-radius:5px 5px 0 0}
+.signIn-history-table table{width:100%;color:#666;text-align:center;font-size:1pc;border-spacing:0}
+.signIn-history-table table th{width:33.3%;background-color:#f2f2f2;text-align:center;line-height:40px}
+.signIn-history-table td{width:33.3%;border-bottom:1px #e5e5e5 dashed;line-height:34px}
+.signIn-active .signIn-layer-con{margin:-232px 0 0 -211px;width:422px;height:434px}
+.yisignIn{margin:36px 0 0 40px;color:#666;font-size:14px;line-height:38px}
+.yisignIn .yisignIn-icon{float:left;margin:0 25px;width:178px;height:38px;background-position:-217px 0}
+.signIn-jiangli{position:relative;margin:45px auto;width:335px;height:170px;background-position:0 -146px}
+.signIn-jiangli span{position:absolute;top:58px;left:50px;display:block;width:178px;height:106px;color:#ff7300;text-align:center;font-weight:bolder;font-size:30px;line-height:106px}
+.signIn-jiangli span em{padding-left:5px;font-style:normal;font-size:1pc}
+.signIn-share{display:block;margin:60px auto 0;width:318px;height:3pc;border-radius:5px;background-color:#4ab854;color:#fff;text-align:center;text-decoration:none;font-size:18px;line-height:3pc}
+.signIn-share:hover{background-color:#3e9d46}

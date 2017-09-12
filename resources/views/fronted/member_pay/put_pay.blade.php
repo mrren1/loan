@@ -73,7 +73,7 @@
 <select class="form-control" name="put_name" id="put_name">
 <option class="ng-binding ng-scope" ng-selected="$index == selected" value="" ng-repeat="option in options" selected="selected">请选择银行</option>
 @foreach($data as $son)
-<option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$son}}" ng-repeat="option in options">{{$son}}</option>
+<option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$son['card_name']}}" ng-repeat="option in options">{{$son['card_name']}}</option>
 @endforeach
 </select>
 <span id="put" style="color:red"></span>
@@ -114,6 +114,8 @@ $("#card_name").blur(function(){
    if(isChinaName($.trim($('#card_name').val())) == false) {
    $("#name").html('名称格式不对。例如:张三');
    $('#card_name').focus();
+   }else{
+    $("#name").html('')
    }
   }
 });
@@ -126,6 +128,8 @@ $("#put_num").blur(function(){
   if(isCardNo($.trim($('#put_num').val())) == false) {
    $("#num").html('银行卡号格式不正确');
    $('#put_num').focus();
+    }else{
+    $("#num").html('');
     }
   }
 });
@@ -134,10 +138,11 @@ $("#put_name").change(function(){
   $("#put").html('请选择银行');
    }
 });
-$("#submit").change(function(){
-  if($.trim($('#card_name').val()).length == 0||$.trim($('#put_num').val()).length == 0||$.trim($('#put_name').val()).length == 0) { 
-    $("#sub").html('请完善信息');
-    return false;
+
+$("#submit").click(function(){
+   if($.trim($('#card_name').val()).length == 0 ||$.trim($('#put_num').val()).length == 0||$.trim($('#put_name').val()).length == 0){
+      $("#sub").html("请填写信息");
+      $('#submit').attr('disabled',"true");
    }
 });
 </script>

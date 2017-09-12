@@ -32,8 +32,13 @@ class OfferController extends BackendController
         //接收数据
         $debt_status=$request['status'];
         $debt_id=$request['debt_id'];
+        //借款表数据
+        $debtArr=debt::where('debt_id',$debt_id)->first()->toArray();
+        $money=$debtArr['debt_money']/1;
         if($debt_status==2){
+
             $bb=Debt::where('debt_id',$debt_id)->update(array('debt_status'=>$debt_status));
+            DB::table('news')->insert(['new_title'=>'申请借款未通过','new_content'=>'您申请的'.$debtArr['debt_money'].'元借款未通过。','new_time'=>date('Y-m-d H:i:s'),'new_url'=>'member_bid_record','user_id'=>$debtArr['user_id']]);
             if($bb){
                 return 1;
             }else{
@@ -41,9 +46,6 @@ class OfferController extends BackendController
             }
         }
 
-        //借款表数据
-        $debtArr=debt::where('debt_id',$debt_id)->first()->toArray();
-        $money=$debtArr['debt_money']/1;
         //平台表数据
         $platformArr=platform::first()->toArray();
         $used=$platformArr['used']/1+$money;
@@ -59,7 +61,7 @@ class OfferController extends BackendController
         if($moneyLimit/1<0){
             return 2;
         }
-        
+        DB::table('news')->insert(['new_title'=>'申请借款通过','new_content'=>'您申请的'.$debtArr['debt_money'].'元借款已通过。','new_time'=>date('Y-m-d H:i:s'),'new_url'=>'member_bid_record','user_id'=>$debtArr['user_id']]);
         //开启事务
         DB::beginTransaction();
         try {

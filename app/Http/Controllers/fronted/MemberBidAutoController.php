@@ -13,21 +13,70 @@ use Illuminate\Support\Facades\DB;
 
 class MemberBidAutoController extends Controller
 {
+	//大额贷款年利率
+	private $interest=0.2;
+
+	/**
+	 * [index description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function index(Request $request)
 	{
-		//获取挡墙登录id
+		if(isset($request['new_id'])){
+			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
+		}
+		//获取当前登录id
 		$user_id=$request->session()->get('user_id');
 		$user=User::where(['user_id'=>$user_id])->first();
-		//print_r($user);die;
 		//查询信息
 		$arr=Large::where(['user_id'=>$user_id])->paginate(6);
 		foreach($arr as $k => $v){
 			$arr[$k]->user_name=$user->user_name;
 		}
-		//print_r($arr);die;
 		return view('fronted.MemberBidAuto.member_bid_auto',['arr'=>$arr]);
 	}
 
+	/**
+	 * 大额贷款的还款
+	 * @access public 
+	 * @param  largin_id
+	 * @return bloon
+	 */
+	public function giveMoney(Request $request)
+	{
+		$large_id = $request['large_id'];
+		//获取个人信息
+		$largeInfo = Large::where('large_id',$large_id)->first()->toArray();
+		$begin_time=$largeInfo['begin_time'];
+		$cha = ceil((time()-$begin_time)/3600/24);
+
+		$tmpMoney = $largeInfo['large_limit'];
+		$endMoney = round($tmpMoney*(1+$cha/360*$this->interest),2);
+
+		//获取大额贷款用户ID
+		$user_id = $largeInfo['user_id'];
+		//获取个人钱包表
+		$purseInfo = Purse::where('user_id',$user_id)->first()->toArray();
+		if($endMoney>$purseInfo['purse_balance']){
+			//余额不足不能还款
+			return 0;
+		}
+		$Platform = Platform::where('platform_id',1)->first();
+		DB::beginTransaction();
+		try {
+			$b1 = Platform::where('platform_id',1)->update(array('money'=>$Platform->money+$endMoney,'balance'=>$Platform->balance+$endMoney));
+			$b2 = Purse::where('user_id',$user_id)->update(array('purse_used'=>$purseInfo['purse_used']+$endMoney,'purse_balance'=>$purseInfo['purse_balance']-$endMoney));
+			$b3 = Large::where('large_id',$large_id)->update(array('status'=>3));
+			if($b1&&$b2&&$b3){
+				DB::commit();
+				return 1;
+			}
+		} catch (Exception $e) {
+			DB::rollback();
+			return 2;
+		}
+	}
 
 	/**
 	 * 用户确认大额贷款
@@ -40,10 +89,9 @@ class MemberBidAutoController extends Controller
 		$large_id=$request['large_id'];
 		$largeArr=Large::where('large_id',$large_id)->first()->toArray();
 		$user_id=$largeArr['user_id'];
-		$large_money=$largeArr['large_money'];
+		$large_money=$largeArr['large_limit'];
 		$Platform=Platform::where('platform_id',1)->first();
 		$purse=Purse::where('user_id',$user_id)->first();
-		//var_dump($Platform);die;
 		//开启事务
 		DB::beginTransaction();
 		try {

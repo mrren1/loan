@@ -1,3 +1,13 @@
+<?php 
+use Illuminate\Support\Facades\Session;
+$user_id=Session::get('user_id');
+$news=DB::table('news')->where(['is_read'=>0,'user_id'=>$user_id])->get();
+$newsNum=0;
+if($news!=''){
+    $news=$news->toArray();
+    $newscount=count($news);
+}
+?>
 <html>
     <head>
         <title>@yield('title')</title>
@@ -6,6 +16,10 @@
         <link href="css/components.css?ver=142682356" rel="stylesheet" /> 
         <link href="css/main.css?ver=142682356" rel="stylesheet" /> 
         <link href="css/new-home.css?ver=142682356" rel="stylesheet" /> 
+        <link rel="stylesheet" href="css/qiandao_style.css">
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="js/qiandao_js.js"></script>
+        
         <style type="text/css">
           @media (min-width: 992px) {
             @font-face {
@@ -39,21 +53,22 @@
       <ul class="nav navbar-nav site-nav-sns "> 
        <li> <a href="#" class="icon-sns qq"> 
          <div class="social-content"> 
-          <p class="social-title">点融网官方QQ群</p> 
+          <p class="social-title">速贷网官方QQ群</p> 
           <p>141444867</p> 
          </div> </a> </li> 
-       <li> <a href="http://weibo.com/dianrongwang" target="_blank" class="icon-sns weibo" rel="nofollow"></a> </li> 
-       <li> <a href="#" class="icon-sns wechat"> 
-         <div class="social-content"> 
-          <p class="social-title">扫描关注微信公众号</p> 
-          <p><img src="images/qr-code.jpg" /></p> 
-         </div> </a> </li> 
+       
       </ul> 
       @if(Session::has('user_name'))
       <ul class="nav navbar-nav navbar-right navbar-sm site-nav-user"> 
-       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown"><span style="color:pink">{{ Session::get('user_name') }}</span>的账户<b class="caret"></b></a> 
+       <li class="dropdown"> <a href="member_info" class="dropdown-toggle hoverHeader"  data-toggle="dropdown" data-hover="dropdown">欢迎您：<span style="color:pink">{{ Session::get('user_name') }}！</span></a> 
+        </li>
+        @if($newscount!=0)
+        <li><a href="mynews">未读消息（<font color="red">{{$newscount}}</font>）条！</a></li>
+        @endif
+        <li><a href="User_sign_in" >签到</a></li> 
          <li><a href="out">退出</a></li> 
       </ul>
+
       @else
       <ul id="nonLoginBar" class="nav navbar-nav navbar-right navbar-sm site-nav-login"> 
        <li><a id="login-panel" href="login" rel="nofollow">登录</a></li> 
@@ -77,7 +92,8 @@
           <li class="main-link-list"> <a class="main-link" href="large"> <span class="sl-icon-bold-trend"></span> <span class="main-link-text">大额贷款</span> </a> </li> 
           <li class="main-link-list"> <a class="main-link" href="setloan"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">发布代款</span> </a> </li>
           <li class="main-link-list"> <a class="main-link" href="about"> <span class="sl-icon-bold-linkman"></span> <span class="main-link-text">关于我们</span> </a> </li> 
-          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> <span> 400-921-9218</span> </li> 
+          <li class="main-link-list"> <a class="main-link" href="search"> <span class="sl-icon-bold-contact"></span> <span class="main-link-text">搜索</span> </a> </li> 
+          <li class="main-link-list phone-contact"> <span class="sl-icon-bold-phone"></span> </li> 
           <li class="main-link-list contact-bg"> <span class="contact-img"></span> </li> 
          </ul> 
         </div> 

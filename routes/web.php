@@ -51,8 +51,17 @@ Route::get('out', 'fronted\LoginController@quit');
 Route::get('setloan', 'fronted\SetloanController@index');
 Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::any('debt', 'fronted\OfferController@index');
+Route::any('search', 'fronted\SearchController@index');
+
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
+/*
+用户签到
+ */
+Route::any('userSignIn', 'fronted\userSignInController@userSignIn');
+Route::any('frontedIntegral', 'fronted\userSignInController@frontedIntegral');
+
+
 //好友列表
 Route::any('friend_list','fronted\FriendController@friend_list');
 
@@ -219,3 +228,5 @@ Route::any('showLargeInfo','backend\LargeController@showLargeInfo');
 Route::any('passcheck','backend\LargeController@passcheck');
 Route::any('changelimit','backend\LargeController@changelimit');
 Route::any('sureLarge','fronted\MemberBidAutoController@sureLarge');
+Route::any('mynews','fronted\NewsController@show');
+Route::any('giveMoney','fronted\MemberBidAutoController@giveMoney');

@@ -24,7 +24,6 @@ class SetloanController extends BackendController
      public function admin_loan_list()
      {
         $setloanData = lend::get()->toArray();
-        // var_dump($setloanData);die;
         $setloancount = lend::get()->count();
         return view('backend/Setloan/admin_loan_list',['setloanData'=>$setloanData,'setloancount'=>$setloancount]);  
      }

@@ -64,10 +64,10 @@
 <h6 class="available-to-invest">
 可提现金额：
 <span class="ng-binding" ng-bind-html="summary.availableWithdrawCash | slMoney">
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
     <small>0.00元</small>
 @else
-  <small>{{$Purse['purse_balance']}}元</small> 
+  <small>{{$purse['purse_balance']}}元</small> 
 @endif
 </span>
 </h6>
@@ -93,7 +93,7 @@
 @foreach($data as $son)
 @if (isset($arr['put_name']))
 <option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$arr['put_name']}}" ng-repeat="option in options" selected="selected">{{$arr['put_name']}}</option>
-<option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$son}}" ng-repeat="option in options">{{$son}}</option>
+<option class="ng-binding ng-scope" ng-selected="$index == selected" value="{{$son['card_name']}}" ng-repeat="option in options">{{$son['card_name']}}</option>
 @endif
 @endforeach
 </select>
@@ -104,7 +104,7 @@
 <div class="form-group withdraw-amount-row">
 <label class="col-xs-3 col-xs-offset-1 control-label">提现金额</label>
 <div class="col-xs-5">
-<input id="purse_sum" class="form-control ng-scope ng-pristine ng-invalid ng-invalid-required" type="text" sl-greater-than="0" value="{{$Purse['purse_sum']}}" tooltip-placement="right" tooltip-trigger="focus" placeholder="输入提现金额" tooltip="金额须大于0且小于可提现金额" ng-model="withdrawMoneyForm.amount" name="purse_sum" >
+<input id="purse_sum" class="form-control ng-scope ng-pristine ng-invalid ng-invalid-required" type="text" sl-greater-than="0" value="{{$purse['purse_sum']}}" tooltip-placement="right" tooltip-trigger="focus" placeholder="输入提现金额" tooltip="金额须大于0且小于可提现金额" ng-model="withdrawMoneyForm.amount" name="purse_sum" >
 <span id="sum" style="color:red"></span>
 </div>
 </div>
@@ -117,11 +117,12 @@
 <div class="modal-footer ng-scope">
 <!-- <a class="btn btn-link" ng-click="dismissWizard()" data-dismiss="modal" href="#">取消</a>
 <a class="btn btn-secondary" ng-click="confirmWithdraw()">下一步</a> -->
-@if ($Purse['purse_balance'] == 0)
+@if ($purse['purse_balance'] == 0)
 <a href="memberCharge" class="ng-binding ng-pristine ng-valid">充值</a>
 @else
 <input type="reset" class="btn btn-secondary" value="取消">
-<input type="submit" class="btn btn-secondary" value="下一步">
+<input type="submit" class="btn btn-secondary" id="sub" value="下一步">
+<span id="mit" style="color:red"></span>
 @endif
 </div>
 </section>
@@ -154,8 +155,16 @@
      if(!isNaN(purse_sum)==false){
      $("#sum").html("请输入数字金额");
      $('#purse_sum').focus();
+    }else{
+     $("#sum").html("");
     }
   }
+});
+$("#sub").click(function(){
+   if($.trim($('#purse_sum').val()).length == 0){
+      $("#mit").html("请填写信息");
+      $('#sub').attr('disabled',"true");
+   }
 });
 </script>
 @endsection
@@ -186,11 +195,11 @@
         添加方式：打开微信，点击″发现″菜单，使用″扫一扫″功能；或者在微信中点击&quot;联系人&quot;，添加以上英文账号名为好友。 
       </div> 
      </div>
-     <!-- /.modal-content --> 
+
     </div>
-    <!-- /.modal-dialog --> 
+
    </div>
-   <!-- /.modal --> 
+
   </div> 
   <script src="js/common.js" type="text/javascript"></script>
   <script src="js/jquery.js" type="text/javascript"></script>
