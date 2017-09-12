@@ -114,6 +114,8 @@ $("#card_name").blur(function(){
    if(isChinaName($.trim($('#card_name').val())) == false) {
    $("#name").html('名称格式不对。例如:张三');
    $('#card_name').focus();
+   }else{
+    $("#name").html('')
    }
   }
 });
@@ -126,6 +128,8 @@ $("#put_num").blur(function(){
   if(isCardNo($.trim($('#put_num').val())) == false) {
    $("#num").html('银行卡号格式不正确');
    $('#put_num').focus();
+    }else{
+    $("#num").html('');
     }
   }
 });

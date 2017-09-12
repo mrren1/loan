@@ -182,6 +182,8 @@
       if(purse_sum == 0 || purse_sum>100000000){
       $("#sum").html("金额须大于0并且小于1亿");
       $('#purse_sum').focus();
+     }else{
+      $("#sum").html("");
      }
   }
 }
