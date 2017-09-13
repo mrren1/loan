@@ -4,6 +4,7 @@
 
   <div class="wrapper "> 
    @section('content')
+
    <div class="modal fade" id="deleteCartItem" tabindex="-1" role="dialog" aria-hidden="true"> 
     <div class="modal-dialog" ng-controller="CartCtrl"> 
      <div class="modal-content"> 
@@ -203,27 +204,74 @@ dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.so
 
 </div>
 </span>
-
-
+  <div class="ondiv">
+    <input type="text" id="friend" style="width:290px;height:40px;">
+<button class="btn btn-secondary bind-blue btn-hollow" id="sou">搜索好友</button>
+<span style="margin-left:100px;" id="onuser"></span>
+  </div>
   <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
-      <tr class="text-c">
-        <td width="10">好友id</td>
-        <td width="10">好友头像</td>
-         <td width="10">好友名称</td>
+      <tr class="text-c" style=" height:60px;" align="center">
+        <td><font size="4;">好友头像</font></td>
+         <td><font size="4;">好友名称</font></td>
       </tr>
     </thead>
     <tbody id="box">
     <?php foreach ($res as $key => $value) {?>
-      <tr>
-        <td><?php echo $value['user_id'] ?></td>
+      <tr align="center">
         <td><img src="uploads/<?php echo $value['user_photo'] ?>" height="30" alt=""></td>
         <td><?php echo $value['user_name'] ?></td>
     </tr>
   <?php  } ?>
       </tbody>
   </table>
+  <script>
+  $("#sou").click(function(){
+    var friend=$(".friend").val();
+    $.ajax({
+      type:"post",
+      url:"{{url('friends')}}",
+      data:{friend:friend},
+      success:function(result){
+        $('#onuser').html('');
+        if(result==0){
+          $('#onuser').html('没有此用户');
 
+        }else{
+          var p=$("<span style='magin-left:100px;color:#008000;'>"+result.user_name+"</span>");
+
+          p.append("<span><button id='addfriend' data-id="+result.user_id+">加为好友</button</span>");
+          $('#onuser').append(p);
+        }
+      }
+    });
+
+  });
+  </script>
+  <script>
+ $(document).delegate("#addfriend", "click", function() {
+    var friend_id=$(this).data('id');
+    $.ajax({
+      type:'post',
+      url:'friend_add',
+      data:{friend_id:friend_id},
+      success :function(e){
+        $('#friend').val('');
+        if(e==1){
+          alert('添加成功');
+          window.location.reload();
+        }
+        if(e==2){
+          $('#onuser').html('');
+          alert('你已经添加TA为好友');
+          
+        }else{
+          alert('添加失败');
+        }
+      }
+    });
+ })
+  </script>
 <div class="notes-pagination ng-hide" ng-show="totalRecords>0">
 <div class="sl-pagination pagination ng-isolate-scope" params="myNotesParams" total-records="totalRecords" page-size="myNotesParams.pageSize" page="myNotesParams.page">
 <ul>
@@ -474,3 +522,4 @@ dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.so
           $(".change10").addClass('active');            
       })
   </script>
+  
