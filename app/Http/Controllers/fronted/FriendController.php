@@ -68,6 +68,14 @@ class FriendController extends Controller
             $b4 = $this->insertLog('purselog','+'.$money.'元','收到'.$myName.'的转账+'.$money.'元。',$friend_id);
             if($b1 && $b2 && $b3 && $b4){
                 DB::commit();
+                $new=array(
+                    'user_id'       => $friend_id,
+                    'new_title'     => '收到转账',
+                    'new_content'   => '收到来自'.$myName.'的转账，共'.$money.'元。',
+                    'new_time'      => date('Y-m-d H:i:s'),
+                    'new_url'       => 'member_index'
+                );
+                DB::table('news')->insert($new);
                 return 1;//转账成功
             }else{
                 return 3;//转账失败
@@ -96,8 +104,12 @@ class FriendController extends Controller
      */
     public function friend_sele(Request $request)
     {
-    	$friend=$request->input('friend');
+    	$friend = $request->input('friend');
+        $user_id = $request->session()->get('user_id');
     	$userArr=User::where('user_name',$friend)->first();
+        if($userArr->user_id==$user_id){
+            return 1;
+        }
     	if(!empty($userArr)){
 			return $userArr;
     	}else{

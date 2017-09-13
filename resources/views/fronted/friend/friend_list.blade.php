@@ -319,7 +319,9 @@ $(document).delegate('.del','click',function(){
       success:function(result){
         $('#onuser').html('');
         if(result==0){
-          $('#onuser').html('没有此用户');
+          $('#onuser').html('<font color="red">没有此用户</font>');return false;
+        }else if(result==1){
+              $('#onuser').html('<font color="red">不能加自己为好友！</font>');return false;
         }else{
           var p=$("<span style='magin-left:100px;color:#008000;'>"+result.user_name+"</span>");
           p.append("<span><button id='addfriend' data-id="+result.user_id+">加为好友</button</span>");
