@@ -911,7 +911,7 @@
       </div> 
      </div> 
     </div> 
-   </div> 
+   </div>  
    <script>
       $("#sum").click(function(){
         var mon=$("#mon").text();
@@ -939,6 +939,12 @@
                   status='未通过';
                 }
                 tr.append('<td>'+status+'</td>');
+                if(v.debt_addition == 0){
+                  addition='<a href="javascript:;" data-user="'+v.debt_id+'" class="repayment">还款</a>';
+                }else{
+                  addition='<span style="color:blue">已还款</span>';
+                }
+                tr.append('<td class="td-manage">'+addition+'</td>');
                 $("#box").append(tr);
                 $("#page").hide();
               })
@@ -988,7 +994,7 @@
   </script>
   <script type="text/javascript">
       $(function(){
-          $(".repayment").click(function(){
+          $(document).on("click",".repayment",function(){
             var obj = $(this);
             //获取借款id
             var debt_id = obj.attr('data-user');

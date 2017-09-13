@@ -24,6 +24,7 @@ class MemberBidRecordController extends Controller
 
 	public function index(Request $request)
 	{
+		//echo die;
 		if(isset($request['new_id'])){
 			DB::table('news')->where('new_id',$request['new_id'])->update(['is_read'=>1]);
 		}
@@ -45,13 +46,17 @@ class MemberBidRecordController extends Controller
 		$day_sum=0;
 		$data=array();
 		foreach($result as $k => $v){
-			if($month==date('m',strtotime($v->debt_stime))){
+			//创建指定时间
+			$date=Carbon::createFromFormat('Y-m-d H:i:s', $v->debt_stime);
+			//$date->month:获取指定$date的中的月份
+			if($month==$date->month){
 				$month_sum+=$v->debt_money;
 			}
-			if($day==date('Y-m-d',strtotime($v->debt_stime))){
+			//$date->toDateString():获取$date中的年-月-日
+			if($day==$date->toDateString()){
 				$day_sum+=$v->debt_money;
 			}
-			if($mon==date('m',strtotime($v['debt_stime']))){
+			if($mon==$date->month){
 				$data[]=$v;
 			}	
 			$v->from_name=$this->getName($v->from_id);

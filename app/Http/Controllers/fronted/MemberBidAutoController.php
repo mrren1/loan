@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class MemberBidAutoController extends Controller
 {
+	//大额贷款年利率
+	private $interest=0.2;
+
 	/**
 	 * [index description]
 	 * @param  Request $request [description]
@@ -45,19 +48,25 @@ class MemberBidAutoController extends Controller
 		$large_id = $request['large_id'];
 		//获取个人信息
 		$largeInfo = Large::where('large_id',$large_id)->first()->toArray();
+		$begin_time=$largeInfo['begin_time'];
+		$cha = ceil((time()-$begin_time)/3600/24);
+
+		$tmpMoney = $largeInfo['large_limit'];
+		$endMoney = round($tmpMoney*(1+$cha/360*$this->interest),2);
+
 		//获取大额贷款用户ID
 		$user_id = $largeInfo['user_id'];
 		//获取个人钱包表
 		$purseInfo = Purse::where('user_id',$user_id)->first()->toArray();
-		if($largeInfo['large_limit']>$purseInfo['purse_balance']){
+		if($endMoney>$purseInfo['purse_balance']){
 			//余额不足不能还款
 			return 0;
 		}
 		$Platform = Platform::where('platform_id',1)->first();
 		DB::beginTransaction();
 		try {
-			$b1 = Platform::where('platform_id',1)->update(array('money'=>$Platform->money+$largeInfo['large_limit'],'balance'=>$Platform->balance+$largeInfo['large_limit']));
-			$b2 = Purse::where('user_id',$user_id)->update(array('purse_used'=>$purseInfo['purse_used']+$largeInfo['large_limit'],'purse_balance'=>$purseInfo['purse_balance']+$largeInfo['large_limit']));
+			$b1 = Platform::where('platform_id',1)->update(array('money'=>$Platform->money+$endMoney,'balance'=>$Platform->balance+$endMoney));
+			$b2 = Purse::where('user_id',$user_id)->update(array('purse_used'=>$purseInfo['purse_used']+$endMoney,'purse_balance'=>$purseInfo['purse_balance']-$endMoney));
 			$b3 = Large::where('large_id',$large_id)->update(array('status'=>3));
 			if($b1&&$b2&&$b3){
 				DB::commit();

@@ -155,6 +155,8 @@
      if(!isNaN(purse_sum)==false){
      $("#sum").html("请输入数字金额");
      $('#purse_sum').focus();
+    }else{
+     $("#sum").html("");
     }
   }
 });

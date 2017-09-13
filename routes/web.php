@@ -58,13 +58,14 @@ Route::get('register_only', 'fronted\LoginController@register_only');
 /*
 用户签到
  */
-Route::any('User_sign_in', 'fronted\User_sign_inController@User_sign_in');
-Route::any('fronted_integral', 'fronted\User_sign_inController@fronted_integral');
+Route::any('userSignIn', 'fronted\userSignInController@userSignIn');
+Route::any('frontedIntegral', 'fronted\userSignInController@frontedIntegral');
 
 
 //好友列表
 Route::any('friend_list','fronted\FriendController@friend_list');
-
+Route::post('friends','fronted\FriendController@friend_sele');
+Route::post('friend_add','fronted\FriendController@friend_add');
 //注册用户
 
 Route::post('register', 
