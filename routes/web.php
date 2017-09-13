@@ -64,7 +64,8 @@ Route::any('frontedIntegral', 'fronted\userSignInController@frontedIntegral');
 
 //好友列表
 Route::any('friend_list','fronted\FriendController@friend_list');
-
+Route::post('friends','fronted\FriendController@friend_sele');
+Route::post('friend_add','fronted\FriendController@friend_add');
 //注册用户
 
 Route::post('register', 
