@@ -36,7 +36,7 @@ class Controller extends BaseController
                 'platformlog_time' => time()
             );
         }
-        DB::table($tableName)->insert($insertArr);
+        return DB::table($tableName)->insert($insertArr);
     }
     
 }

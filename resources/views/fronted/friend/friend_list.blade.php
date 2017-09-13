@@ -212,22 +212,106 @@ dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.so
   <table class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
       <tr class="text-c" style=" height:60px;" align="center">
-        <td><font size="4;">好友头像</font></td>
-         <td><font size="4;">好友名称</font></td>
+        <th><font size="4;">好友列表</font></th>
+         <th width="20%"><font size="4;">操作</font></th>
       </tr>
     </thead>
+    <input type="hidden" value="{{$user_id}}" id="user_id">
     <tbody id="box">
+    <tbody class="biao">
     <?php foreach ($res as $key => $value) {?>
-      <tr align="center">
-        <td><img src="uploads/<?php echo $value['user_photo'] ?>" height="30" alt=""></td>
-        <td><?php echo $value['user_name'] ?></td>
+      <tr class="tr{{$value['user_id']}}">
+        <td>
+          <img src="uploads/{{$value['user_photo']}}" height="30">&nbsp;&nbsp;
+          <span style="line-height:30px">{{$value['user_name']}}</span>
+          <span class="kk{{$value['user_id']}}" style="float:right;line-height:20px;display:none;">
+            输入金额：<input type="text" class="in{{$value['user_id']}}" style="width:60px;"><button title="{{$value['user_id']}}" class="sure">确认转账</button>
+          </span>
+        </td>
+        <td>
+          <a href="javascript:" class="turnmoney" title="0" data-id="{{$value['user_id']}}">转账</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="javascript:" class="del" data-id="{{$value['user_id']}}">删除好友</a>
+        </td>
     </tr>
-  <?php  } ?>
+    <?php  } ?>
+  </tbody>
       </tbody>
-  </table>
-  <script>
+</table>
+<script>
+
+$(document).delegate('.turnmoney','click',function(){
+  var friendId=$(this).data('id');
+  
+  var obj=$(this);
+  var b=$(this).attr('title');
+  if(b==0){
+    $('.kk'+friendId).show();
+    $(this).attr('title',1);
+  }else if(b==1){
+    $('.kk'+friendId).hide();
+    $('.in'+friendId).val('');
+    $(this).attr('title',0);
+  }
+});
+
+$(document).delegate('.sure','click',function(){
+  var friend_id = $(this).attr('title');
+  var money = $('.in'+friend_id).val();
+  if(!confirm('您确定转账给好友？')){
+    return false;
+  }
+  if(money<0||money==''||isNaN(money)){
+    alert('请填写大于零的数字！');
+    return false;
+  }
+  var my_id = $('#user_id').val();
+  $.ajax({
+    type:'get',
+    url:'turnmoney',
+    data:{friend_id:friend_id,my_id:my_id,money:money},
+    success:function(result){
+      if(result==0){
+        alert('余额不足!')
+        return false;
+      }else if(result==1){
+        alert('转账成功！');
+        $('.kk'+friend_id).hide();
+        $('.in'+friend_id).val('');
+        $('.turnmoney').attr('title',0);
+        return true;
+      }else if(result==2){
+        alert('转账失败！2')
+        return false;
+      }else if(result==3){
+        alert('转账失败！3');
+        return false;
+      }
+    }
+  });
+});
+
+
+
+//删除好友
+$(document).delegate('.del','click',function(){
+    if(!confirm('您确定要删除好友！')){
+      return false;
+    }
+    var myId=$('#user_id').val();
+    var friendId=$(this).data('id');
+    //发送ajax删除好友
+    $.ajax({
+        type:'get',
+        url:'friendDel',
+        data:{my_id:myId,friend_id:friendId},
+        success:function(result){
+            $('.tr'+friendId).remove();
+        }
+    });
+});
+
   $("#sou").click(function(){
-    var friend=$(".friend").val();
+    var friend=$("#friend").val();
     $.ajax({
       type:"post",
       url:"{{url('friends')}}",
@@ -236,37 +320,38 @@ dark':a.sortable &&((params.sortBy!=a.sortBy && defaultDesc==false)|| (params.so
         $('#onuser').html('');
         if(result==0){
           $('#onuser').html('没有此用户');
-
         }else{
           var p=$("<span style='magin-left:100px;color:#008000;'>"+result.user_name+"</span>");
-
           p.append("<span><button id='addfriend' data-id="+result.user_id+">加为好友</button</span>");
           $('#onuser').append(p);
         }
       }
     });
-
   });
   </script>
   <script>
  $(document).delegate("#addfriend", "click", function() {
     var friend_id=$(this).data('id');
+    var myId=$('#user_id').val();
     $.ajax({
       type:'post',
       url:'friend_add',
       data:{friend_id:friend_id},
-      success :function(e){
+      dataType:'json',
+      success :function(result){
         $('#friend').val('');
-        if(e==1){
-          alert('添加成功');
-          window.location.reload();
-        }
-        if(e==2){
-          $('#onuser').html('');
-          alert('你已经添加TA为好友');
-          
+        if(result==0){
+            alert('添加失败');
+            return false;
+        }else if(result==2){
+            $('#onuser').html('');
+            alert('你已经添加TA为好友');
+            return false;
         }else{
-          alert('添加失败');
+            var tr=$('<tr class="tr'+friend_id+'"></tr>');
+            tr.append('<td><img src="uploads/'+result['user_photo']+'" height="30">&nbsp;&nbsp;<span style="line-height:30px">'+result['user_name']+'</span><span class="kk'+result['user_id']+'" style="float:right;line-height:20px;display:none;">输入金额：<input type="text" class="in'+result['user_id']+'" style="width:60px;"><button title="'+result['user_id']+'" class="sure">确认转账</button></span></td>')
+            tr.append('<td><a href="javascript:" class="turnmoney" title="0" data-id="'+result['user_id']+'">转账</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:" class="del" data-id="'+result['user_id']+'">删除好友</a></td>');
+            $('.biao').append(tr);
         }
       }
     });
