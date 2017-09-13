@@ -18,15 +18,6 @@ class MemberTuanController extends Controller
 		}
 		$user=User::where(['user_id'=>$user_id])->first()->toArray();
 		$lend=Lend::where(['user_id'=>$user_id])->paginate(4);
-		//print_r($lend);die;
-		// foreach($lend as $k => $v)
-		// {
-		// 	if(is_array($v)){
-		// 		$lend[$k]['user_name']=$user['user_name'];
-		// 		$lend[$k]['user_photo']=$user['user_photo'];
-		// 	}
-		// }
-		//print_r($lend);die;
 		return view('fronted.MemberTuan.member_tuan',['lend'=>$lend,'user'=>$user]);
 	}
 }
