@@ -204,6 +204,9 @@
           alert('请输入利息比例');
           status = 1;
           return false;
+        }else if(interest > 20){
+            alert('利息不能高于20%');
+            return false;
         }else{
           status = 0;
           return true;

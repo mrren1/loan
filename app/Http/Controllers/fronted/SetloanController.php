@@ -20,6 +20,7 @@ class SetloanController extends Controller
 		if($request->isMethod('POST')){
 			//添加贷款
 			$setloan = new Blowloan;
+			//判断是否合法
 			$setloan->user_id = $request->session()->get('user_id');
 			$setloan->lend_time = $request['lend_time'];
 			$setloan->lend_money = $request['lend_money'];

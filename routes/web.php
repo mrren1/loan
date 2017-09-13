@@ -144,7 +144,7 @@ Route::group(['middleware'=>['checkuser','dealuser']],function(){
 	Route::any('purse_list','backend\PurseController@purse_list');
 	Route::post('addpower', 
 	[
-	    'uses'=>'backend\PurseController@admin_add_power',
+	    'uses'=>'backend\RbacController@admin_add_power',
 	    'as'=>'addpower',
 	]);
 });
@@ -205,12 +205,6 @@ Route::any('admin_user_stop','backend\memberController@admin_user_stop');  //后
 Route::any('admin_user_start','backend\memberController@admin_user_start');//后台哦      停用    加入白名单
 Route::any('admin_user_show','backend\memberController@admin_user_show');  //后台哦      停用    加入白名单
 // {{$_GET['message_id']}}
-
-Route::post('addpower', 
-[
-    'uses'=>'backend\PurseController@admin_add_power',
-    'as'=>'addpower',
-]);
 
 //ajax计算利息
 Route::any('arithmetic','fronted\OfferController@arithmetic');
