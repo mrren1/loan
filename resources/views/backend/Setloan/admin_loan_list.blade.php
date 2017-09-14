@@ -166,7 +166,6 @@ function admin_loan_list_start(obj,id,user_id){
 			type: 'POST',
 			data: {lend_id:id,user_id:user_id},
 			url: 'admin_loan_list_start',
-			//dataType: 'json',
 			success: function(data){
 				if(data == 0){
 					alert('修改状态失败');

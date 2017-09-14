@@ -27,8 +27,8 @@ Route::get('member_info', 'MemberInfoController@index');
 Route::get('forget', 'ForgetController@index');
 Route::get('member_index', 'MemberIndexController@index');
 Route::get('member_tuan', 'MemberTuanController@index');
-Route::get('member_bid_record', 'MemberBidRecordController@index');
-Route::get('member_bid_auto', 'MemberBidAutoController@index');
+// Route::get('member_bid_record', 'MemberBidRecordController@index');
+// Route::get('member_bid_auto', 'MemberBidAutoController@index');
 Route::get('member_trade', 'MemberTradeController@index');
 Route::get('member_pay', 'MemberPayController@index');
 Route::get('member_bank', 'MemberBankController@index');
@@ -53,6 +53,10 @@ Route::any('member_mention', 'fronted\MemberPayController@member_mention');
 Route::any('debt', 'fronted\OfferController@index');
 Route::any('search', 'fronted\SearchController@index');
 Route::any('search_where', 'fronted\SearchController@search_where');
+//消费记录
+Route::any('use', 'fronted\ConsumptionController@index');
+//删除消费记录
+Route::any('del', 'fronted\ConsumptionController@delete');
 //用户唯一性
 Route::get('register_only', 'fronted\LoginController@register_only');
 /*

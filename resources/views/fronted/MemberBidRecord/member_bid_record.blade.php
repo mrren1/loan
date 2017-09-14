@@ -248,7 +248,7 @@
         </td>
         <td class="td-manage">
           @if($v->debt_addition == 0)
-          <a href="javascript:;" data-user="{{$v->debt_id}}" class="repayment">还款</a>
+          <a href="javascript:;" data-user="{{$v->debt_id}}" status="{{$v->user_id}}" class="repayment">还款</a>
           @else
           <span style="color:blue">已还款</span>
           @endif
@@ -998,7 +998,6 @@
             var obj = $(this);
             //获取借款id
             var debt_id = obj.attr('data-user');
-            var obj = $(this);
             //发送ajax
             $.ajax({
                 type: "post",

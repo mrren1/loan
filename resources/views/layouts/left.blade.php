@@ -52,6 +52,8 @@
             <li class="nav-header">资讯中心</li>
             <li class="change9"> <a href='mynews'><span class="sl-icon-branch"></span>我的消息</a> </li> 
             <li class="change10"> <a href='friend_list'><span class="sl-icon-branch"></span>我的好友</a> </li> 
+            <li class="nav-header">消费记录</li>
+            <li class="change11"> <a href='use'><span class="sl-icon-branch"></span>我的消费记录</a> </li> 
            </ul> 
           </section> 
          </nav> 

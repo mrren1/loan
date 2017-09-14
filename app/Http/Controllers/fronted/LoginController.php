@@ -87,7 +87,6 @@ class LoginController extends Controller
 			$user = new User;
 			$user->user_name = $request['user_name'];
 			$user->user_pwd = encrypt($request['user_pwd']);
-			$user->user_photo = 'kdsfdsjkfdsjf';
 			$user->last_time = time();
 			$info = $user->save();
 			$user_id=$user->id;
