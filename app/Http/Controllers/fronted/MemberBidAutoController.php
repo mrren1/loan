@@ -46,6 +46,9 @@ class MemberBidAutoController extends Controller
 	public function giveMoney(Request $request)
 	{
 		$large_id = $request['large_id'];
+		$user_id = $request['user_id'];
+		$user_name = User::where('user_id',$user_id)->pluck('user_name')->first();
+
 		//获取个人信息
 		$largeInfo = Large::where('large_id',$large_id)->first()->toArray();
 		$begin_time=$largeInfo['begin_time'];
@@ -68,7 +71,9 @@ class MemberBidAutoController extends Controller
 			$b1 = Platform::where('platform_id',1)->update(array('money'=>$Platform->money+$endMoney,'balance'=>$Platform->balance+$endMoney));
 			$b2 = Purse::where('user_id',$user_id)->update(array('purse_used'=>$purseInfo['purse_used']+$endMoney,'purse_balance'=>$purseInfo['purse_balance']-$endMoney));
 			$b3 = Large::where('large_id',$large_id)->update(array('status'=>3));
-			if($b1&&$b2&&$b3){
+			$purselog = $this->insertLog('purselog','-'.$endMoney.'元','大额贷款还款成功，转账平台-'.$endMoney.'元',$user_id);
+			$formlog = $this->insertLog('platformlog','+'.$endMoney.'元',$user_name.'大额贷款成功还款，收到转账+'.$endMoney.'元',$user_id);
+			if($b1&&$b2&&$b3&&$purselog&&$formlog){
 				DB::commit();
 				return 1;
 			}
@@ -87,6 +92,8 @@ class MemberBidAutoController extends Controller
 	public function sureLarge(Request $request)
 	{
 		$large_id=$request['large_id'];
+		$user_id = $request['user_id'];
+		$user_name = User::where('user_id',$user_id)->pluck('user_name')->first();
 		$largeArr=Large::where('large_id',$large_id)->first()->toArray();
 		$user_id=$largeArr['user_id'];
 		$large_money=$largeArr['large_limit'];
@@ -98,7 +105,9 @@ class MemberBidAutoController extends Controller
 			$b1=Platform::where('platform_id',1)->update(['used'=>$Platform->used+$large_money,'balance'=>$Platform->balance-$large_money]);
 			$b2=Purse::where('user_id',$user_id)->update(['purse_sum'=>$purse->purse_sum+$large_money,'purse_balance'=>$purse->purse_balance+$large_money]);
 			$b3=Large::where('large_id',$large_id)->update(['status'=>2]);
-			if($b1&&$b2&&$b3){
+			$formlog = $this->insertLog('platformlog','-'.$large_money.'元',$user_name.'大额贷款审核成功，平台转账-'.$large_money.'元',$user_id);
+			$purselog = $this->insertLog('purselog','+'.$large_money.'元','大额贷款申请成功，收到平台转账+'.$large_money.'元',$user_id);
+			if($b1&&$b2&&$b3&&$formlog&&$purselog){
 				DB::commit();
 				return 1;
 			}

@@ -69,8 +69,8 @@
 				</td>
 				<td class="td-manage{{$val['debt_id']}}">
 				<?php if($val['debt_status']==0){?>
-					<a class="manage" style="text-decoration:none" data-biao="1" data-id="{{$val['debt_id']}}" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;
-					<a class="manage" style="text-decoration:none" data-biao='2' data-id="{{$val['debt_id']}}" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp; 
+					<a class="manage" style="text-decoration:none" data-biao="1" data-id="{{$val['debt_id']}}" value="{{$val['user_id']}}" href="javascript:;" title="点击改为审核通过">通过审核</a>&nbsp;&nbsp;&nbsp;
+					<a class="manage" style="text-decoration:none" data-biao='2' data-id="{{$val['debt_id']}}" value="{{$val['user_id']}}" href="javascript:;" title="点击改为审核未通过">取消审核</a>&nbsp;&nbsp;&nbsp; 
 				<?php }else{?>
 					<font color="green">已处理</font>
 				<?php }?>
@@ -112,13 +112,14 @@ $(function(){
 	//$('.manage').click(function(){
 		var status=$(this).data('biao');
 		var debt_id=$(this).data('id');
+		var user_id = $(this).attr('value');
 		var obj=$(this).parent();
 		var td=$('.td-status'+debt_id);
 		$.ajax({
 			type:'get',
 			url:"changeDebtStatus",
 			//async:false,
-			data:{status:status,debt_id:debt_id},
+			data:{status:status,debt_id:debt_id,user_id:user_id},
 			success:function(result){
 				if(result==1){
 					if(status/1==1){

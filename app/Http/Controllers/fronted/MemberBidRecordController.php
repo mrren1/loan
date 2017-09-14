@@ -141,8 +141,10 @@ class MemberBidRecordController extends Controller
 		}
 		//借款用户id
 		$debt_user_id = $debtData['user_id'];
+		$debt_user_name = User::where('user_id',$debt_user_id)->pluck('user_name')->first();
 		//贷款用户id
 		$setloan_user_id = $lendData['user_id'];
+		$setloan_user_name = User::where('user_id',$setloan_user_id)->pluck('user_name')->first();
 		//查询借款人钱包数据
 		$debtpurseData = purse::where('user_id',$debt_user_id)->first()->toArray();
 		//查询贷款人钱包数据
@@ -153,12 +155,13 @@ class MemberBidRecordController extends Controller
 		if($debtpurseData['purse_sum'] < $form_money){
 			return 2;die;
 		}
+		$set_money = $sum_money+$form_money;
 		//借款人总金额
-		$purse_sum = $debtpurseData['purse_sum']-$sum_money;
+		$purse_sum = $debtpurseData['purse_sum']-$set_money;
 		//借款人使用金额
-		$purse_used = $debtpurseData['purse_used']+$sum_money;
+		$purse_used = $debtpurseData['purse_used']+$set_money;
 		//借款人余额
-		$purse_balance = $debtpurseData['purse_balance']-$sum_money;
+		$purse_balance = $debtpurseData['purse_balance']-$set_money;
 		//return $purse_sum.'|'.$purse_used.'|'.$purse_balance;die;
 		//贷款人总金额
 	    $set_sum = $setloanpurseData['purse_sum']+$sum_money;
@@ -180,8 +183,11 @@ class MemberBidRecordController extends Controller
 	       	$form_bloon = platform::where('platform_id',$formData['platform_id'])->update(['money'=>$money,'balance'=>$balance]);
 	       	//修改状态
 	       	$debt_result = debt::where('debt_id',$debt_id)->update(['debt_addition'=>$this->status]);
+	       	$offerpurselog = $this->insertLog('purselog','-'.$set_money.'元','还款成功，转账给'.$setloan_user_name.'总款+利息：'.$sum_money.'元,转账给平台，利息：'.$form_money.'元',$debt_user_id);
+	       	$setloanpurselog = $this->insertLog('purselog','+'.$sum_money.'元','收到'.$debt_user_name.'还款，总款+利息：'.$sum_money.'元',$setloan_user_id);
+	       	$formlog = $this->insertLog('platformlog','+'.$form_money.'元','收到'.$debt_user_name.'还款利息：'.$form_money.'元');
 	       	//判断是否成功提交
-	        if($offer_bloon && $setloan_bloon && $form_bloon && $debt_result){  
+	        if($offer_bloon && $setloan_bloon && $form_bloon && $debt_result && $offerpurselog && $setloanpurselog && $formlog){  
 	            DB::commit();  
 	            return 1; 
 	        }  

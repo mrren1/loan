@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', '自动投标')
+@section('title', '我的消息记录')
  
   <div class="wrapper "> 
    @section('content')
@@ -42,75 +42,34 @@
      <div class="col-xs-9 ng-scope" autoscroll="false" ui-view="" style="">
 <div class="auto-invest content-wrapper ng-scope">
 <header class="section-header">
-<h6 class="section-header-title">我的大额贷款</h6>
+<h6 class="section-header-title">我的消费记录</h6>
 </header>
 <section class="summary-section">
 <!--展示数据-->
-  <table class="table table-border table-bordered table-hover table-bg table-sort">
+  <table class="table table-border table-bordered table-hover table-bg table-sort" border="1">
     <thead>
       <tr class="text-c">
-        <th width="">用户</th>
-        <th width="">借款金额</th>
-        <th width="">评估额度</th>
-        <th width="">借款时间</th>
-        <th width="">还款时间</th>
-        <th width="">联系电话</th>
-        <th width="">邮寄状态</th>
-        <th width="">审核状态</th>
+      	<th width="60">消费ID</th>
+        <th width="100">消费金额</th>
+        <th>消费描述</th>
+        <th>消费时间</th>
         <th>操作</th>
-        <th>还款状态</th>
       </tr>
     </thead>
     <tbody id="box">
-      @foreach($arr as $k => $v)
+    @foreach($purselogData as $v)
       <tr class="text-c">
-        <td>{{$v->user_name}}</td>
-        <td>{{$v->large_money}}</td>
-        <td>{{$v->large_limit}}</td>
-        <td><?=date('Y-m-d',$v->begin_time)?></td>
-        <td><?=date('Y-m-d',$v->end_time)?></td>
-        <td>{{$v->large_phone}}</td>
-        <td>
-          @if($v->post_status==0)
-          未邮寄
-          @else
-          已邮寄
-          @endif
-        </td>
-        <td class="dd{{$v->large_id}}">
-          @if($v->status==0)
-          待评估
-          @elseif($v->status==1)
-          待买家确认
-          @else
-          交易完成
-          @endif
-        </td>
-        <td class="td-manage{{$v->large_id}}">
-          @if($v->status==0)
-            待评估
-          @elseif($v->status==1)
-            <a href="javascript:" class="sure" data-id="{{$v->large_id}}" status="{{$v->user_id}}"><font color="red">确认交易</font></a>
-          @elseif($v->status==2)
-            <font color="green">交易完成</font>
-          @elseif($v->status==3)
-            <font color="green">已还款</font>
-          @endif
-        </td>
-        <td class="ends{{$v->large_id}}">
-          @if($v->status==3)
-          <font color="green">已还款</font>
-          @elseif($v->status==2)
-          <a href="javascript:" class="giveMoney" data-id="{{$v->large_id}}" status="{{$v->user_id}}" style="color:red;">还款</a>
-          @else
-          <font color="brown">待确认</font>
-          @endif
+        <td>{{$v['purselog_id']}}</td>
+        <td>{{$v['purselog_num']}}</td>
+        <td>{{$v['purselog_desc']}}</td>
+        <td><?php echo date('Y-m-d H:i:s',$v['purselog_time']);?></td>
+        <td class="td-manage">
+          <a href="javascript:;" class="repayment" data-id="{{$v['purselog_id']}}">删除</a>
         </td>
       </tr>
-      @endforeach
+     @endforeach
     </tbody>
   </table>
-{{ $arr->links() }}
 </section>
 <div id="auto-invest-switch" class="modal fade" aria-hidden="true" role="dialog" tabindex="-1">
 <div class="modal-dialog">
@@ -174,55 +133,6 @@
      </div> 
     </div> 
    </div> 
-  <script type="text/javascript">
-      $('.sure').click(function(){
-        if(!confirm('您确认完成交易？')){
-          return false;
-        }
-        //获取数据
-        var large_id=$(this).data('id');
-        var user_id = $(this).attr('status');
-        //ajax完成本次大额贷款的交易
-        $.ajax({
-          type:'get',
-          url:'sureLarge',
-          data:{large_id:large_id,user_id:user_id},
-          success:function(result){
-            if(result==1){
-              $('.td-manage'+large_id).html('<font color="green">交易完成</font>');
-              $('.ends'+large_id).html('<a href="javascript:" style="color:red;" class="giveMoney" data-id="'+large_id+'">还款</a>');
-              $('.dd'+large_id).html('交易完成');
-            }else{
-              alert('确认失败！')
-              return false;
-            }
-          }
-        });
-      });
-
-      //大额还款
-      $(document).delegate('.giveMoney','click',function(){
-        var large_id=$(this).data('id');
-        var user_id = $(this).attr('status');
-        $.ajax({
-          type:'get',
-          url:'giveMoney',
-          data:{large_id:large_id,user_id:user_id},
-          success:function(result){
-            if(result == 0){
-              alert('余额不足不能还款！');
-              return false;
-            }else if(result == 1){
-              $('.ends'+large_id).html('<font color="green">已还款</font>');
-              $('.td-manage'+large_id).html('<font color="green">已还款</font>');
-            }else{
-              alert('错误！！');
-              return false;
-            }
-          }
-        });
-      });
-  </script>
   @endsection
    <!-- Modal --> 
    <div class="modal fade wechat-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
@@ -260,10 +170,28 @@
   <script src="js/jquery.js" type="text/javascript"></script>
   <script type="text/javascript">
       $(function(){
-          $(".change5").addClass('active');            
+          $(".change11").addClass('active');            
       })
-
-      $('.sure').click(function(){
-        alert(1)
-      });
+  </script>
+  <script type="text/javascript">
+      $(function(){
+          $(".repayment").click(function(){
+              var obj = $(this);
+              var purselog_id = obj.data('id');
+              $.ajax({
+                type: 'post',
+                url: 'del',
+                data: {purselog_id:purselog_id},
+                success: function(result){
+                  if(result == 0){
+                    alert('删除失败');
+                    return false;
+                  }else{
+                      obj.parent().parent().remove();
+                      return true;
+                  }
+                }
+              });
+          });
+      })
   </script>
