@@ -169,10 +169,10 @@ for($i=$p-2;$i<$p+3;$i++){?>
 </div>
 <input type="hidden" id="interest" value="">
 <div class="custom-options">
-<span class="option choose" ng-click="filters['riskLevel'] = 'HIGH';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'HIGH'}" value="0.05">5%以下</span>
-<span class="option choose" ng-click="filters['riskLevel'] = 'LOW';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'LOW'}" value="0.1">10%以下</span>
-<span class="option choose" ng-click="filters['riskLevel'] = 'HIGH';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'HIGH'}" value="0.15">15%以下</span>
-<span class="option choose" ng-click="filters['riskLevel'] = 'LOW';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'LOW'}" value="0.2">20%以下</span>
+<span class="option choose" ng-click="filters['riskLevel'] = 'HIGH';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'HIGH'}" value="0.05" status="0">5%以下</span>
+<span class="option choose" ng-click="filters['riskLevel'] = 'LOW';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'LOW'}" value="0.1" status="0">10%以下</span>
+<span class="option choose" ng-click="filters['riskLevel'] = 'HIGH';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'HIGH'}" value="0.15" status="0">15%以下</span>
+<span class="option choose" ng-click="filters['riskLevel'] = 'LOW';uniqueOrderBy('riskLevel');" ng-class="{ active: filters['riskLevel'] == 'LOW'}" value="0.2" status="0">20%以下</span>
 </div>
 </div>
 </div>
@@ -184,10 +184,10 @@ for($i=$p-2;$i<$p+3;$i++){?>
 </div>
 <input type="hidden" id="money" value="">
 <div class="custom-options">
-<span class="option choose" ng-click="filters['loanType'] = 'BUSINESS'" ng-class="{ active: filters['loanType'] == 'BUSINESS'}" value="5000">5000以上</span>
-<span class="option choose" ng-click="filters['loanType'] = 'PERSONAL'" ng-class="{ active: filters['loanType'] == 'PERSONAL'}" value="10000">一万以上</span>
-<span class="option choose" ng-click="filters['loanType'] = 'PERSONAL'" ng-class="{ active: filters['loanType'] == 'PERSONAL'}" value="20000">两万以上</span>
-<span class="option choose" ng-click="filters['loanType'] = 'BUSINESS'" ng-class="{ active: filters['loanType'] == 'BUSINESS'}" value="0">全部</span>
+<span class="option choose" ng-click="filters['loanType'] = 'BUSINESS'" ng-class="{ active: filters['loanType'] == 'BUSINESS'}" value="5000" status="0">5000以上</span>
+<span class="option choose" ng-click="filters['loanType'] = 'PERSONAL'" ng-class="{ active: filters['loanType'] == 'PERSONAL'}" value="10000" status="0">一万以上</span>
+<span class="option choose" ng-click="filters['loanType'] = 'PERSONAL'" ng-class="{ active: filters['loanType'] == 'PERSONAL'}" value="20000" status="0">两万以上</span>
+<span class="option choose" ng-click="filters['loanType'] = 'BUSINESS'" ng-class="{ active: filters['loanType'] == 'BUSINESS'}" value="0" status="0">全部</span>
 </div>
 </div>
 </div>
@@ -199,10 +199,10 @@ for($i=$p-2;$i<$p+3;$i++){?>
 </div>
 <input type="hidden" id="low_money" value="">
 <div class="custom-options">
-<span class="option choose" ng-click="filters['maturity'] = 'LE12'" ng-class="{ active: filters['maturity'] == 'LE12'}" value="3000">3000以上</span>
-<span class="option choose" ng-click="filters['maturity'] = 'GT12'" ng-class="{ active: filters['maturity'] == 'GT12'}" value="5000">5000以上</span>
-<span class="option choose" ng-click="filters['maturity'] = 'GT12'" ng-class="{ active: filters['maturity'] == 'GT12'}" value="10000">1万以上</span>
-<span class="option choose" ng-click="filters['maturity'] = 'GT12'" ng-class="{ active: filters['maturity'] == 'GT12'}" value="0">全部</span>
+<span class="option choose" ng-click="filters['maturity'] = 'LE12'" ng-class="{ active: filters['maturity'] == 'LE12'}" value="3000" status="0">3000以上</span>
+<span class="option choose" ng-click="filters['maturity'] = 'GT12'" ng-class="{ active: filters['maturity'] == 'GT12'}" value="5000" status="0">5000以上</span>
+<span class="option choose" ng-click="filters['maturity'] = 'GT12'" ng-class="{ active: filters['maturity'] == 'GT12'}" value="10000" status="0">1万以上</span>
+<span class="option choose" ng-click="filters['maturity'] = 'GT12'" ng-class="{ active: filters['maturity'] == 'GT12'}" value="0" status="0">全部</span>
 </div>
 </div>
 </div>
@@ -352,13 +352,22 @@ for($i=$p-2;$i<$p+3;$i++){?>
         });
         $(".choose").click(function(){
             var value = $(this).attr('value');
-            $(this).parent().prev().val(value);
+            var status = $(this).attr('status');
+            if(status == 0){
+               $(this).parent().prev().val(value);
+               $(this).attr('status',1);
+               $(this).siblings().attr('style','none');
+               $(this).attr('style','background:#ccc');
+            }else{
+               $(this).parent().prev().val('');
+               $(this).attr('status',0);
+               $(this).attr('style','none');
+            }
+            
             //获取条件
             var interest = $("#interest").val();
             var money = $("#money").val();
             var low_money = $("#low_money").val();
-            $(this).siblings().attr('style','none');
-            $(this).attr('style','background:#ccc');
             //发送ajax
             $.ajax({
                 type: 'post',
