@@ -28,6 +28,7 @@ class OfferController extends Controller
 		$userInfo = Message::where('user_id',$user_id)
 		->first()
 		->toArray();
+
 		//获取借款信息
 		$lend_id=$request['lend_id'];
 		$lendInfo=Lend::where('lend_id',$lend_id)
