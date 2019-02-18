@@ -64,7 +64,8 @@ Route::get('register_only', 'fronted\LoginController@register_only');
  */
 Route::any('userSignIn', 'fronted\userSignInController@userSignIn');
 Route::any('frontedIntegral', 'fronted\userSignInController@frontedIntegral');
-
+//详情
+Route::any('info', 'fronted\MarketController@getMarketInfo');
 
 //好友列表
 Route::any('friend_list','fronted\FriendController@friend_list');
@@ -231,3 +232,6 @@ Route::any('mynews','fronted\NewsController@show');
 Route::any('giveMoney','fronted\MemberBidAutoController@giveMoney');
 Route::any('friendDel','fronted\FriendController@friendDel');
 Route::any('turnmoney','fronted\FriendController@turnmoney');
+
+//数据测试
+Route::any('test','fronted\TestController@index');

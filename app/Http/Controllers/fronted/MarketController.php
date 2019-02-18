@@ -64,5 +64,20 @@ class MarketController extends Controller
 			return 0;
 		}
 	}
+
+	/**
+	 * @access public
+	 * @param getMarketInfo();
+	 * @return array();
+	 * 展示贷款详情
+	 */
+	public function getMarketInfo(Request $request)
+	{
+		$lend_id = $request['lend_id'];
+		$lendData = Lend::where('lend_id',$lend_id)->get()->first()->toArray();
+		$image = User::where('user_id',$lendData['user_id'])->get(['user_photo'])->first()->toArray();
+		$lendData['user_photo'] = $image['user_photo'];
+		return view('fronted/Market/info',['lendData'=>$lendData]);
+	}
 	
 }

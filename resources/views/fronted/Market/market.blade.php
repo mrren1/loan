@@ -1055,7 +1055,7 @@ A
      </div> 
     </div> 
    </div> 
-   @endsection
+   '@endsection'
    <!-- Modal --> 
    <div class="modal fade wechat-modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
     <div class="modal-dialog modal-sm"> 
@@ -1141,7 +1141,7 @@ A
                             return false;
                         }else{
                           $.each(result,function(k,v){
-                            var html = '<div class="plan-item ng-scope" style=""><div class="sl-plan-card ng-isolate-scope" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p"><div class="sl-plan-pic col-xs-2 sl-plan-link" ng-click="toDetail()"><div><img class="sl-plan-pic" ng-src="images/liquidity.jpg" src="uploads/'+v.userInfo.user_photo+'"><span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span></div></div><div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()"><h4 class="title ng-binding">个人借贷</h4><p class="desc ng-binding"><a class="view-details-link ng-animate ng-hide" title="查看详情" ng-show="hover" style="">查看详情</a></p><div class="sl-plan-pay-info"><div class="col-xs-4 sl-plan-rate"><label class="name col-xs-6">年利率：</label><label class="value col-xs-6 ng-binding">'+v.lend_interest*100+'<span>%</span></label></div><div class="col-xs-5 sl-plan-method"><p class="value ng-binding">借款人信用：</p><p class="name" ng-show="plan.safeguardWay">极好or差</p></div><div class="col-xs-3 sl-plan-amount"><p class="value number ng-binding" ng-show="plan.minInvestAmount">'+v.lend_lack+'元</p><p class="name" ng-show="plan.minInvestAmount">最低借贷金额</p></div></div></div><div class="sl-plan-active-info col-xs-3"><div><span class="sl-icon-account"></span><label>已投金额<span class="amount-text ng-binding">'+v.lend_money+'</span><span>元</span></label></div><div><span class="sl-icon-personal"></span><label>已借款人数<span class="member-num-text ng-binding">'+v.lendNum+'</span><span>人</span></label></div><div><span class="sl-icon-personal"></span><label>剩余金额<span class="member-num-text ng-binding">'+(v.lend_money/1-v.lend_used/1)+'</span><span>元</span></label></div><a class="btn btn-block btn-secondary btn-embossed link" data-id="'+v.lend_id+'" ng-show="!isOpen && plan.openAmount>0 ">立即借款</a><div class="repayment-status ng-hide" ng-show="isOpen || !plan.openAmount "><span>已满额</span></div></div></div></div>';
+                            var html = '<div class="plan-item ng-scope" style=""><div class="sl-plan-card ng-isolate-scope" ng-class="{ openCard: isOpen==true}" ng-mouseleave="hover = false" ng-mouseenter="hover = true" plan="p"><div class="sl-plan-pic col-xs-2 sl-plan-link info" ng-click="toDetail()"  data-id="'+v.lend_id+'"><div><img class="sl-plan-pic"  ng-src="images/liquidity.jpg" src="uploads/'+v.userInfo.user_photo+'"><span class="new-share-icon ng-hide" ng-show="plan.id == 185001"></span></div></div><div class="sl-plan-basic-info col-xs-7 sl-plan-link" ng-click="toDetail()"><h4 class="title ng-binding">个人借贷</h4><p class="desc ng-binding"><a class="view-details-link ng-animate ng-hide" title="查看详情" ng-show="hover" style="">查看详情</a></p><div class="sl-plan-pay-info"><div class="col-xs-4 sl-plan-rate"><label class="name col-xs-6">年利率：</label><label class="value col-xs-6 ng-binding">'+v.lend_interest*100+'<span>%</span></label></div><div class="col-xs-5 sl-plan-method"><p class="value ng-binding">借款人信用：</p><p class="name" ng-show="plan.safeguardWay">极好or差</p></div><div class="col-xs-3 sl-plan-amount"><p class="value number ng-binding" ng-show="plan.minInvestAmount">'+v.lend_lack+'元</p><p class="name" ng-show="plan.minInvestAmount">最低借贷金额</p></div></div></div><div class="sl-plan-active-info col-xs-3"><div><span class="sl-icon-account"></span><label>已投金额<span class="amount-text ng-binding">'+v.lend_money+'</span><span>元</span></label></div><div><span class="sl-icon-personal"></span><label>已借款人数<span class="member-num-text ng-binding">'+v.lendNum+'</span><span>人</span></label></div><div><span class="sl-icon-personal"></span><label>剩余金额<span class="member-num-text ng-binding">'+(v.lend_money/1-v.lend_used/1)+'</span><span>元</span></label></div><a class="btn btn-block btn-secondary btn-embossed link" data-id="'+v.lend_id+'" ng-show="!isOpen && plan.openAmount>0 ">立即借款</a><div class="repayment-status ng-hide" ng-show="isOpen || !plan.openAmount "><span>已满额</span></div></div></div></div>';
                             obj.append(html);
                             return true;
                           })
@@ -1157,6 +1157,12 @@ A
             var lend_id = $(this).attr('data-id');
             window.location.href="debt?lend_id="+lend_id;
         });
+
+        //详情页
+        $(".floor_num").on("click",".info",function(){
+            var lend_id = $(this).attr('data-id');
+            window.location.href="info?lend_id="+lend_id;
+        })
     });
   </script>
 
