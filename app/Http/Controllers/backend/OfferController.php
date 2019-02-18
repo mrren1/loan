@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Models\platform;
 use App\Http\Models\purse;
+use App\Http\Models\User;
 use App\Http\Models\Message;
 class OfferController extends BackendController
 {
@@ -32,6 +33,9 @@ class OfferController extends BackendController
         //接收数据
         $debt_status=$request['status'];
         $debt_id=$request['debt_id'];
+        $user_id = $request['user_id'];
+        $user_name = User::where('user_id',$user_id)->pluck('user_name')->first();
+       
         //借款表数据
         $debtArr=debt::where('debt_id',$debt_id)->first()->toArray();
         $money=$debtArr['debt_money']/1;
@@ -69,7 +73,9 @@ class OfferController extends BackendController
             $bloon2=purse::where('user_id',$debtArr['user_id'])->update(array('purse_sum'=>$psum,'purse_balance'=>$pba));
             $bloon3=Message::where('user_id',$debtArr['user_id'])->update(array('message_limit'=>$moneyLimit));
             $bloon4=Debt::where('debt_id',$debt_id)->update(array('debt_status'=>$debt_status));
-            if($bloon1&&$bloon2&&$bloon3&&$bloon4){
+            $formlog = $this->insertLog('platformlog','-'.$money.'元',$user_name.'申请借款成功，平台转账-'.$money.'元',$user_id);
+            $purselog = $this->insertLog('purselog','+'.$money.'元','借款审核成功，收到平台转账+'.$money.'元',$user_id);
+            if($bloon1&&$bloon2&&$bloon3&&$bloon4&&$formlog&&$purselog){
                 DB::commit();
                 return 1;
             }

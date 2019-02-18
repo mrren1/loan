@@ -5,6 +5,7 @@ use App\Http\Controllers\backend\BackendController;
 use App\Http\Models\lend;
 use App\Http\Models\purse;
 use App\Http\Models\Platform;
+use App\Http\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 class SetloanController extends BackendController
@@ -38,6 +39,7 @@ class SetloanController extends BackendController
      {
         $lend_id = $request['lend_id'];
         $user_id = $request['user_id'];
+        $user_name = User::where('user_id',$user_id)->pluck('user_name')->first();
         $lendData = lend::where('lend_id',$lend_id)->select('lend_id','lend_money')->get()->first()->toArray();
         $purseData = purse::where('user_id',$user_id)->get()->first()->toArray();
         if($purseData['purse_sum'] >= $lendData['lend_money']){
@@ -52,7 +54,9 @@ class SetloanController extends BackendController
                 $balance = $platformData['balance']+$lendData['lend_money'];
                 $bloon = platform::where('platform_id',$platformData['platform_id'])->update(['money'=>$money,'balance'=>$balance]);
                 $info = lend::where('lend_id',$lend_id)->update(['lend_status'=>$this->pass_status]);
-                if($result && $platformData && $bloon && $info){
+                $purselog = $this->insertLog('purselog','-'.$lendData['lend_money'].'元','贷款审核成功,转账平台-'.$lendData['lend_money'].'元',$user_id);
+                $formlog = $this->insertLog('platformlog','+'.$lendData['lend_money'].'元',$user_name.'发布贷款成功,收到转账+'.$lendData['lend_money'].'元',$user_id);
+                if($result && $platformData && $bloon && $info && $purselog && $formlog){
                     DB::commit();  
                     return 1; 
                 }
